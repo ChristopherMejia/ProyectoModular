@@ -5,7 +5,7 @@
 <div class="container-home">
     <div class="home-header">Organismos</div>
     <table class="table table-hover">
-        <thead>
+        <thead class="table-dark">
             <th>Id</th>
             <th>Nombre</th>
             <th>Acciones</th>
