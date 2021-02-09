@@ -11,22 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('users/login');
-});
+Route::get('/login', 'AuthController@index');
+Route::post('/login', 'AuthController@login');
+Route::get('/logout', 'AuthController@logout');
 
-Auth::routes();
+Auth::routes(["register" => false]);
 
 Route::get('/home', 'OrganismoController@index')->name('home');
-
-// Auth::routes();
-
-// Route::get('/home', 'HomeController@index')->name('home');
-
-// Auth::routes();
-
-// Route::get('/home', 'HomeController@index')->name('home');
-
-// Auth::routes();
-
-// Route::get('/home', 'HomeController@index')->name('home');
