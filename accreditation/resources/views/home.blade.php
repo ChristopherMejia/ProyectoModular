@@ -3,7 +3,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-        <a href="plantilla/create"><button>Crear nueva plantilla</button></a>
+        <a href="create"><button>Crear nueva plantilla</button></a>
             <div class="card">
                 <div class="card-header">Plantillas</div>
                 <div class="card-body">
