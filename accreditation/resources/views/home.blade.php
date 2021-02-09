@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('content')
 
-
 <div class="container-home">
     <div class="home-header">Organismos</div>
     <table class="table table-hover">
