@@ -1,0 +1,28 @@
+.sidebar {
+    font-family: 'Noto Sans JP', sans-serif;
+    margin: 0;
+    width: 200px;
+    height: 100%;
+    position: fixed;
+    z-index: 1;
+    padding: 16px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 1px 6px 0 #20212447;
+}
+.sidebar ul{
+    padding: 12px;
+}
+.sidebar li{
+    margin-bottom: 20px;
+    list-style-type: none;
+
+}
+.sidebar a{
+    text-decoration: none;
+    font-size: 16px;
+    border: none;
+    color: #000000;
+    width:100%;
+    cursor: pointer;
+}
+
