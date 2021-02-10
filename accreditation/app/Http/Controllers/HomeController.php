@@ -33,4 +33,12 @@ class HomeController extends Controller
         //     ->paginate(7);
         // return view('home',["plantillas"=>$plantillas]);
     }
+
+    public function create()
+    {
+        $organismos=DB::table('organismos as orgs')
+            ->select('orgs.id','orgs.nombre')
+            ->get();
+        return view('create',["organismos"=>$organismos]);
+    }
 }
