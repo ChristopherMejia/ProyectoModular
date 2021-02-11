@@ -25,8 +25,6 @@
 </head>
 <body>
     <div id="app">
-    
-
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container" style="margin: 0"> 
                 <a class="navbar-brand" href="{{ url('/home') }}" style="font-family: 'Noto Sans JP', sans-serif;">
@@ -87,5 +85,8 @@
         </main>
 
     </div>
+
+    @include('partials\includes')
 </body>
 </html>
+
