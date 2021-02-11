@@ -15,14 +15,35 @@
 .sidebar li{
     margin-bottom: 20px;
     list-style-type: none;
+}
 
+.sidebar ul li a {
+  padding: 10px;
+  font-size: 1.1em;
+  display: inline-block;
 }
-.sidebar a{
-    text-decoration: none;
-    font-size: 16px;
-    border: none;
-    color: #000000;
-    width:100%;
-    cursor: pointer;
+.sidebar ul li a:hover {
+  color: #7386D5;
+  background: #fff;
 }
+
+
+a[data-toggle="collapse"] {
+  position: relative;
+}
+
+/* .dropdown-toggle::after {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+} */
+
+a, a:hover, a:focus {
+  color: inherit;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+
 
