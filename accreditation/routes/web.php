@@ -12,9 +12,12 @@
 */
 
 Route::get('/login', 'AuthController@index');
-Route::post('/login', 'AuthController@login');
 Route::get('/logout', 'AuthController@logout');
 
 Auth::routes(["register" => false]);
 
 Route::get('/home', 'OrganismoController@index')->name('home');
+
+Route::get('/organismo', 'OrganismoController@create');
+Route::post('/organismo/save', 'OrganismoController@store');
+
