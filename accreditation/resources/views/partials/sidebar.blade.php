@@ -26,11 +26,11 @@
 				</ul>
 			</li>
 			<li>
-				<span class="material-icons">text_snippet</span>
+			<span class="material-icons">approval</span>
 				<a href="#OrgSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle ">Organismo</a>
 				<ul class="collapse list-unstyled" id="OrgSubmenu">
 					<li>
-                        <a href="#">Crear Organismo</a>
+                        <a href="/organismo">Crear Organismo</a>
                     </li>
                     <li>
                         <a href="#">Mostrar Organimos</a>

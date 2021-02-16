@@ -20,6 +20,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/home.css') }}" rel="stylesheet">
     <link href="{{ asset('css/sidebar.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/organismo.css') }}" rel="stylesheet">
 
 
 </head>
@@ -80,13 +81,13 @@
         @else
              @include('partials/sidebar')
         @endguest
-        <main class="py-4">
+        <main class="main">
             @yield('content')
         </main>
 
     </div>
 
-    @include('partials\includes')
+    @include('partials/includes')
 </body>
 </html>
 
