@@ -9,5 +9,8 @@ class Organismo extends Model
     protected $primaryKey = 'id';
     public $timestamps = false;
 
-    protected $guarded  = ['id'];
+    protected $fillable = [
+        'id',
+        'nombre',
+    ];
 }
