@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\OrganismoRequest;
 use Illuminate\Http\Request;
 use App\Organismo;
 
@@ -25,7 +26,7 @@ class OrganismoController extends Controller
         return view('organismo/create');
     }
 
-    public function store(Request $request)
+    public function store(OrganismoRequest $request)
     {
         $name = $request->input('name');
 
