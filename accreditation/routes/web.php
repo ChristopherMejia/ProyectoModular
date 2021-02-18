@@ -21,3 +21,6 @@ Route::get('/home', 'OrganismoController@index')->name('home');
 Route::get('/organismo', 'OrganismoController@create');
 Route::post('/organismo/save', 'OrganismoController@store');
 
+Route::get('/plantilla', 'PlantillaController@create');
+Route::post('/plantilla/save', 'PlantillaController@store');
+
