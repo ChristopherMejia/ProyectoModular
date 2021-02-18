@@ -15,10 +15,7 @@ class OrganismoController extends Controller
 
     public function index()
     {
-        return view('home',
-        [
-            'Organismos' => Organismo::all()
-        ]);
+        return view('home');
     }
 
     public function create()
@@ -37,9 +34,12 @@ class OrganismoController extends Controller
         return \redirect()->back()->with('message', 'Successfully');
     }
 
-    public function show($id)
+    public function show()
     {
-        //
+        return view('organismo/show',
+        [
+            'Organismos' => Organismo::all()
+        ]);
     }
 
     public function edit($id)

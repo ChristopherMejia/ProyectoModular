@@ -33,7 +33,7 @@
                         <a href="/organismo">Crear Organismo</a>
                     </li>
                     <li>
-                        <a href="#">Mostrar Organimos</a>
+                        <a href="/organismo/show">Mostrar Organimos</a>
                     </li>
 				</ul>
 			</li>
