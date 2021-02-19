@@ -1,1 +1,1 @@
-<script src="{{ asset('js/sidebar.js') }}"></script>
+<script src="{{ asset('js/organismo.js') }}"></script>
