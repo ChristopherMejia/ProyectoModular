@@ -16,18 +16,18 @@
             {{ session()->get('message') }}
         </div>
     @endif
-    <form action="/organismo/save" method="POST">
+    <form action="/plantilla/save" method="POST">
         @csrf
         <div class="form-group">
         <div class="card">
-            <label for="Organismo">Organismo</label>
-            <select name="Organismo" class="selectpicker">
+            <label for="idOrganismo">Organismo</label>
+            <select name="idOrganismo" class="selectpicker">
             @foreach($organismos as $orgs)
-						<option value="{{$orgs->nombre}}">{{$orgs->nombre}}</option>
+						<option value="{{$orgs->id}}">{{$orgs->nombre}}</option>
 			@endforeach
             </select>
-            <label for="Version">Versión</label>
-            <input type="text" name="Version">
+            <label for="version">Versión</label>
+            <input type="text" name="version">
             </input>
         </div>
         <button type="submit" class="btn btn-primary">Crear</button>
