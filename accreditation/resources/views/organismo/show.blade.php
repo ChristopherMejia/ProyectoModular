@@ -16,8 +16,8 @@
                 <td scope="row">{{$organismo->id}}</td>
                 <td scope="row">{{$organismo->nombre}}</td>
                 <td>
-                <a href=""><span class="material-icons">mode_edit</span></a>
-                <a href=""><span class="material-icons">delete_outline</span></a>
+                <button type="button" data-toggle="modal" id ="edit-item"><span class="material-icons">mode_edit</span></a>
+                <button type="button" data-toggle="modal" id="delete-item"><span class="material-icons">delete_outline</span></a>
                 </td>
             </tr>
         </tbody>
