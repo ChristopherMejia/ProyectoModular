@@ -44,7 +44,7 @@ class OrganismoController extends Controller
 
     public function edit($id)
     {
-        //
+        dd($id);
     }
 
     public function update(Request $request, $id)
