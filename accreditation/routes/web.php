@@ -21,4 +21,7 @@ Route::get('/home', 'OrganismoController@index')->name('home');
 Route::get('/organismo', 'OrganismoController@create');
 Route::post('/organismo/save', 'OrganismoController@store');
 Route::get('/organismo/show','OrganismoController@show');
+Route::get('/organismo/edit/{id}', 'OrganismoController@edit');
+Route::get('/organismo/delete/{id}', 'OrganismoController@destroy');
+
 
