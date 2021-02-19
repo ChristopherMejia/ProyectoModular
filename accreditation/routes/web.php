@@ -25,3 +25,6 @@ Route::get('/organismo/edit/{id}', 'OrganismoController@edit');
 Route::get('/organismo/delete/{id}', 'OrganismoController@destroy');
 
 
+Route::get('/plantilla', 'PlantillaController@create');
+Route::post('/plantilla/save', 'PlantillaController@store');
+
