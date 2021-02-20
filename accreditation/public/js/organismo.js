@@ -1,12 +1,19 @@
 window.addEventListener('DOMContentLoaded', (event) => {
     console.log('DOM fully loaded and parsed');
 
-    const edit_item = document.getElementById("edit-item");
-    const edit_modal = document.getElementById("edit-modal");
-    
-    edit_item.addEventListener('shown.bs.modal', function (){
-        
-    });
+    const btn_modal = document.getElementById('edit-item');
+    const modal = new bootstrap.Modal(document.getElementById('editModal'), options)
+    console.log(modal)
+
+    btn_modal.addEventListener('click', function(){
+        modal.show()
+    })
+
+    // modal.addEventListener('show.bs.modal', function (event){
+    //     const organismoNombre = document.getElementById('organismoNombre');
+    //     const organismoID = document.getElementById('organismoId');  
+    // })
+
 });
 
 
