@@ -1,18 +1,26 @@
 window.addEventListener('DOMContentLoaded', (event) => {
-    console.log('DOM fully loaded and parsed');
 
-    const btn_modal = document.getElementById('edit-item');
-    const modal = new bootstrap.Modal(document.getElementById('editModal'), options)
-    console.log(modal)
+    const modal = document.getElementById('edit-item');
+    const $btnEdit = document.getElementById('btnEdit');
+    var target
 
-    btn_modal.addEventListener('click', function(){
-        modal.show()
+    //Elemento del DOM seleccionado
+    document.addEventListener('click', (e) => {
+        e = window.event;
+        target = e.target
+    },false);
+
+    modal.addEventListener('shown.bs.modal', function () {
+
+        const idItem = document.getElementById('editId')
+        const nameToEdit = document.getElementById('nameToEdit')
+
+        const nameOrgano = target.dataset.name;
+        const idOrgano   = target.dataset.id;
+        idItem.value = idOrgano;
+        nameToEdit.value = nameOrgano;
+
     })
-
-    // modal.addEventListener('show.bs.modal', function (event){
-    //     const organismoNombre = document.getElementById('organismoNombre');
-    //     const organismoID = document.getElementById('organismoId');  
-    // })
 
 });
 
