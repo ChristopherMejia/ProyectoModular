@@ -24,7 +24,7 @@ class PlantillaController extends Controller
         $organismos=DB::table('organismos as orgs')
             ->select('orgs.id','orgs.nombre')
             ->get();
-        return view('plantilla/create',["organismos"=>$organismos]);
+        return view('plantilla.create',["organismos"=>$organismos]);
     }
 
     public function store(PlantillaRequest $request)
