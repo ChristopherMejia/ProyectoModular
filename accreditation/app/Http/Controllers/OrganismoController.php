@@ -42,18 +42,20 @@ class OrganismoController extends Controller
         ]);
     }
 
-    public function edit($id)
+    public function edit(OrganismoRequest $request)
     {
-        dd($id);
+        // dd($request->all());
+        $organismo = Organismo::find($request->id);
+        $organismo->nombre = $request->name;
+        $organismo->save();
+        return \redirect()->back()->with('message', 'Successfully');
     }
 
-    public function update(Request $request, $id)
+    public function destroy(Request $request)
     {
-        //
-    }
-
-    public function destroy($id)
-    {
-        //
+        // dd($request);
+        $organismo = Organismo::find($request->id);
+        $organismo->delete();
+        return \redirect()->back()->with('message', 'Successfully');
     }
 }
