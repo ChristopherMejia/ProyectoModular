@@ -27,4 +27,5 @@ Route::post('/organismo/delete', 'OrganismoController@destroy');
 
 Route::get('/plantilla', 'PlantillaController@create');
 Route::post('/plantilla/save', 'PlantillaController@store');
+Route::get('/plantilla/show','PlantillaController@show');
 
