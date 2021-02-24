@@ -13,4 +13,9 @@ class Organismo extends Model
         'id',
         'nombre',
     ];
+
+    public function plantillas()
+    {
+        return $this->hasMany('App\Plantilla');
+    }
 }
