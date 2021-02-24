@@ -14,9 +14,13 @@ class CreatePlantillasTable extends Migration
     public function up()
     {
         Schema::create('plantillas', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->bigInteger('idOrganismo');
-            $table->string('version');
+                $table->bigIncrements('id');
+                $table->unsignedBigInteger('organismo_id');
+                $table->string('version');
+                $table->foreign('organismo_id')
+                      ->references('id')
+                      ->on('organismos')
+                      ->onDelete('cascade');
         });
     }
 
