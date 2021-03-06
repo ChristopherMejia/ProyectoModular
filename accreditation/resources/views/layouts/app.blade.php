@@ -90,7 +90,9 @@
 
     </div>
 
-    @include('partials/includes')
 </body>
 </html>
+
+@include('partials/includes')
+
 
