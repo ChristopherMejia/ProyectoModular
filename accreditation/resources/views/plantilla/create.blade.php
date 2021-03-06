@@ -20,7 +20,7 @@
         @csrf
         <div class="form-group" > 
             <label for="selected" class="form-label"><h4>Organismo</h4></label>
-            <select class="form-select" aria-label="Default select example" id="selected">
+            <select class="form-select" aria-label="Default select example" id="selected" name="idOrganismo">
             <option selected disabled>Abrir este menú de selección</option>
                 @foreach($organismos as $orgs)
 					<option value="{{$orgs->id}}">{{$orgs->nombre}}</option>
@@ -32,7 +32,7 @@
             <input type="text"  class="form-control" name="version" placeholder="Nueva Versión"></input>
         </div>
         <div class="d-grid gap-2" >
-            <button type="button" class="btn btn-primary">Crear</button>
+            <button type="submit" class="btn btn-primary">Crear</button>
         </div>
     </form>
 </div>
