@@ -29,18 +29,16 @@ class PlantillaController extends Controller
 
     public function store(PlantillaRequest $request)
     {
-        $idOrganismo = $request->input('idOrganismo');
-        $version = $request->input('version');
-
+        //dd($request->all());
         $plantilla = new Plantilla;
-        $plantilla->idOrganismo = $idOrganismo;
-        $plantilla->version = $version;
+        $plantilla->organismo_id = $request->input('idOrganismo');
+        $plantilla->version = $request->input('version');
         $plantilla->save();
 
         return \redirect()->back()->with('message', 'Successfully');
     }
 
-    public function show($id)
+    public function show()
     {
         //
     }
