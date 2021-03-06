@@ -38,7 +38,7 @@ class OrganismoController extends Controller
     {
         return view('organismo/show',
         [
-            'Organismos' => Organismo::all()
+            'Organismos' => Organismo::paginate(8)
         ]);
     }
 
