@@ -41,6 +41,7 @@
         @endforeach
         </tbody>
     </table>
+    {{ $Organismos->links() }}
 
   <!-- Modal Edit -->
   <div class="modal fade" id="edit-item" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -95,4 +96,5 @@
   </div>
            
 </div>
+
 @endsection
