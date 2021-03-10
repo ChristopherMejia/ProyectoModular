@@ -22,7 +22,9 @@
             <label for="name"> <h2>Nombre Organismo</h2> </label>
             <input type="text" name="name" class="form-control" placeholder="Ingrese Nombre">
         </div>
+        <div class="d-grid gap-2">
         <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
     </form>
 </div>
 

@@ -38,22 +38,24 @@ class OrganismoController extends Controller
     {
         return view('organismo/show',
         [
-            'Organismos' => Organismo::all()
+            'Organismos' => Organismo::paginate(8)
         ]);
     }
 
-    public function edit($id)
+    public function edit(OrganismoRequest $request)
     {
-        //
+        // dd($request->all());
+        $organismo = Organismo::find($request->id);
+        $organismo->nombre = $request->name;
+        $organismo->save();
+        return \redirect()->back()->with('message', 'Successfully');
     }
 
-    public function update(Request $request, $id)
+    public function destroy(Request $request)
     {
-        //
-    }
-
-    public function destroy($id)
-    {
-        //
+        // dd($request);
+        $organismo = Organismo::find($request->id);
+        $organismo->delete();
+        return \redirect()->back()->with('message', 'Successfully');
     }
 }

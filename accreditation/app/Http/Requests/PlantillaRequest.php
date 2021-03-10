@@ -25,7 +25,21 @@ class PlantillaRequest extends FormRequest
     {
         return [
             'idOrganismo' => 'required',
-            'version' => 'required',
+            'version' => 'required|max:255',
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'idOrganismo.required' => 'El :attribute es obligatorio.',
+            'version.required' => 'El :attribute es obligatorio.',
+        ];
+    }
+    public function attributes()
+    {
+        return [
+            'idOrganismo' => 'Organismo',
+            'version' => 'Versión',
         ];
     }
 }

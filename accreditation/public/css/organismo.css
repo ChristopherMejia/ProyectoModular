@@ -2,3 +2,17 @@
     font-family: "Noto Sans JP", sans-serif;
     margin-left: 200px;
 }
+
+.modal-header {
+    font-family: "Noto Sans JP", sans-serif;
+    background-color: #3490dc;
+    color: aliceblue;
+}
+
+.modal-header button {
+    color: aliceblue;
+}
+
+.delete {
+    background-color: #e3342f;
+}

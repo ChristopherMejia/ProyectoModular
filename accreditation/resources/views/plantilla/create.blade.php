@@ -18,19 +18,22 @@
     @endif
     <form action="/plantilla/save" method="POST">
         @csrf
-        <div class="form-group">
-        <div class="card">
-            <label for="idOrganismo">Organismo</label>
-            <select name="idOrganismo" class="selectpicker">
-            @foreach($organismos as $orgs)
-						<option value="{{$orgs->id}}">{{$orgs->nombre}}</option>
-			@endforeach
+        <div class="form-group" > 
+            <label for="selected" class="form-label"><h4>Organismo</h4></label>
+            <select class="form-select" aria-label="Default select example" id="selected" name="idOrganismo">
+            <option selected disabled>Abrir este menú de selección</option>
+                @foreach($organismos as $orgs)
+					<option value="{{$orgs->id}}">{{$orgs->nombre}}</option>
+			    @endforeach
             </select>
-            <label for="version">Versión</label>
-            <input type="text" name="version">
-            </input>
         </div>
-        <button type="submit" class="btn btn-primary">Crear</button>
+        <div class="form-group" >
+            <label for="version" class="form-label " style="text-align: end"><h4>Versión</h4></label>
+            <input type="text"  class="form-control" name="version" placeholder="Nueva Versión"></input>
+        </div>
+        <div class="d-grid gap-2" >
+            <button type="submit" class="btn btn-primary">Crear</button>
+        </div>
     </form>
 </div>
 @endsection

@@ -18,10 +18,16 @@
 				<a href="#PlantillaSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle ">Plantilla</a>
 				<ul class="collapse list-unstyled" id="PlantillaSubmenu">
 					<li>
-                        <a href="#">Crear Plantilla</a>
+                        <a href="/plantilla">Crear Plantilla</a>
                     </li>
-                    <li>
-                        <a href="#">Mostrar Plantilla</a>
+				</ul>
+			</li>
+			<li>
+				<span class="material-icons">analytics</span>
+				<a href="#EvaluacionSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle ">Evaluación</a>
+				<ul class="collapse list-unstyled" id="EvaluacionSubmenu">
+					<li>
+                        <a href="/autoevaluacion">Crear Autoevaluación</a>
                     </li>
 				</ul>
 			</li>
