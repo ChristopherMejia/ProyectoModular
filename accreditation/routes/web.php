@@ -13,8 +13,8 @@ Route::get('/organismo/show','OrganismoController@show');
 Route::post('/organismo/edit', 'OrganismoController@edit');
 Route::post('/organismo/delete', 'OrganismoController@destroy');
 
-
-Route::get('/plantilla', 'PlantillaController@create');
+Route::get('/plantilla', 'PlantillaController@index');
+Route::get('/plantilla/create', 'PlantillaController@create');
 Route::post('/plantilla/save', 'PlantillaController@store');
 Route::get('/autoevaluacion', 'AutoevaluacionController@index');
 

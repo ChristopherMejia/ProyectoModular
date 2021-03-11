@@ -18,7 +18,10 @@
 				<a href="#PlantillaSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle ">Plantilla</a>
 				<ul class="collapse list-unstyled" id="PlantillaSubmenu">
 					<li>
-                        <a href="/plantilla">Crear Plantilla</a>
+                        <a href="/plantilla">Desplegar Plantillas</a>
+                    </li>
+					<li>
+                        <a href="/plantilla/create">Crear Plantilla</a>
                     </li>
 				</ul>
 			</li>

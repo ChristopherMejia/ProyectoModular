@@ -21,7 +21,7 @@ class PlantillaController extends Controller
             ->select('p.id','orgs.nombre as organismo','p.version')
             ->orderBy('p.idOrganismo','desc')
             ->paginate(7);
-        return view('plantilla',["plantillas"=>$plantillas]);
+        return view('plantilla.index',["plantillas"=>$plantillas]);
     }
 
     public function create()
@@ -34,18 +34,23 @@ class PlantillaController extends Controller
 
     public function store(PlantillaRequest $request)
     {
-        //dd($request->all());
+        $idOrganismo = $request->input('idOrganismo');
+        $version = $request->input('version');
+
         $plantilla = new Plantilla;
-        $plantilla->organismo_id = $request->input('idOrganismo');
-        $plantilla->version = $request->input('version');
+        $plantilla->idOrganismo = $idOrganismo;
+        $plantilla->version = $version;
         $plantilla->save();
 
         return \redirect()->back()->with('message', 'Successfully');
     }
 
-    public function show()
+    public function show($id)
     {
-        //
+        return view('plantilla/show',
+        [
+            'Plantillas' => Plantilla::paginate(8)
+        ]);
     }
 
     public function edit($id)
