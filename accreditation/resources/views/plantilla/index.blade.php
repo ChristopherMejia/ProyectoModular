@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -17,7 +16,7 @@
                         <tr>
                             <td>{{$plantilla->organismo}}</td>
                             <td>{{$plantilla->version}}</td>
-                            <td><button>Modificar</button></td>
+                            <td><a href="/plantilla/edit/{{$plantilla->id}}"><button>Modificar</button></a></td>
                             <td><button>Eliminar</button></td>
                         </tr>
                     @endforeach

@@ -55,7 +55,12 @@ class PlantillaController extends Controller
 
     public function edit($id)
     {
-        //
+        $plantilla=DB::table('plantillas as p')
+            ->where('p.id','=',$id)
+            ->join('organismos as org','p.idOrganismo','=','org.id')
+            ->select('p.id','org.nombre as organismo','p.version')
+            ->get();
+        return view('plantilla.edit',["plantilla"=>$plantilla[0]]);
     }
 
     public function update(Request $request, $id)
