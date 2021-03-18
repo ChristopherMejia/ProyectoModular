@@ -6,10 +6,23 @@
     nuevaPregunta.className = "card";
     var nuevoEncabezadoPregunta = document.createElement("div");
     nuevoEncabezadoPregunta.className = "card-header"
-    var nuevoTituloPregunta = document.createTextNode("Pregunta");
+    var nuevoTituloPregunta = document.createElement("input");
+    nuevoTituloPregunta.value = "Pregunta"
+    var nuevoSelectTipo = document.createElement("select");
+    nuevoSelectTipo.className = "selectpicker";
+    nuevoSelectTipo.options[0] = new Option("Opción múltiple");
+    nuevoSelectTipo.options[1] = new Option("Selección múltiple");
+    nuevoSelectTipo.options[2] = new Option("Subir archivo");
+    nuevoSelectTipo.options[3] = new Option("Abierta");
+    var nuevaDescripcionPregunta = document.createElement("input");
+    nuevaDescripcionPregunta.value = "Descripción"
+    var nuevoCuerpoPregunta = document.createElement("div");
+    nuevoCuerpoPregunta.className = "card-body"
     nuevaPregunta.appendChild(nuevoEncabezadoPregunta); 
     nuevoEncabezadoPregunta.appendChild(nuevoTituloPregunta); //añade texto al div creado.
-
+    nuevaPregunta.appendChild(nuevoCuerpoPregunta);
+    nuevoCuerpoPregunta.appendChild(nuevaDescripcionPregunta);  
+    nuevoCuerpoPregunta.appendChild(nuevoSelectTipo);   
     // añade el elemento creado y su contenido al DOM
     var buttonAgregar = document.getElementById("buttonAgregar");
     $("#preguntas")[0].insertBefore(nuevaPregunta, buttonAgregar);
