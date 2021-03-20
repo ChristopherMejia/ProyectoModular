@@ -16,10 +16,10 @@
         nuevoTituloPregunta.value = "Pregunta"
 
         var nuevoSelectTipo = document.createElement("select");
-        nuevoSelectTipo.options[0] = new Option("Opción múltiple");
-        nuevoSelectTipo.options[1] = new Option("Selección múltiple");
-        nuevoSelectTipo.options[2] = new Option("Subir archivo");
-        nuevoSelectTipo.options[3] = new Option("Abierta");
+        nuevoSelectTipo.options[0] = new Option("Opción múltiple",0);
+        nuevoSelectTipo.options[1] = new Option("Selección múltiple",1);
+        nuevoSelectTipo.options[2] = new Option("Subir archivo",2);
+        nuevoSelectTipo.options[3] = new Option("Abierta",3);
 
         var nuevaEspacioRespuesta = document.createElement("input");
         nuevaEspacioRespuesta.value = "Respuesta"
@@ -61,13 +61,13 @@
         nuevoEncabezadoPregunta.className = "card-header"
 
         var nuevoTituloPregunta = document.createElement("input");
-        nuevoTituloPregunta.value = "Pregunta"
+        nuevoTituloPregunta.value = "Subpregunta"
 
         var nuevoSelectTipo = document.createElement("select");
-        nuevoSelectTipo.options[0] = new Option("Opción múltiple");
-        nuevoSelectTipo.options[1] = new Option("Selección múltiple");
-        nuevoSelectTipo.options[2] = new Option("Subir archivo");
-        nuevoSelectTipo.options[3] = new Option("Abierta");
+        nuevoSelectTipo.options[0] = new Option("Opción múltiple",0);
+        nuevoSelectTipo.options[1] = new Option("Selección múltiple",1);
+        nuevoSelectTipo.options[2] = new Option("Subir archivo",2);
+        nuevoSelectTipo.options[3] = new Option("Abierta",3);
 
         var nuevaEspacioRespuesta = document.createElement("input");
         nuevaEspacioRespuesta.value = "Respuesta"
@@ -85,6 +85,28 @@
         var buttonAgregar = document.getElementById("Boton_" + idPregunta);
         $("#Pregunta_"+idPregunta)[0].insertBefore(nuevaSubPregunta,buttonAgregar);
     }
+
+    function habilitarEvidencia(idPregunta){
+        if($("#check_"+idPregunta)[0].checked){
+            $("#evidencia_"+idPregunta)[0].hidden = false;
+        }
+        else{
+            $("#evidencia_"+idPregunta)[0].hidden = true;
+        }
+    }
+
+    function agregarOpcion(idPregunta){
+        var nuevaOpcionRadio = document.createElement("input");
+        nuevaOpcionRadio.type = "radio";
+        nuevaOpcionRadio.disabled=true;
+        var idOpcionActual = $("#opciones_"+idPregunta)[0].lastChild.id;
+        var idNuevaOpcion =  parseInt(idOpcionActual.split('_')[3]) + 1;
+        var nuevaOpcion= document.createElement("input");
+        nuevaOpcion.placeholder = "Opción " + idNuevaOpcion;
+        nuevaOpcion.id = "pregunta_"+idPregunta+"_opc_"+idNuevaOpcion;
+        $("#opciones_"+idPregunta)[0].appendChild(nuevaOpcionRadio);
+        $("#opciones_"+idPregunta)[0].appendChild(nuevaOpcion);
+    }
 </script>
 
 @extends('layouts.app')
@@ -97,17 +119,27 @@
             </div>
             <div id="Pregunta_1" class="card">
                 <div class="card-header">
-                    <input type="text" value="Pregunta"></input>
+                    <label>Pregunta</label>
+                    <input type="text" placeholder="Pregunta"></input>
                     <select value="Pregunta">
-                    <option>Opción múltiple</option>
-                    <option>Selección múltiple</option>
-                    <option>Subir archivo</option>
-                    <option>Abierta</option>
+                    <option value="0">Opción múltiple</option>
+                    <option value="1">Selección múltiple</option>
+                    <option value="2">Abierta</option>
                     </select>
+                    <input id=check_1 type="checkbox" onChange="habilitarEvidencia(1)">Evidencia</input>
+                    <textarea id=evidencia_1 placeholder="Describir evidencia" hidden></textarea>
                 </div>
                 <div class="card-body">
+                    <div id="opcionMultiple_1">
+                        <div id="opciones_1">
+                            <input type="radio" disabled></input>
+                            <input id=pregunta_1_opc_1 type=text placeholder="Opción 1"></input>
+                        </div>
+                        <button id="+opc_1" onClick="agregarOpcion(1)">Añadir opción</button>
+                    </div>
                     <input type="text" value="Respuesta" disabled></input>
                 </div>
+                <button id="Boton_1" onClick="agregarSubPregunta(1)">Agregar subpregunta</button>
             </div>
          </div>   
          <button id="buttonAgregar" onClick="agregarPregunta()">Agregar</button> 
