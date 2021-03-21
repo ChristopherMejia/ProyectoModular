@@ -97,15 +97,46 @@
 
     function agregarOpcion(idPregunta){
         var nuevaOpcionRadio = document.createElement("input");
-        nuevaOpcionRadio.type = "radio";
-        nuevaOpcionRadio.disabled=true;
         var idOpcionActual = $("#opciones_"+idPregunta)[0].lastChild.id;
         var idNuevaOpcion =  parseInt(idOpcionActual.split('_')[3]) + 1;
         var nuevaOpcion= document.createElement("input");
+        var nuevoBotonEliminar = document.createElement("button");
+        botonText = document.createTextNode("X");
+        nuevoBotonEliminar.appendChild(botonText);
+        nuevoBotonEliminar.addEventListener('click',function(){ 
+            eliminarOpcion(idPregunta,idNuevaOpcion)
+            this.remove();
+            }
+        );
         nuevaOpcion.placeholder = "Opción " + idNuevaOpcion;
         nuevaOpcion.id = "pregunta_"+idPregunta+"_opc_"+idNuevaOpcion;
-        $("#opciones_"+idPregunta)[0].appendChild(nuevaOpcionRadio);
+        
+        $("#opciones_"+idPregunta)[0].appendChild(nuevoBotonEliminar);
         $("#opciones_"+idPregunta)[0].appendChild(nuevaOpcion);
+    }
+
+    function eliminarOpcion(idPregunta,idOpcion){
+        $('#pregunta_'+idPregunta+'_opc_'+idOpcion).remove();
+    }
+
+    function cambiarTipo(idPregunta){
+        var tipo = $("#tipo_"+idPregunta+" option:selected")[0].value;
+        switch(tipo){
+            case "0":
+                $("#res_"+idPregunta)[0].hidden = true;
+                $("#opcionMultiple_"+idPregunta)[0].hidden = false;
+                break;
+            case "1":
+                $("#res_"+idPregunta)[0].hidden = true;
+                $("#opcionMultiple_"+idPregunta)[0].hidden = false;
+                break;
+            case "2":
+                $("#res_"+idPregunta)[0].hidden = false;
+                $("#opcionMultiple_"+idPregunta)[0].hidden = true;
+                break;
+            default:
+                break;
+        }
     }
 </script>
 
@@ -121,7 +152,7 @@
                 <div class="card-header">
                     <label>Pregunta</label>
                     <input type="text" placeholder="Pregunta"></input>
-                    <select value="Pregunta">
+                    <select id="tipo_1" value="Pregunta" onChange="cambiarTipo(1)">
                     <option value="0">Opción múltiple</option>
                     <option value="1">Selección múltiple</option>
                     <option value="2">Abierta</option>
@@ -137,7 +168,7 @@
                         </div>
                         <button id="+opc_1" onClick="agregarOpcion(1)">Añadir opción</button>
                     </div>
-                    <input type="text" value="Respuesta" disabled></input>
+                    <input id="res_1" type="text" value="Respuesta" disabled hidden=true></input>
                 </div>
                 <button id="Boton_1" onClick="agregarSubPregunta(1)">Agregar subpregunta</button>
             </div>
