@@ -13,17 +13,78 @@
         nuevoEncabezadoPregunta.className = "card-header"
 
         var nuevoTituloPregunta = document.createElement("input");
-        nuevoTituloPregunta.value = "Pregunta"
+        nuevoTituloPregunta.placeholder = "Pregunta";
 
         var nuevoSelectTipo = document.createElement("select");
-        nuevoSelectTipo.options[0] = new Option("Opción múltiple",0);
-        nuevoSelectTipo.options[1] = new Option("Selección múltiple",1);
-        nuevoSelectTipo.options[2] = new Option("Subir archivo",2);
+        nuevoSelectTipo.options[0] = new Option("Cierto o falso",0);
+        nuevoSelectTipo.options[1] = new Option("Opción múltiple",1);
+        nuevoSelectTipo.options[2] = new Option("Selección múltiple",2);
         nuevoSelectTipo.options[3] = new Option("Abierta",3);
+        nuevoSelectTipo.id = "tipo_" + idNuevaPregunta;
+        nuevoSelectTipo.addEventListener('click',function(){ 
+            cambiarTipo(idNuevaPregunta)}
+        );
+
+        var nuevoCheckEvidencia = document.createElement("input");
+        nuevoCheckEvidencia.type = "checkbox";
+        checkText = document.createTextNode("Evidencia");
+        checkLabel = document.createElement("label");
+        checkLabel.appendChild(checkText);
+
+        adjuntoText = document.createTextNode("Adjunto");
+        adjuntoLabel = document.createElement("label");
+        adjuntoLabel.appendChild(adjuntoText);
+
+        var nuevoBotonCierto  = document.createElement("input");
+        nuevoBotonCierto.type = "radio";
+        nuevoBotonCierto.disabled = true;
+        var ciertoText = document.createTextNode("Cierto");
+        var ciertoLabel = document.createElement("label");
+        ciertoLabel.appendChild(ciertoText);
+        var nuevoBotonFalso  = document.createElement("input");
+        nuevoBotonFalso.disabled = true;
+        var falsoText = document.createTextNode("Falso");
+        var falsoLabel = document.createElement("label");
+        falsoLabel.appendChild(falsoText);
+        nuevoBotonFalso.type = "radio";
+        nuevoBotonFalso.disabled = true;
+        var nuevoCiertoFalso  = document.createElement("div");
+        nuevoCiertoFalso.id = "ciertoFalso_" + idNuevaPregunta;
+        nuevoCiertoFalso.appendChild(nuevoBotonCierto);
+        nuevoCiertoFalso.appendChild(ciertoLabel);
+        nuevoCiertoFalso.appendChild(nuevoBotonFalso);
+        nuevoCiertoFalso.appendChild(falsoLabel);
+
 
         var nuevaEspacioRespuesta = document.createElement("input");
-        nuevaEspacioRespuesta.value = "Respuesta"
+        nuevaEspacioRespuesta.value = "Respuesta";
+        nuevaEspacioRespuesta.id = "res_" + idNuevaPregunta;
+        nuevaEspacioRespuesta.hidden = true;
         nuevaEspacioRespuesta.disabled = true;
+
+        var nuevaOpcionRadio = document.createElement("input");
+        nuevaOpcionRadio.type = "radio";
+        nuevaOpcionRadio.disabled = true;
+        var nuevaOpcion = document.createElement("input");
+        nuevaOpcion.placeholder = "Opción 1";
+        nuevaOpcion.id = "pregunta_"+idNuevaPregunta+"_opc_1";
+        var nuevasOpciones = document.createElement("div");
+        nuevasOpciones.id = "opciones_"+idNuevaPregunta;
+        nuevasOpciones.appendChild(nuevaOpcionRadio);
+        nuevasOpciones.appendChild(nuevaOpcion);
+
+        var nuevoBotonOpcion = document.createElement("button"); 
+        botonText1 = document.createTextNode("Añadir opción");
+        nuevoBotonOpcion.appendChild(botonText1);
+        nuevoBotonOpcion.addEventListener('click',function(){ 
+            agregarOpcion(idNuevaPregunta)}
+        );
+
+        var nuevaOpcionMultiple = document.createElement("div");
+        nuevaOpcionMultiple.id = "opcionMultiple_"+idNuevaPregunta;
+        nuevaOpcionMultiple.hidden = true;
+        nuevaOpcionMultiple.appendChild(nuevasOpciones);
+        nuevaOpcionMultiple.appendChild(nuevoBotonOpcion);
 
         var nuevoCuerpoPregunta = document.createElement("div");
         nuevoCuerpoPregunta.className = "card-body"
@@ -31,11 +92,14 @@
         nuevaPregunta.appendChild(nuevoEncabezadoPregunta); 
         nuevoEncabezadoPregunta.appendChild(nuevoTituloPregunta); //añade texto al div creado.
         nuevoEncabezadoPregunta.appendChild(nuevoSelectTipo);  
+        nuevoEncabezadoPregunta.appendChild(nuevoCheckEvidencia); 
+        nuevoEncabezadoPregunta.appendChild(checkLabel); 
         nuevaPregunta.appendChild(nuevoCuerpoPregunta);
+        nuevoCuerpoPregunta.appendChild(nuevoCiertoFalso);
+        nuevoCuerpoPregunta.appendChild(nuevaOpcionMultiple);
         nuevoCuerpoPregunta.appendChild(nuevaEspacioRespuesta);  
         
         // añade el elemento creado y su contenido al DOM
-        var buttonAgregar = document.getElementById("buttonAgregar");
         $("#preguntas")[0].appendChild(nuevaPregunta);
         //crear boton de subpregunta
         var nuevoBotonSubpregunta = document.createElement("button");
@@ -64,13 +128,13 @@
         nuevoTituloPregunta.value = "Subpregunta"
 
         var nuevoSelectTipo = document.createElement("select");
-        nuevoSelectTipo.options[0] = new Option("Opción múltiple",0);
-        nuevoSelectTipo.options[1] = new Option("Selección múltiple",1);
-        nuevoSelectTipo.options[2] = new Option("Subir archivo",2);
+        nuevoSelectTipo.options[0] = new Option("Cierto o falso",0);
+        nuevoSelectTipo.options[1] = new Option("Opción múltiple",1);
+        nuevoSelectTipo.options[2] = new Option("Selección múltiple",2);
         nuevoSelectTipo.options[3] = new Option("Abierta",3);
 
         var nuevaEspacioRespuesta = document.createElement("input");
-        nuevaEspacioRespuesta.value = "Respuesta"
+        nuevaEspacioRespuesta.value = "Respuesta";
         nuevaEspacioRespuesta.disabled = true;
 
         var nuevoCuerpoPregunta = document.createElement("div");
@@ -96,7 +160,6 @@
     }
 
     function agregarOpcion(idPregunta){
-        var nuevaOpcionRadio = document.createElement("input");
         var idOpcionActual = $("#opciones_"+idPregunta)[0].lastChild.id;
         var idNuevaOpcion =  parseInt(idOpcionActual.split('_')[3]) + 1;
         var nuevaOpcion= document.createElement("input");
@@ -123,14 +186,22 @@
         var tipo = $("#tipo_"+idPregunta+" option:selected")[0].value;
         switch(tipo){
             case "0":
+                $("#ciertoFalso_"+idPregunta)[0].hidden = false;
                 $("#res_"+idPregunta)[0].hidden = true;
-                $("#opcionMultiple_"+idPregunta)[0].hidden = false;
+                $("#opcionMultiple_"+idPregunta)[0].hidden = true;
                 break;
             case "1":
+                $("#ciertoFalso_"+idPregunta)[0].hidden = true;
                 $("#res_"+idPregunta)[0].hidden = true;
                 $("#opcionMultiple_"+idPregunta)[0].hidden = false;
                 break;
             case "2":
+                $("#ciertoFalso_"+idPregunta)[0].hidden = true;
+                $("#res_"+idPregunta)[0].hidden = true;
+                $("#opcionMultiple_"+idPregunta)[0].hidden = false;
+                break;
+            case "3":
+                $("#ciertoFalso_"+idPregunta)[0].hidden = true;
                 $("#res_"+idPregunta)[0].hidden = false;
                 $("#opcionMultiple_"+idPregunta)[0].hidden = true;
                 break;
@@ -153,15 +224,26 @@
                     <label>Pregunta</label>
                     <input type="text" placeholder="Pregunta"></input>
                     <select id="tipo_1" value="Pregunta" onChange="cambiarTipo(1)">
-                    <option value="0">Opción múltiple</option>
-                    <option value="1">Selección múltiple</option>
-                    <option value="2">Abierta</option>
+                        <option value="0">Cierto o falso</option>
+                        <option value="1">Opción múltiple</option>
+                        <option value="2">Selección múltiple</option>
+                        <option value="3">Abierta</option>
                     </select>
                     <input id=check_1 type="checkbox" onChange="habilitarEvidencia(1)">Evidencia</input>
                     <textarea id=evidencia_1 placeholder="Describir evidencia" hidden></textarea>
+                    <div id="adjunto_1">
+                        <label>Adjunto</label>
+                        <input type="file" id="file_1"></input>
+                    </div>
                 </div>
                 <div class="card-body">
-                    <div id="opcionMultiple_1">
+                    <div id="ciertoFalso_1">
+                        <input type="radio" disabled></input>
+                        <label>Cierto</label>
+                        <input type="radio" disabled></input>
+                        <label>Falso</label>
+                    </div>
+                    <div id="opcionMultiple_1" hidden=true>
                         <div id="opciones_1">
                             <input type="radio" disabled></input>
                             <input id=pregunta_1_opc_1 type=text placeholder="Opción 1"></input>
