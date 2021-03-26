@@ -1,40 +1,45 @@
 <script>
-    function agregarPregunta() {
-        // crea un nuevo div
-        // y añade contenido
-        var idPreguntaActual = $("#preguntas")[0].lastChild.id;
-        var idNuevaPregunta = parseInt(idPreguntaActual.split('_')[1]) + 1;
+    function crearLabel(texto){
+        var nuevaLabel = document.createElement("label");
+        labelText = document.createTextNode(texto);
+        nuevaLabel.appendChild(labelText);
 
-        var nuevaPregunta = document.createElement("div");
-        nuevaPregunta.className = "card";
-        nuevaPregunta.id = "Pregunta_" + idNuevaPregunta;
-
-        var nuevoEncabezadoPregunta = document.createElement("div");
-        nuevoEncabezadoPregunta.className = "card-header"
-
-        var nuevoTituloPregunta = document.createElement("input");
-        nuevoTituloPregunta.placeholder = "Pregunta";
-
+        return nuevaLabel;
+    }
+    function crearSelectTipo(idPregunta){
         var nuevoSelectTipo = document.createElement("select");
         nuevoSelectTipo.options[0] = new Option("Cierto o falso",0);
         nuevoSelectTipo.options[1] = new Option("Opción múltiple",1);
         nuevoSelectTipo.options[2] = new Option("Selección múltiple",2);
         nuevoSelectTipo.options[3] = new Option("Abierta",3);
-        nuevoSelectTipo.id = "tipo_" + idNuevaPregunta;
+        nuevoSelectTipo.id = "tipo_" + idPregunta;
         nuevoSelectTipo.addEventListener('click',function(){ 
-            cambiarTipo(idNuevaPregunta)}
+            cambiarTipo(idPregunta)}
         );
+        return nuevoSelectTipo;
+    }
 
+    function crearCheckEvidencia(idPregunta){
         var nuevoCheckEvidencia = document.createElement("input");
         nuevoCheckEvidencia.type = "checkbox";
-        checkText = document.createTextNode("Evidencia");
-        checkLabel = document.createElement("label");
-        checkLabel.appendChild(checkText);
+        nuevoCheckEvidencia.id = "check_" + idPregunta;
+        nuevoCheckEvidencia.addEventListener('click',function(){ 
+            habilitarEvidencia(idPregunta)}
+        );
 
-        adjuntoText = document.createTextNode("Adjunto");
-        adjuntoLabel = document.createElement("label");
-        adjuntoLabel.appendChild(adjuntoText);
+        return nuevoCheckEvidencia;
+    }
 
+    function crearDescripcionEvidencia(idPregunta){
+        var nuevaDescripcionEvidencia = document.createElement("textarea");
+        nuevaDescripcionEvidencia.placeholder = "Describir evidencia";
+        nuevaDescripcionEvidencia.id = "evidencia_" + idPregunta;
+        nuevaDescripcionEvidencia.hidden = true;
+
+        return nuevaDescripcionEvidencia;
+    }
+
+    function crearCiertoFalso(idPregunta){
         var nuevoBotonCierto  = document.createElement("input");
         nuevoBotonCierto.type = "radio";
         nuevoBotonCierto.disabled = true;
@@ -49,27 +54,34 @@
         nuevoBotonFalso.type = "radio";
         nuevoBotonFalso.disabled = true;
         var nuevoCiertoFalso  = document.createElement("div");
-        nuevoCiertoFalso.id = "ciertoFalso_" + idNuevaPregunta;
+        nuevoCiertoFalso.id = "ciertoFalso_" + idPregunta;
         nuevoCiertoFalso.appendChild(nuevoBotonCierto);
         nuevoCiertoFalso.appendChild(ciertoLabel);
         nuevoCiertoFalso.appendChild(nuevoBotonFalso);
         nuevoCiertoFalso.appendChild(falsoLabel);
+        
+        return nuevoCiertoFalso;
+    }
 
+    function crearEspacioRespuesta(idPregunta){
+        var nuevoEspacioRespuesta = document.createElement("input");
+        nuevoEspacioRespuesta.value = "Respuesta";
+        nuevoEspacioRespuesta.id = "res_" + idPregunta;
+        nuevoEspacioRespuesta.hidden = true;
+        nuevoEspacioRespuesta.disabled = true;
 
-        var nuevaEspacioRespuesta = document.createElement("input");
-        nuevaEspacioRespuesta.value = "Respuesta";
-        nuevaEspacioRespuesta.id = "res_" + idNuevaPregunta;
-        nuevaEspacioRespuesta.hidden = true;
-        nuevaEspacioRespuesta.disabled = true;
+        return nuevoEspacioRespuesta;
+    }
 
+    function crearOpcionMultiple(idPregunta){
         var nuevaOpcionRadio = document.createElement("input");
         nuevaOpcionRadio.type = "radio";
         nuevaOpcionRadio.disabled = true;
         var nuevaOpcion = document.createElement("input");
         nuevaOpcion.placeholder = "Opción 1";
-        nuevaOpcion.id = "pregunta_"+idNuevaPregunta+"_opc_1";
+        nuevaOpcion.id = "pregunta_"+idPregunta+"_opc_1";
         var nuevasOpciones = document.createElement("div");
-        nuevasOpciones.id = "opciones_"+idNuevaPregunta;
+        nuevasOpciones.id = "opciones_"+idPregunta;
         nuevasOpciones.appendChild(nuevaOpcionRadio);
         nuevasOpciones.appendChild(nuevaOpcion);
 
@@ -77,27 +89,85 @@
         botonText1 = document.createTextNode("Añadir opción");
         nuevoBotonOpcion.appendChild(botonText1);
         nuevoBotonOpcion.addEventListener('click',function(){ 
-            agregarOpcion(idNuevaPregunta)}
+            agregarOpcion(idPregunta)}
         );
 
         var nuevaOpcionMultiple = document.createElement("div");
-        nuevaOpcionMultiple.id = "opcionMultiple_"+idNuevaPregunta;
+        nuevaOpcionMultiple.id = "opcionMultiple_"+idPregunta;
         nuevaOpcionMultiple.hidden = true;
         nuevaOpcionMultiple.appendChild(nuevasOpciones);
         nuevaOpcionMultiple.appendChild(nuevoBotonOpcion);
 
+        return nuevaOpcionMultiple;
+    }
+
+    function crearEspacioAdjunto(idPregunta){
+        var nuevoEspacioAdjunto = document.createElement("div");
+        adjuntoText = document.createTextNode("Adjunto");
+        adjuntoLabel = document.createElement("label");
+        adjuntoLabel.appendChild(adjuntoText);
+        nuevoAdjunto = document.createElement("input");
+        nuevoAdjunto.type = "file";
+        nuevoEspacioAdjunto.appendChild(adjuntoLabel);
+        nuevoEspacioAdjunto.appendChild(nuevoAdjunto);
+        nuevoEspacioAdjunto.id = "adjunto_" + idPregunta;
+
+        return nuevoEspacioAdjunto;
+    }
+ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    function agregarPregunta() {
+        // crea un nuevo div
+        // y añade contenido
+        var idPreguntaActual = $("#preguntas")[0].lastChild.id;
+        var idNuevaPregunta = parseInt(idPreguntaActual.split('_')[1]) + 1;
+
+        var nuevaPregunta = document.createElement("div");
+        nuevaPregunta.className = "card";
+        nuevaPregunta.id = "Pregunta_" + idNuevaPregunta;
+
+        ultimaSubpreguntaId = document.createAttribute("ultimaSubpreguntaId");
+        ultimaSubpreguntaId.value=0;
+        nuevaPregunta.setAttributeNode(ultimaSubpreguntaId);
+        
+        var nuevoEncabezadoPregunta = document.createElement("div");
+        nuevoEncabezadoPregunta.className = "card-header";
+
+        var nuevoIdentificadorPregunta = crearLabel(idNuevaPregunta + ".")
+
+        var nuevoTituloPregunta = document.createElement("input");
+        nuevoTituloPregunta.placeholder = "Pregunta";
+
+        var nuevoSelectTipo = crearSelectTipo(idNuevaPregunta);
+
+        var nuevoCheckEvidencia = crearCheckEvidencia(idNuevaPregunta);
+
+        var checkLabel = crearLabel("Evidencia");
+
+        var nuevaDescripcionEvidencia = crearDescripcionEvidencia(idNuevaPregunta);
+
+        var nuevoEspacioAdjunto = crearEspacioAdjunto(idNuevaPregunta);
+
+        var nuevoCiertoFalso = crearCiertoFalso(idNuevaPregunta);
+
+        var nuevoEspacioRespuesta = crearEspacioRespuesta(idNuevaPregunta);
+
+        var nuevaOpcionMultiple = crearOpcionMultiple(idNuevaPregunta);
+        
         var nuevoCuerpoPregunta = document.createElement("div");
         nuevoCuerpoPregunta.className = "card-body"
 
         nuevaPregunta.appendChild(nuevoEncabezadoPregunta); 
-        nuevoEncabezadoPregunta.appendChild(nuevoTituloPregunta); //añade texto al div creado.
+        nuevoEncabezadoPregunta.appendChild(nuevoIdentificadorPregunta);
+        nuevoEncabezadoPregunta.appendChild(nuevoTituloPregunta);
         nuevoEncabezadoPregunta.appendChild(nuevoSelectTipo);  
         nuevoEncabezadoPregunta.appendChild(nuevoCheckEvidencia); 
         nuevoEncabezadoPregunta.appendChild(checkLabel); 
+        nuevoEncabezadoPregunta.appendChild(nuevaDescripcionEvidencia);
+        nuevoEncabezadoPregunta.appendChild(nuevoEspacioAdjunto);
         nuevaPregunta.appendChild(nuevoCuerpoPregunta);
         nuevoCuerpoPregunta.appendChild(nuevoCiertoFalso);
         nuevoCuerpoPregunta.appendChild(nuevaOpcionMultiple);
-        nuevoCuerpoPregunta.appendChild(nuevaEspacioRespuesta);  
+        nuevoCuerpoPregunta.appendChild(nuevoEspacioRespuesta);  
         
         // añade el elemento creado y su contenido al DOM
         $("#preguntas")[0].appendChild(nuevaPregunta);
@@ -111,12 +181,11 @@
         nuevoBotonSubpregunta.id = "Boton_" + idNuevaPregunta;
         nuevaPregunta.appendChild(nuevoBotonSubpregunta);  
     }
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     function agregarSubPregunta(idPregunta) {
         // crea un nuevo div
         // y añade contenido
-        var idSubPreguntaActual = $("#Pregunta_"+idPregunta)[0].lastChild.id
-        var idNuevaSubPregunta =  parseInt(idSubPreguntaActual.split('_')[1]) + 1;
+        var idNuevaSubPregunta =  ++($("#Pregunta_"+idPregunta)[0].attributes.ultimaSubpreguntaId.value);
         var nuevaSubPregunta = document.createElement("div");
         nuevaSubPregunta.className = "card";
         nuevaSubPregunta.id = "SubPregunta_" + idNuevaSubPregunta;
@@ -124,27 +193,41 @@
         var nuevoEncabezadoPregunta = document.createElement("div");
         nuevoEncabezadoPregunta.className = "card-header"
 
+        var nuevoIdentificadorPregunta = document.createElement("label");
+        identificadorText = document.createTextNode( idPregunta + "." + idNuevaSubPregunta + ".");
+        nuevoIdentificadorPregunta.appendChild(identificadorText);
+
         var nuevoTituloPregunta = document.createElement("input");
-        nuevoTituloPregunta.value = "Subpregunta"
+        nuevoTituloPregunta.placeholder = "Subpregunta"
 
-        var nuevoSelectTipo = document.createElement("select");
-        nuevoSelectTipo.options[0] = new Option("Cierto o falso",0);
-        nuevoSelectTipo.options[1] = new Option("Opción múltiple",1);
-        nuevoSelectTipo.options[2] = new Option("Selección múltiple",2);
-        nuevoSelectTipo.options[3] = new Option("Abierta",3);
+        var nuevoSelectTipo = crearSelectTipo(idPregunta + "-" + idNuevaSubPregunta);
 
-        var nuevaEspacioRespuesta = document.createElement("input");
-        nuevaEspacioRespuesta.value = "Respuesta";
-        nuevaEspacioRespuesta.disabled = true;
+        var nuevoCheckEvidencia = crearCheckEvidencia(idPregunta + "-" + idNuevaSubPregunta);
+
+        var checkLabel = crearLabel("Evidencia");
+
+        var nuevaDescripcionEvidencia = crearDescripcionEvidencia(idPregunta + "-" + idNuevaSubPregunta);
+
+        var nuevoCiertoFalso = crearCiertoFalso(idPregunta + "-" + idNuevaSubPregunta);
+
+        var nuevoEspacioRespuesta = crearEspacioRespuesta(idPregunta + "-" + idNuevaSubPregunta);
+
+        var nuevaOpcionMultiple = crearOpcionMultiple(idPregunta + "-" + idNuevaSubPregunta);
 
         var nuevoCuerpoPregunta = document.createElement("div");
         nuevoCuerpoPregunta.className = "card-body"
 
         nuevaSubPregunta.appendChild(nuevoEncabezadoPregunta); 
+        nuevoEncabezadoPregunta.appendChild(nuevoIdentificadorPregunta);
         nuevoEncabezadoPregunta.appendChild(nuevoTituloPregunta); //añade texto al div creado.
         nuevoEncabezadoPregunta.appendChild(nuevoSelectTipo);  
+        nuevoEncabezadoPregunta.appendChild(nuevoCheckEvidencia);
+        nuevoEncabezadoPregunta.appendChild(checkLabel);
+        nuevoEncabezadoPregunta.appendChild(nuevaDescripcionEvidencia);
         nuevaSubPregunta.appendChild(nuevoCuerpoPregunta);
-        nuevoCuerpoPregunta.appendChild(nuevaEspacioRespuesta);  
+        nuevoCuerpoPregunta.appendChild(nuevoCiertoFalso);
+        nuevoCuerpoPregunta.appendChild(nuevaOpcionMultiple);
+        nuevoCuerpoPregunta.appendChild(nuevoEspacioRespuesta);  
         // añade el elemento creado y su contenido al DOM
         var buttonAgregar = document.getElementById("Boton_" + idPregunta);
         $("#Pregunta_"+idPregunta)[0].insertBefore(nuevaSubPregunta,buttonAgregar);
@@ -158,7 +241,7 @@
             $("#evidencia_"+idPregunta)[0].hidden = true;
         }
     }
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
     function agregarOpcion(idPregunta){
         var idOpcionActual = $("#opciones_"+idPregunta)[0].lastChild.id;
         var idNuevaOpcion =  parseInt(idOpcionActual.split('_')[3]) + 1;
@@ -219,9 +302,9 @@
             <div class="card">
                 <div class="card-header">Plantilla {{$plantilla->organismo}} {{$plantilla->version}}</div>
             </div>
-            <div id="Pregunta_1" class="card">
+            <div id="Pregunta_1" class="card" ultimaSubpreguntaId=0>
                 <div class="card-header">
-                    <label>Pregunta</label>
+                    <label>1.</label>
                     <input type="text" placeholder="Pregunta"></input>
                     <select id="tipo_1" value="Pregunta" onChange="cambiarTipo(1)">
                         <option value="0">Cierto o falso</option>
@@ -233,7 +316,7 @@
                     <textarea id=evidencia_1 placeholder="Describir evidencia" hidden></textarea>
                     <div id="adjunto_1">
                         <label>Adjunto</label>
-                        <input type="file" id="file_1"></input>
+                        <input type="file"></input>
                     </div>
                 </div>
                 <div class="card-body">
