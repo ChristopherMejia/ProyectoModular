@@ -16,11 +16,12 @@ class PlantillaController extends Controller
 
     public function index()
     {
-        $plantillas=DB::table('plantillas as p')
-            ->join('organismos as orgs','p.idOrganismo','=','orgs.id')
-            ->select('p.id','orgs.nombre as organismo','p.version')
-            ->orderBy('p.idOrganismo','desc')
+        $plantillas=DB::table('plantillas as plantilla')
+            ->join('organismos as organismo','plantilla.organismo_id','=','organismo.id')
+            ->select('plantilla.id','organismo.nombre','plantilla.version')
+            ->orderBy('plantilla.organismo_id','desc')
             ->paginate(7);
+        //dd($plantillas);
         return view('plantilla.index',["plantillas"=>$plantillas]);
     }
 
@@ -38,7 +39,7 @@ class PlantillaController extends Controller
         $version = $request->input('version');
 
         $plantilla = new Plantilla;
-        $plantilla->idOrganismo = $idOrganismo;
+        $plantilla->organismo_id = $idOrganismo;
         $plantilla->version = $version;
         $plantilla->save();
 

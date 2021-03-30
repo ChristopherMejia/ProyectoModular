@@ -16,7 +16,7 @@ Route::post('/organismo/delete', 'OrganismoController@destroy');
 Route::get('/plantilla', 'PlantillaController@index');
 Route::get('/plantilla/create', 'PlantillaController@create');
 Route::post('/plantilla/save', 'PlantillaController@store');
-Route::get('/plantilla/edit/{id}', 'PlantillaController@edit');
+Route::get('/plantilla/edit', 'PlantillaController@edit');
 
 Route::get('/autoevaluacion', 'AutoevaluacionController@index');
 

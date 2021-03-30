@@ -1,16 +1,16 @@
 window.addEventListener('DOMContentLoaded', (event) => {
-
     const modal = document.getElementById('edit-item');
     const modal_delete = document.getElementById('delete-item');
-    var target
 
     //Elemento del DOM seleccionado
     document.addEventListener('click', (e) => {
         e = window.event;
-        target = e.target
-    });
+        let target = e.target
+    
 
     //logica modal edit
+    
+
     modal.addEventListener('shown.bs.modal', function () {
 
         const idItem = document.getElementById('editId')
@@ -32,6 +32,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
     })
 
+    
     modal_delete.addEventListener('shown.bs.modal', function(){
         const idDelete = document.getElementById('deleteId')
         const nameDelete = document.getElementById('deleteName')
@@ -50,6 +51,9 @@ window.addEventListener('DOMContentLoaded', (event) => {
         })
 
     })
+
+
+    });
 
 });
 
