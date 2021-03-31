@@ -10,7 +10,8 @@ class Plantilla extends Model
     public $timestamps = false;
 
     protected $fillable =[
-        'idOrganismo',
+        'organismo_id',
         'version',
     ];
+
 }

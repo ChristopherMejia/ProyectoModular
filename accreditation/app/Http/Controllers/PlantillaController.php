@@ -48,20 +48,12 @@ class PlantillaController extends Controller
 
     public function show($id)
     {
-        return view('plantilla/show',
-        [
-            'Plantillas' => Plantilla::paginate(8)
-        ]);
+        //
     }
 
     public function edit($id)
     {
-        $plantilla=DB::table('plantillas as p')
-            ->where('p.id','=',$id)
-            ->join('organismos as org','p.idOrganismo','=','org.id')
-            ->select('p.id','org.nombre as organismo','p.version')
-            ->get();
-        return view('plantilla.edit',["plantilla"=>$plantilla[0]]);
+        //
     }
 
     public function update(Request $request, $id)
@@ -72,5 +64,15 @@ class PlantillaController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function start($id)
+    {
+        $plantilla=DB::table('plantillas as p')
+            ->where('p.id','=',$id)
+            ->join('organismos as org','p.idOrganismo','=','org.id')
+            ->select('p.id','org.nombre as organismo','p.version')
+            ->get();
+        return view('plantilla.start',["plantilla"=>$plantilla[0]]);
     }
 }

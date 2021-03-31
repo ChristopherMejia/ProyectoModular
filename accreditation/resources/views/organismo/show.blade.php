@@ -97,5 +97,5 @@
   </div>
            
 </div>
-
+<script type="application/javascript" src="{{ asset('js/organismo.js') }}"></script>
 @endsection

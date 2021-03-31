@@ -20,10 +20,14 @@
                                 <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete-plantilla" id="button_delete">
                                     <span class="material-icons" data-id="{{$plantilla->id}}" data-name="{{$plantilla->nombre}}">delete_outline</span>
                                 </button>
+                                <button type="button" class="btn btn-primary btn-sm">
+                                  <a href="/plantilla/edit/{{$plantilla->id}}"><span class="material-icons">add_circle</span></a>
+                                </button>
                             </td>
                            
                         </tr>
                     @endforeach
+                    {{ $plantillas->links() }}
                 </table>
                 </div>
             </div>
@@ -56,5 +60,6 @@
 
     </div>
 </div>
+<script type="application/javascript" src="{{ asset('js/plantilla.js') }}"></script>
 
 @endsection
