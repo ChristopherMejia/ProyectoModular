@@ -15,7 +15,7 @@
 			</li>
 			<li>
 				<span class="material-icons">text_snippet</span>
-				<a href="#PlantillaSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle ">Plantilla</a>
+				<a href="#PlantillaSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Plantilla</a>
 				<ul class="collapse list-unstyled" id="PlantillaSubmenu">
 					<li>
                         <a href="/plantilla">Desplegar Plantillas</a>

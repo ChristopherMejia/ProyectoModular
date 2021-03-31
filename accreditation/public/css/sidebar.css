@@ -6,7 +6,6 @@
     position: fixed;
     z-index: 1;
     padding: 16px;
-    background-color: rgb(255, 255, 255);
     box-shadow: 0 1px 6px 0 #20212447;
 }
 .sidebar ul {
