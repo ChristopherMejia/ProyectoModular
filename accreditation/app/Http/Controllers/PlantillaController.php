@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PlantillaRequest;
 use Illuminate\Http\Request;
 use App\Plantilla;
+use App\Organismo;
 use DB;
 
 class PlantillaController extends Controller
@@ -68,11 +69,14 @@ class PlantillaController extends Controller
 
     public function start($id)
     {
-        $plantilla=DB::table('plantillas as p')
-            ->where('p.id','=',$id)
-            ->join('organismos as org','p.idOrganismo','=','org.id')
-            ->select('p.id','org.nombre as organismo','p.version')
-            ->get();
-        return view('plantilla.start',["plantilla"=>$plantilla[0]]);
+        $plantilla = Plantilla::find($id);
+        $nombre  = $plantilla->organismo->nombre;
+        $version = $plantilla->version;
+        $plantilla_info = array(
+            'plantilla_nombre'  => $nombre,
+            'plantilla_version' => $version,
+        );
+        return view('plantilla.start')->with('plantilla', $plantilla_info);
+
     }
 }

@@ -14,4 +14,9 @@ class Plantilla extends Model
         'version',
     ];
 
+    public function organismo()
+    {
+        return $this->belongsTo('App\Organismo');
+    }
+
 }
