@@ -18,5 +18,5 @@ Route::get('/plantilla/create', 'PlantillaController@create');
 Route::post('/plantilla/save', 'PlantillaController@store');
 Route::get('/plantilla/start/{id}', 'PlantillaController@start');
 
-Route::get('/autoevaluacion', 'AutoevaluacionController@index');
+Route::get('/programaEducativo', 'ProgramaEducativoController@index');
 

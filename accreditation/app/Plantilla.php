@@ -14,6 +14,10 @@ class Plantilla extends Model
         'version',
     ];
 
+    public function evaluacion()
+    {
+        return $this->hasMany('App\Evaluacion');
+    }
     public function organismo()
     {
         return $this->belongsTo('App\Organismo');

@@ -27,10 +27,10 @@
 			</li>
 			<li>
 				<span class="material-icons">analytics</span>
-				<a href="#EvaluacionSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle ">Evaluación</a>
-				<ul class="collapse list-unstyled" id="EvaluacionSubmenu">
+				<a href="#EducacionSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle ">Educación</a>
+				<ul class="collapse list-unstyled" id="EducacionSubmenu">
 					<li>
-                        <a href="/autoevaluacion">Crear Autoevaluación</a>
+                        <a href="/programaEducativo">Nivel Educativo</a>
                     </li>
 				</ul>
 			</li>
