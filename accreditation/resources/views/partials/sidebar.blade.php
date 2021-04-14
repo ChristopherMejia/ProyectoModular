@@ -33,7 +33,7 @@
                         <a href="/programaEducativo">Nivel Educativo</a>
                     </li>
 					<li>
-						<a href="/programaEducativo/show">Desplegar Programas Educativos</a>
+						<a href="/programaEducativo/show">Desplegar</a>
 					</li>
 				</ul>
 			</li>
