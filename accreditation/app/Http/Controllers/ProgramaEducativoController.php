@@ -36,4 +36,19 @@ class ProgramaEducativoController extends Controller
             'Programas' => ProgramaEducativo::paginate(8)
         ]);
     }
+
+    public function edit(ProgramaEducativoRequest $request)
+    {
+        $id_program = $request->id;
+        $programSchool = ProgramaEducativo::where('id', $id_program)->first();
+        if($request->nivel === "null"){
+            $programSchool->nombre = $request->educacion;
+        }else{
+            $programSchool->nombre = $request->educacion;
+            $programSchool->nivel = $request->nivel;
+        }
+        $programSchool->save();
+        return \redirect()->back()->with('message', 'Successfully');
+     
+    }
 }

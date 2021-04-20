@@ -21,4 +21,5 @@ Route::get('/plantilla/start/{id}', 'PlantillaController@start');
 Route::get('/programaEducativo', 'ProgramaEducativoController@index');
 Route::post('/programa_educativo/save', 'ProgramaEducativoController@store');
 Route::get('/programaEducativo/show', 'ProgramaEducativoController@show');
+Route::post('/programaEducativo/edit', 'ProgramaEducativoController@edit');
 

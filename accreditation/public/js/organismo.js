@@ -7,10 +7,8 @@ window.addEventListener('DOMContentLoaded', (event) => {
         e = window.event;
         let target = e.target
     
-
     //logica modal edit
     
-
     modal.addEventListener('shown.bs.modal', function () {
 
         const idItem = document.getElementById('editId')
