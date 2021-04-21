@@ -22,7 +22,7 @@
                 <div class="card-header header-table"><h4>Programa Educativo<h4></div>
                 <div class="card-body">
 
-                <form action="programa_educativo/save" method="post">
+                <form action="programa-educativo/save" method="post">
                 @csrf
 
                 <div class="input-group mb-3">

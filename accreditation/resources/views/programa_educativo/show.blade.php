@@ -21,7 +21,7 @@
             @endif
                 <div class="card-header header-table"><h4>Programa Educativo<h4></div>
                 <div class="card-body">
-                    <table class="table table-hover table-sm" style="text-align: center;">
+                    <table id="table" class="table table-hover table-sm" style="text-align: center;">
                         <thead>
                             <th>#</th>
                             <th>Nombre</th>
@@ -40,7 +40,9 @@
                                     >
                                         <span class="material-icons" data-id="{{$programa->id}}" data-name="{{$programa->nombre}}">mode_edit</span>
                                     </button>
-                                    <button type="button" class="btn btn-danger btn-sm">
+                                    <button type="button" class="btn btn-danger btn-sm" 
+                                            data-bs-toggle="modal" data-bs-target="#delete-item" id="btnDelete"
+                                    >
                                         <span class="material-icons" data-id="{{$programa->id}}" data-name="{{$programa->nombre}}">delete_outline</span>
                                     </button>
                                 </td>
@@ -65,7 +67,7 @@
                 <div class="modal-body">
                 <input id="itemToEdit"type="text" class="form-control" disabled>
 
-                <form action="/programaEducativo/edit" method="post">
+                <form action="/programa-educativo/edit" method="post">
                     @csrf
                     <div class="form-group">
 
@@ -92,6 +94,32 @@
             </div>
         </div>
     </div>
+
+     <!-- Modal Delete -->
+    <div class="modal fade" id="delete-item" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header delete">
+            <h5 class="modal-title" id="staticBackdropLabel">Borrar Programa Educativo</h5>
+            </div>
+            <div class="modal-body">
+            <form action="/programa-educativo/delete" method="post">
+            @csrf
+                <div class="form-group">
+                <label class="form-label">¿Seguro que desea eliminarlo?</label>
+                <input type="text" name="name" class="form-control" id="deleteName" disabled>
+                <input type="hidden" name="id" id="deleteId">
+                </div>
+                <div class="modal-footer">
+                <button id="btn-close-dlt" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-danger">Delete</button>
+                </div>
+            </form>
+            </div>
+        </div>
+        </div>
+    </div>
+
 </div>
 </div>
 <script type="application/javascript" src="{{ asset('js/educacion.js') }}"></script>
