@@ -30,10 +30,10 @@
 				<a href="#EducacionSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle ">Educación</a>
 				<ul class="collapse list-unstyled" id="EducacionSubmenu">
 					<li>
-                        <a href="/programaEducativo">Nivel Educativo</a>
+                        <a href="/programa-educativo">Nivel Educativo</a>
                     </li>
 					<li>
-						<a href="/programaEducativo/show">Desplegar</a>
+						<a href="/programa-educativo/show">Desplegar</a>
 					</li>
 				</ul>
 			</li>

@@ -18,8 +18,10 @@ Route::get('/plantilla/create', 'PlantillaController@create');
 Route::post('/plantilla/save', 'PlantillaController@store');
 Route::get('/plantilla/start/{id}', 'PlantillaController@start');
 
-Route::get('/programaEducativo', 'ProgramaEducativoController@index');
-Route::post('/programa_educativo/save', 'ProgramaEducativoController@store');
-Route::get('/programaEducativo/show', 'ProgramaEducativoController@show');
-Route::post('/programaEducativo/edit', 'ProgramaEducativoController@edit');
+Route::get('/programa-educativo', 'ProgramaEducativoController@index');
+Route::post('/programa-educativo/save', 'ProgramaEducativoController@store');
+Route::get('/programa-educativo/show', 'ProgramaEducativoController@show');
+Route::post('/programa-educativo/edit', 'ProgramaEducativoController@edit');
+Route::post('/programa-educativo/delete', 'ProgramaEducativoController@destroy');
+
 

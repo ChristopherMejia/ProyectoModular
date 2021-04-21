@@ -16,7 +16,7 @@ class ProgramaEducativoController extends Controller
 
     public function index()
     {
-        return view('NivelEducacion.create_level');
+        return view('programa_educativo.create_level');
     }
     public function store(ProgramaEducativoRequest $request)
     {
@@ -31,7 +31,7 @@ class ProgramaEducativoController extends Controller
     }
     public function show()
     {
-        return view('NivelEducacion.show',
+        return view('programa_educativo.show',
         [
             'Programas' => ProgramaEducativo::paginate(8)
         ]);
@@ -48,7 +48,13 @@ class ProgramaEducativoController extends Controller
             $programSchool->nivel = $request->nivel;
         }
         $programSchool->save();
+
         return \redirect()->back()->with('message', 'Successfully');
      
+    }
+
+    public function destroy(Request $request)
+    {
+        dd($request->all());
     }
 }
