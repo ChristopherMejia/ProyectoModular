@@ -118,9 +118,13 @@
     function agregarPregunta(idCategoria,idSubcategoria) {
         // crea un nuevo div
         // y añade contenido
-        var idPreguntaActual = $("#preguntas_" + idCategoria + "_" + idSubcategoria)[0].lastChild.id;
-        var idNuevaPregunta = parseInt(idPreguntaActual.split('_')[3]) + 1;
-
+        if($("#preguntas_" + idCategoria + "_" + idSubcategoria)[0].lastChild != null){
+            var idPreguntaActual = $("#preguntas_" + idCategoria + "_" + idSubcategoria)[0].lastChild.id;
+            var idNuevaPregunta = parseInt(idPreguntaActual.split('_')[3]) + 1;
+        }
+        else{
+            var idNuevaPregunta = 1;
+        }
         var nuevaPregunta = document.createElement("div");
         nuevaPregunta.className = "card";
         nuevaPregunta.id = "Pregunta_" + idCategoria + "_" + idSubcategoria + "_" + idNuevaPregunta;
@@ -176,7 +180,7 @@
         botonText = document.createTextNode("Agregar subpregunta");
         nuevoBotonSubpregunta.appendChild(botonText);
         nuevoBotonSubpregunta.addEventListener('click',function(){ 
-            agregarSubPregunta(idNuevaPregunta)}
+            agregarSubPregunta(idCategoria,idSubcategoria,idNuevaPregunta)}
         );
         nuevoBotonSubpregunta.id = "Boton_" + idNuevaPregunta;
         nuevaPregunta.appendChild(nuevoBotonSubpregunta);  
@@ -294,10 +298,42 @@
         }
     }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////777
-   /* function agregarCategoria(){
-        var idCategoriaActual(){
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    function agregarSubcategoria(idCategoria){
+        var idSubcategoriaActual = $("#categoria_" + idCategoria)[0].lastChild.id;
+        var nuevaSubCategoria = document.createElement("div");
+        nuevaSubCategoria.className = "card-header";
+        var idNuevaSubcategoria = parseInt(idSubcategoriaActual.split('_')[2]) + 1;
+        nuevaSubCategoria.id = "subCategoria_" + idCategoria + "_" + idNuevaSubcategoria; 
 
-        }
-    }*/
+        //se crea el encabezado de la subcategoria
+        var nuevoEncabezadoSubcategoria = document.createElement("div"); 
+        nuevoEncabezadoSubcategoria.className = "card-header"; 
+
+        var nuevoNombreSubcategoria = document.createElement("input");
+        nuevoNombreSubcategoria.placeholder = "Subcategoria";
+        nuevoEncabezadoSubcategoria.appendChild(nuevoNombreSubcategoria);
+
+        // se crea nuevo div para las preguntas
+        var nuevasPreguntas = document.createElement("div"); 
+        nuevasPreguntas.id = "preguntas_" + idCategoria + "_" + idNuevaSubcategoria;
+
+        //se agregan los elementos a la nueva categoria
+        nuevaSubCategoria.appendChild(nuevoEncabezadoSubcategoria);
+        nuevaSubCategoria.appendChild(nuevasPreguntas);
+        $("#categoria_" + idCategoria)[0].appendChild(nuevaSubCategoria);
+
+        //se agrega una pregunta a la nueva subcategoria
+        agregarPregunta(idCategoria,idNuevaSubcategoria);
+
+        //Agrega el boton de agregar pregunta
+        var nuevoBotonPregunta = document.createElement("button");
+        botonText = document.createTextNode("Agregar pregunta");
+        nuevoBotonPregunta.appendChild(botonText);
+        nuevoBotonPregunta.addEventListener('click',function(){ 
+            agregarPregunta(idCategoria,idNuevaSubcategoria)}
+        );
+        nuevoBotonPregunta.id = "buttonAgregar_" + idCategoria + "_" + idNuevaSubcategoria;
+        nuevaSubCategoria.appendChild(nuevoBotonPregunta);  
+    }
 
