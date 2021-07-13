@@ -357,6 +357,7 @@ function agregarCategoria(){
     var nuevoNombreCategoria = document.createElement("input");
     nuevoNombreCategoria.placeholder = "Categoria";
     nuevoEncabezadoCategoria.appendChild(nuevoNombreCategoria);
+    nuevaCategoria.appendChild(nuevoEncabezadoCategoria);
 
     //se agrega la nueva categoria
     $("#categorias")[0].appendChild(nuevaCategoria);
