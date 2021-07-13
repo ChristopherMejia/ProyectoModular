@@ -300,12 +300,17 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     function agregarSubcategoria(idCategoria){
-        var idSubcategoriaActual = $("#categoria_" + idCategoria)[0].lastChild.id;
+        if($("#categoria_" + idCategoria)[0].lastChild != null){
+            var idSubcategoriaActual = $("#categoria_" + idCategoria)[0].lastChild.id;
+            var idNuevaSubcategoria = parseInt(idSubcategoriaActual.split('_')[2]) + 1;
+        }
+        else{
+            var idNuevaSubcategoria = 1;
+        }
         var nuevaSubCategoria = document.createElement("div");
         nuevaSubCategoria.className = "card-header";
-        var idNuevaSubcategoria = parseInt(idSubcategoriaActual.split('_')[2]) + 1;
+        
         nuevaSubCategoria.id = "subCategoria_" + idCategoria + "_" + idNuevaSubcategoria; 
-
         //se crea el encabezado de la subcategoria
         var nuevoEncabezadoSubcategoria = document.createElement("div"); 
         nuevoEncabezadoSubcategoria.className = "card-header"; 
@@ -336,4 +341,37 @@
         nuevoBotonPregunta.id = "buttonAgregar_" + idCategoria + "_" + idNuevaSubcategoria;
         nuevaSubCategoria.appendChild(nuevoBotonPregunta);  
     }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function agregarCategoria(){
+    var idCategoriaActual = $("#categorias")[0].lastChild.id;
+    var nuevaCategoria = document.createElement("div");
+    nuevaCategoria.className = "card-header";
+    var idNuevaCategoria = parseInt(idCategoriaActual.split('_')[1]) + 1;
+    nuevaCategoria.id = "categoria_" + idNuevaCategoria; 
+
+    //se crea el encabezado de la categoria
+    var nuevoEncabezadoCategoria = document.createElement("div"); 
+    nuevoEncabezadoCategoria.className = "card-header"; 
+
+    var nuevoNombreCategoria = document.createElement("input");
+    nuevoNombreCategoria.placeholder = "Categoria";
+    nuevoEncabezadoCategoria.appendChild(nuevoNombreCategoria);
+
+    //se agrega la nueva categoria
+    $("#categorias")[0].appendChild(nuevaCategoria);
+
+    //se agrega una subcategoria a la nueva categoria
+    agregarSubcategoria(idNuevaCategoria);
+
+    //Agrega el boton de agregar subcategoria
+    var nuevoBotonSubcategoria = document.createElement("button");
+    botonText = document.createTextNode("Agregar subcategoria");
+    nuevoBotonSubcategoria.appendChild(botonText);
+    nuevoBotonSubcategoria.addEventListener('click',function(){ 
+        agregarSubcategoria(idNuevaCategoria)}
+    );
+    nuevoBotonSubcategoria.id = "btnAgregarSubcategoria_" + idNuevaCategoria;
+    nuevaCategoria.appendChild(nuevoBotonSubcategoria);   
+}
 
