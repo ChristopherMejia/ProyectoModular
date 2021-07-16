@@ -21,7 +21,7 @@
                                     <span class="material-icons" data-id="{{$plantilla->id}}" data-name="{{$plantilla->nombre}}">delete_outline</span>
                                 </button>
                                 <button type="button" class="btn btn-primary btn-sm">
-                                  <a href="/plantilla/start/{{$plantilla->id}}"><span class="material-icons">add_circle</span></a>
+                                  <a href="/plantilla/edit/{{$plantilla->id}}"><span class="material-icons">add_circle</span></a>
                                 </button>
                             </td>
                            

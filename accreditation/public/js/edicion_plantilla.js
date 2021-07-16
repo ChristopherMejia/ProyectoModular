@@ -88,6 +88,7 @@
         var nuevoBotonOpcion = document.createElement("button"); 
         botonText1 = document.createTextNode("Añadir opción");
         nuevoBotonOpcion.appendChild(botonText1);
+        nuevoBotonOpcion.type = "button"; //se debe especificar que el boton es de tipo button o si no el default será tipo submit
         nuevoBotonOpcion.addEventListener('click',function(){ 
             agregarOpcion(idPregunta)}
         );
@@ -183,6 +184,7 @@
             agregarSubPregunta(idCategoria,idSubcategoria,idNuevaPregunta)}
         );
         nuevoBotonSubpregunta.id = "Boton_" + idNuevaPregunta;
+        nuevoBotonSubpregunta.type = "button";
         nuevaPregunta.appendChild(nuevoBotonSubpregunta);  
     }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -333,6 +335,7 @@
 
         //Agrega el boton de agregar pregunta
         var nuevoBotonPregunta = document.createElement("button");
+        nuevoBotonPregunta.type = "button";
         botonText = document.createTextNode("Agregar pregunta");
         nuevoBotonPregunta.appendChild(botonText);
         nuevoBotonPregunta.addEventListener('click',function(){ 
@@ -354,10 +357,18 @@ function agregarCategoria(){
     var nuevoEncabezadoCategoria = document.createElement("div"); 
     nuevoEncabezadoCategoria.className = "card-header"; 
 
+    //agregar <input type="hidden" name="id_categorias[]"></input>
+    var nuevoIdCategoria = document.createElement("input"); 
+    nuevoIdCategoria.name = "id_categorias[]";
+    nuevoIdCategoria.type = "hidden";
+    nuevaCategoria.appendChild(nuevoIdCategoria);
+
     var nuevoNombreCategoria = document.createElement("input");
+    nuevoNombreCategoria.name = "categorias[]";
     nuevoNombreCategoria.placeholder = "Categoria";
     nuevoEncabezadoCategoria.appendChild(nuevoNombreCategoria);
     nuevaCategoria.appendChild(nuevoEncabezadoCategoria);
+
 
     //se agrega la nueva categoria
     $("#categorias")[0].appendChild(nuevaCategoria);
