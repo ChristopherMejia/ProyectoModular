@@ -9,7 +9,7 @@
                         <a href="#">Desplegar Usuarios</a>
                     </li>
                     <li>
-                        <a href="#">Crear Usuario</a>
+                        <a href="/users">Crear Usuario</a>
                     </li>
 				</ul>
 			</li>
