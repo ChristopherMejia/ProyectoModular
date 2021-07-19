@@ -303,12 +303,16 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     function agregarSubcategoria(idCategoria){
         if($("#categoria_" + idCategoria)[0].lastChild != null){
-            var idSubcategoriaActual = $("#categoria_" + idCategoria)[0].lastChild.id;
-            var idNuevaSubcategoria = parseInt(idSubcategoriaActual.split('_')[2]) + 1;
+            if($("#categoria_" + idCategoria)[0].lastChild.id != ""){//si la categoria no esta vacía
+                var idSubcategoriaActual = $("#categoria_" + idCategoria)[0].lastChild.id;
+                var idNuevaSubcategoria = parseInt(idSubcategoriaActual.split('_')[2]) + 1;
+            }
+            else  var idNuevaSubcategoria = 1;
         }
         else{
             var idNuevaSubcategoria = 1;
         }
+        var i = idCategoria-1; // valor en el arreglo de categorias
         var nuevaSubCategoria = document.createElement("div");
         nuevaSubCategoria.className = "card-header";
         
@@ -317,9 +321,17 @@
         var nuevoEncabezadoSubcategoria = document.createElement("div"); 
         nuevoEncabezadoSubcategoria.className = "card-header"; 
 
+        //agregar <input type="hidden" name="id_subcategorias[i][]"></input>
+        var nuevoIdSubcategoria = document.createElement("input"); 
+        nuevoIdSubcategoria.name = "id_subcategorias["+i+"][]";
+        nuevoIdSubcategoria.type = "hidden";
+        nuevaSubCategoria.appendChild(nuevoIdSubcategoria);
+
         var nuevoNombreSubcategoria = document.createElement("input");
+        nuevoNombreSubcategoria.name = "subcategorias["+i+"][]";
         nuevoNombreSubcategoria.placeholder = "Subcategoria";
         nuevoEncabezadoSubcategoria.appendChild(nuevoNombreSubcategoria);
+        nuevaSubCategoria.appendChild(nuevoEncabezadoSubcategoria);
 
         // se crea nuevo div para las preguntas
         var nuevasPreguntas = document.createElement("div"); 

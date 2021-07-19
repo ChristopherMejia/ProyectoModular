@@ -15,8 +15,9 @@
             @foreach($categorias as $categoria)
             <div id="categoria_{{$i}}" class="card-header" >
                 <div class="card-header"><input type="hidden" name="id_categorias[]" value = "{{$categoria->id}}"><input type="text" name="categorias[]" value = "{{$categoria->descripcion}}" placeholder="Categoría"></div>
+                @foreach($subcategorias[$i-1] as $subcategoria)
                 <div id="subCategoria_{{$i}}_1" class="card-header">
-                    <div class="card-header"><input type="text" placeholder="Subcategoría"></div>
+                    <div class="card-header"><input type="hidden" name="id_subcategorias[{{$i-1}}][]" value = "{{$subcategoria->id}}"><input type="text"  value = "{{$subcategoria->descripcion}}" name="subcategorias[{{$i-1}}][]" placeholder="Subcategoría"></div>
                     <div id="preguntas_{{$i}}_1" class="col-md-12">
                         <div id="Pregunta_{{$i}}_1_1" class="card" ultimaSubpreguntaId=0>
                             <div class="card-header">
@@ -56,6 +57,7 @@
                     </div>   
                     <button id="buttonAgregar_{{$i}}_1" type="button" onClick="agregarPregunta({{$i}},1)">Agregar pregunta</button>
                 </div>
+                @endforeach
             </div>
             <button id="btnAgregarSubcategoria_{{$i}}" type="button" onClick="agregarSubcategoria({{$i}})">Agregar subcategoria</button>
             <?php
