@@ -80,11 +80,11 @@ class PlantillaController extends Controller
     {
         $plantilla = Plantilla::find($id);
 
-        $categorias = $request->get(key:'categorias');
-        $id_categorias = $request->get(key:'id_categorias');
+        $categorias = $request->get('categorias');
+        $id_categorias = $request->get('id_categorias');
 
-        $subcategorias = $request->get(key:'subcategorias');
-        $id_subcategorias = $request->get(key:'id_subcategorias');
+        $subcategorias = $request->get('subcategorias');
+        $id_subcategorias = $request->get('id_subcategorias');
 
         $i = 0;
 
