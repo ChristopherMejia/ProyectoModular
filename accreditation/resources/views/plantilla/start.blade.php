@@ -1,13 +1,16 @@
 @extends('layouts.app')
 @section('content')
 <div class="main-container">
-    <div class="row justify-content-center">+
+    <div class="row justify-content-center">
+        <form action="/plantilla/update/{{ $plantilla['plantilla_id']}}" method="POST">
+        @csrf 
+        @method('put')
         <div class="card" style="text-align: center;">
             <div class="card-header"><h4>Plantilla {{ $plantilla['plantilla_nombre'] }} - {{ $plantilla['plantilla_version'] }}</h4></div>
         </div>
         <div id="categorias" class="col-md-12">
             <div id="categoria_1" class="card-header" >
-                <div class="card-header"><input type="text" placeholder="Categoría"></div>
+                <div class="card-header"><input type="hidden" name="id_categorias[]"><input type="text" name="categorias[]" placeholder="Categoría"></div>
                 <div id="subCategoria_1_1" class="card-header">
                     <div class="card-header"><input type="text" placeholder="Subcategoría"></div>
                     <div id="preguntas_1_1" class="col-md-12">
@@ -40,19 +43,21 @@
                                         <input type="radio" disabled></input>
                                         <input id=Pregunta_1_1_1_opc-1 type=text placeholder="Opción 1"></input>
                                     </div>
-                                    <button id="+opc_1" onClick="agregarOpcion('Pregunta_1_1_1')">Añadir opción</button>
+                                    <button id="+opc_1" type="button" onClick="agregarOpcion('Pregunta_1_1_1')">Añadir opción</button>
                                 </div>
                                 <input id="res_Pregunta_1_1_1" type="text" value="Respuesta" disabled hidden=true></input>
                             </div>
-                            <button id="Boton_1_1_1" onClick="agregarSubPregunta(1,1,1)">Agregar subpregunta</button>
+                            <button id="Boton_1_1_1" type="button" onClick="agregarSubPregunta(1,1,1)">Agregar subpregunta</button>
                         </div>
                     </div>   
-                    <button id="buttonAgregar_1_1" onClick="agregarPregunta(1,1)">Agregar pregunta</button>
+                    <button id="buttonAgregar_1_1" type="button" onClick="agregarPregunta(1,1)">Agregar pregunta</button>
                 </div>
             </div>
-            <button id="btnAgregarSubcategoria_1_1" onClick="agregarSubcategoria(1)">Agregar subcategoria</button> 
+            <button id="btnAgregarSubcategoria_1" type="button" onClick="agregarSubcategoria(1)">Agregar subcategoria</button> 
         </div>
-        <button id="btnAgregarCategoria_1" onClick="agregarCategoria()">Agregar categoria</button>
+        <button id="btnAgregarCategoria" type="button" onClick="agregarCategoria()" >Agregar categoria</button>
+        <button id="btnGuardar" type="submit" class="btn btn-success">Guardar</button>
+        </form>
     </div>
 </div>
 

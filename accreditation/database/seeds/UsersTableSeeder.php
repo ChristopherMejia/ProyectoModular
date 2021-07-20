@@ -15,10 +15,11 @@ class UsersTableSeeder extends Seeder
         DB::table('users')->delete();
     
         User::create(array(
-            'first_name'     => 'Christopher',
+            'first_name' => 'Christopher',
             'last_name' => 'Mejia',
             'email'    => 'chris@gmail.com',
             'password' => Hash::make('awesome'),
+            'role_id'  => '1',
         ));
     }
 

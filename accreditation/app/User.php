@@ -21,6 +21,7 @@ class User extends Authenticatable
         'last_name',
         'email',
         'password',
+        'role_id',
     ];
 
     /**
@@ -31,13 +32,4 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
     ];
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    // protected $casts = [
-    //     'email_verified_at' => 'datetime',
-    // ];
 }
