@@ -8,6 +8,7 @@ use App\Plantilla;
 use App\Organismo;
 use App\Categoria;
 use App\Subcategoria;
+use App\Pregunta;
 use DB;
 
 class PlantillaController extends Controller
@@ -58,12 +59,7 @@ class PlantillaController extends Controller
     {
         $plantilla = Plantilla::find($id);
         $categorias = DB::table('categorias')->where('idplantilla','=', $plantilla->id)->get();
-        $i=0;
-        foreach($categorias as $categoria){
-            $subcategorias[$i] = DB::table('subcategorias')->where('idCategoria','=', $categoria->id)->get();
-            $i++;
-        }
-
+        
         $nombre  = $plantilla->organismo->nombre;
         $version = $plantilla->version;
         $id      = $plantilla->id;
@@ -72,22 +68,47 @@ class PlantillaController extends Controller
             'plantilla_nombre'  => $nombre,
             'plantilla_version' => $version,
         );
-        //return array('plantilla' => $plantilla_info, 'categorias' => $categorias, 'subcategorias' => $subcategorias);
-        return view('plantilla.edit',['plantilla' => $plantilla_info, 'categorias' => $categorias, 'subcategorias' => $subcategorias]);
+
+        if($categorias->isEmpty()){//si la plantilla esta vacia redirige a start
+            return view('plantilla.start')->with('plantilla', $plantilla_info);
+        }
+
+        $i=0;
+
+        foreach($categorias as $categoria){
+            $j=0;
+            $subcategorias[$i] = DB::table('subcategorias')->where('idCategoria','=', $categoria->id)->get();
+            foreach($subcategorias[$i] as $subcategoria){
+                $preguntas[$i][$j] = DB::table('preguntas')->where('idSubcategoria','=', $subcategoria->id)->get();
+                $j++;
+            }
+            $i++;
+        }
+
+        //return array('plantilla' => $plantilla_info, 'categorias' => $categorias, 'subcategorias' => $subcategorias, 'preguntas' => $preguntas);
+        return view('plantilla.edit',['plantilla' => $plantilla_info, 'categorias' => $categorias, 
+        'subcategorias' => $subcategorias, 'preguntas' => $preguntas]);
     }
 
     public function update(Request $request, $id)
     {
         $plantilla = Plantilla::find($id);
 
+        //arreglos de una dimension [] para las categorias
         $categorias = $request->get('categorias');
         $id_categorias = $request->get('id_categorias');
 
+        //arreglos de dos dimensiones[][] para las subcategorias
         $subcategorias = $request->get('subcategorias');
         $id_subcategorias = $request->get('id_subcategorias');
 
-        $i = 0;
+        //arreglos de tres dimensiones[][][] para las preguntas
+        $preguntas = $request->get('preguntas');
+        $id_preguntas = $request->get('id_preguntas');
+        $tipos = $request->get('tipos');
+        $evidencias = $request->get('evidencias');
 
+        $i = 0;
         while($i < count($categorias)){ //itera por cada categoria
             if($id_categorias[$i] != null){ //si ya existe la categoria, la actualiza
                 $categoriasUpdate = DB::table('categorias')
@@ -102,24 +123,53 @@ class PlantillaController extends Controller
                 $categoria->descripcion = $categorias[$i];
                 $categoria->save();
             }
-            $j=0;
-            while($j < count($subcategorias[$i])){
-                if($id_subcategorias[$i][$j] != null){ //si ya existe la subcategoria, la actualiza
-                    $subcategoriasUpdate = DB::table('subcategorias')
-                    ->where('id', $id_subcategorias[$i][$j])
-                    ->update(['descripcion' => $subcategorias[$i][$j]]);
-                } 
-                else{ //si no existe la subcategoria, crea una nueva
-                    $subcategoria = new Subcategoria();
-                    $subcategoria->idCategoria = $categoria->id;
-                    $subcategoria->descripcion = $subcategorias[$i][$j];
-                    $subcategoria->save();
+            if($subcategorias){//verifica que existan las categorias
+                $j=0;
+                while($j < count($subcategorias[$i])){//itera por cada subcategoria
+                    if($id_subcategorias[$i][$j] != null){ //si ya existe la subcategoria, la actualiza
+                        $subcategoriasUpdate = DB::table('subcategorias')
+                        ->where('id', $id_subcategorias[$i][$j])
+                        ->update(['descripcion' => $subcategorias[$i][$j]]);
+
+                        $subcategoria = Subcategoria::find($id_subcategorias[$i][$j]);
+                    } 
+                    else{ //si no existe la subcategoria, crea una nueva
+                        $subcategoria = new Subcategoria();
+                        $subcategoria->idCategoria = $categoria->id;
+                        $subcategoria->descripcion = $subcategorias[$i][$j];
+                        $subcategoria->save();
+                    }
+
+                    if($preguntas){//verifica que existan las preguntas
+                        $k=0;
+                        while($k < count($preguntas[$i][$j])){//itera por cada pregunta
+                            if($id_preguntas[$i][$j][$k] != null){ //si ya existe la pregunta, la actualiza
+                                $preguntasUpdate = DB::table('subcategorias')
+                                ->where('id', $id_preguntas[$i][$j][$k])
+                                ->update(['descripcion' => $preguntas[$i][$j][$k],
+                                'idTipo' => $tipos[$i][$j][$k],
+                                'conEvidencia' => ($evidencias[$i][$j][$k] ? '1' : '0')]);
+
+                                $pregunta = Pregunta::find($id_preguntas[$i][$j][$k]);
+                            } 
+                            else{ //si no existe la pregunta, crea una nueva
+                                $pregunta = new Pregunta();
+                                $pregunta->idSubcategoria = $subcategoria->id;
+                                $pregunta->descripcion = $preguntas[$i][$j][$k];
+                                $pregunta->idTipo = $tipos[$i][$j][$k];
+                                $pregunta->conEvidencia = ($evidencias[$i][$j][$k] ? '1' : '0');
+                                $pregunta->save();
+                            }
+                            $k=$k+1;
+                        }
+                    }
+                    $j=$j+1;
                 }
-                $j=$j+1;
             }
             $i=$i+1;
         }
-        return array('ids' => $id_categorias, 'categorias' => $categorias, 'ids_subcategorias' => $id_subcategorias, 'subcategorias' =>$subcategorias);
+        return array(/*'ids' => $id_categorias, 'categorias' => $categorias, 'ids_subcategorias' => $id_subcategorias, 
+        'subcategorias' =>$subcategorias,*/ 'ids_preguntas' => $id_preguntas, 'preguntas' => $preguntas, 'tipos' => $tipos, 'evidencias' => $evidencias);
     }
 
     public function destroy($id)

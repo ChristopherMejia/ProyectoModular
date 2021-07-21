@@ -6,19 +6,60 @@
 
         return nuevaLabel;
     }
-    function crearSelectTipo(idPregunta){
+
+    /**
+     * Crea un select de tipo para una pregunta
+     * @param {number} idCategoria 
+     * @param {number} idSubcategoria 
+     * @param {string} idPregunta 
+     * @returns HTMLSelectElement
+     */
+    function crearSelectTipo(idCategoria,idSubcategoria,idPregunta){
+        var i = idCategoria - 1;
+        var j = idSubcategoria -1;
         var nuevoSelectTipo = document.createElement("select");
         nuevoSelectTipo.options[0] = new Option("Cierto o falso",0);
         nuevoSelectTipo.options[1] = new Option("Opción múltiple",1);
         nuevoSelectTipo.options[2] = new Option("Selección múltiple",2);
         nuevoSelectTipo.options[3] = new Option("Abierta",3);
         nuevoSelectTipo.id = "tipo_" + idPregunta;
+        nuevoSelectTipo.name = "tipos["+i+"]["+j+"][]";
         nuevoSelectTipo.addEventListener('click',function(){ 
             cambiarTipo(idPregunta)}
         );
         return nuevoSelectTipo;
     }
 
+    /**
+     * Crear un select de tipo para una subpregunta
+     * @param {number} idCategoria 
+     * @param {number} idSubcategoria 
+     * @param {number} idPregunta 
+     * @param {string} idSubpregunta 
+     * @returns HTMLSelectElement
+     */
+    function crearSelectTipoSub(idCategoria,idSubcategoria,idPregunta,idSubpregunta){
+        var i = idCategoria - 1;
+        var j = idSubcategoria -1;
+        var k = idPregunta -1;
+        var nuevoSelectTipo = document.createElement("select");
+        nuevoSelectTipo.options[0] = new Option("Cierto o falso",0);
+        nuevoSelectTipo.options[1] = new Option("Opción múltiple",1);
+        nuevoSelectTipo.options[2] = new Option("Selección múltiple",2);
+        nuevoSelectTipo.options[3] = new Option("Abierta",3);
+        nuevoSelectTipo.id = "tipo_" + idSubpregunta;
+        nuevoSelectTipo.name = "tipos_sub["+i+"]["+j+"]["+k+"][]";
+        nuevoSelectTipo.addEventListener('click',function(){ 
+            cambiarTipo(idSubpregunta)}
+        );
+        return nuevoSelectTipo;
+    }
+
+    /**
+     * Crear un checkbox para indicar si la pregunta o subpregunta tendrá evidencia
+     * @param {string} idPregunta 
+     * @returns HTMLInputElement 
+     */
     function crearCheckEvidencia(idPregunta){
         var nuevoCheckEvidencia = document.createElement("input");
         nuevoCheckEvidencia.type = "checkbox";
@@ -30,10 +71,41 @@
         return nuevoCheckEvidencia;
     }
 
-    function crearDescripcionEvidencia(idPregunta){
+    /**
+     * Crear un espacio para escribir la descripción de la evidencia
+     * @param {number} idCategoria 
+     * @param {number} idSubcategoria 
+     * @param {string} idPregunta 
+     * @returns HTMLTextAreaElement
+     */
+    function crearDescripcionEvidencia(idCategoria,idSubcategoria,idPregunta){
+        var i = idCategoria - 1;
+        var j = idSubcategoria -1;
         var nuevaDescripcionEvidencia = document.createElement("textarea");
         nuevaDescripcionEvidencia.placeholder = "Describir evidencia";
         nuevaDescripcionEvidencia.id = "evidencia_" + idPregunta;
+        nuevaDescripcionEvidencia.name = "evidencias["+i+"]["+j+"][]";
+        nuevaDescripcionEvidencia.hidden = true;
+
+        return nuevaDescripcionEvidencia;
+    }
+
+    /**
+     * Crear un espacio para escribir la descripción de la evidencia
+     * @param {number} idCategoria 
+     * @param {number} idSubcategoria 
+     * @param {number} idPregunta 
+     * @param {string} idSubpregunta 
+     * @returns HTMLTextAreaElement
+     */
+    function crearDescripcionEvidenciaSub(idCategoria,idSubcategoria,idPregunta,idSubpregunta){
+        var i = idCategoria - 1;
+        var j = idSubcategoria -1;
+        var k = idPregunta -1;
+        var nuevaDescripcionEvidencia = document.createElement("textarea");
+        nuevaDescripcionEvidencia.placeholder = "Describir evidencia";
+        nuevaDescripcionEvidencia.id = "evidencia_" + idSubpregunta;
+        nuevaDescripcionEvidencia.name = "evidencias["+i+"]["+j+"]["+k+"][]";
         nuevaDescripcionEvidencia.hidden = true;
 
         return nuevaDescripcionEvidencia;
@@ -126,6 +198,9 @@
         else{
             var idNuevaPregunta = 1;
         }
+        var i = idCategoria-1; // valor en el arreglo de categorias
+        var j = idSubcategoria-1; // valor en el arreglo de subcategorias
+
         var nuevaPregunta = document.createElement("div");
         nuevaPregunta.className = "card";
         nuevaPregunta.id = "Pregunta_" + idCategoria + "_" + idSubcategoria + "_" + idNuevaPregunta;
@@ -139,16 +214,22 @@
 
         var nuevoIdentificadorPregunta = crearLabel(idNuevaPregunta + ".")
 
+        //agregar <input type="hidden" name="id_preguntas[i][j][]"></input>
+        var nuevoIdPregunta = document.createElement("input"); 
+        nuevoIdPregunta.name = "id_preguntas["+i+"]["+j+"][]";
+        nuevoIdPregunta.type = "hidden";
+
         var nuevoTituloPregunta = document.createElement("input");
+        nuevoTituloPregunta.name = "preguntas["+i+"]["+j+"][]";
         nuevoTituloPregunta.placeholder = "Pregunta";
 
-        var nuevoSelectTipo = crearSelectTipo(nuevaPregunta.id);
+        var nuevoSelectTipo = crearSelectTipo(idCategoria,idSubcategoria,nuevaPregunta.id);
 
         var nuevoCheckEvidencia = crearCheckEvidencia(nuevaPregunta.id);
 
         var checkLabel = crearLabel("Evidencia");
 
-        var nuevaDescripcionEvidencia = crearDescripcionEvidencia(nuevaPregunta.id);
+        var nuevaDescripcionEvidencia = crearDescripcionEvidencia(idCategoria,idSubcategoria,nuevaPregunta.id);
 
         var nuevoEspacioAdjunto = crearEspacioAdjunto(nuevaPregunta.id);
 
@@ -162,6 +243,7 @@
         nuevoCuerpoPregunta.className = "card-body"
 
         nuevaPregunta.appendChild(nuevoEncabezadoPregunta); 
+        nuevoEncabezadoPregunta.appendChild(nuevoIdPregunta);
         nuevoEncabezadoPregunta.appendChild(nuevoIdentificadorPregunta);
         nuevoEncabezadoPregunta.appendChild(nuevoTituloPregunta);
         nuevoEncabezadoPregunta.appendChild(nuevoSelectTipo);  
@@ -206,13 +288,13 @@
         var nuevoTituloPregunta = document.createElement("input");
         nuevoTituloPregunta.placeholder = "Subpregunta"
 
-        var nuevoSelectTipo = crearSelectTipo(nuevaSubPregunta.id);
+        var nuevoSelectTipo = crearSelectTipoSub(idCategoria,idSubcategoria,idPregunta,nuevaSubPregunta.id);
 
         var nuevoCheckEvidencia = crearCheckEvidencia(nuevaSubPregunta.id);
 
         var checkLabel = crearLabel("Evidencia");
 
-        var nuevaDescripcionEvidencia = crearDescripcionEvidencia(nuevaSubPregunta.id);
+        var nuevaDescripcionEvidencia = crearDescripcionEvidenciaSub(idCategoria,idSubcategoria,idPregunta,nuevaSubPregunta.id);
 
         var nuevoCiertoFalso = crearCiertoFalso(nuevaSubPregunta.id);
 
@@ -245,6 +327,7 @@
         }
         else{
             $("#evidencia_"+idPregunta)[0].hidden = true;
+            $("#evidencia_"+idPregunta)[0].value="";
         }
     }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////

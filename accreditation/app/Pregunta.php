@@ -12,8 +12,8 @@ class Pregunta extends Model
     protected $fillable =[
         'idTipo',
         'descripcion',
-        'con_evidencia',
-        'con_adjunto',
+        'conEvidencia',
+        'conAdjunto',
         'idSubcategoria',
         'identificacion',
     ];
