@@ -20,7 +20,6 @@ class CreatePreguntasTable extends Migration
             $table->boolean('conEvidencia');
             $table->boolean('conAdjunto');
             $table->unsignedBigInteger('idSubcategoria');
-            $table->timestamps();
         });
     }
 
