@@ -86,8 +86,8 @@ class PlantillaController extends Controller
         }
 
         //return array('plantilla' => $plantilla_info, 'categorias' => $categorias, 'subcategorias' => $subcategorias, 'preguntas' => $preguntas);
-        return view('plantilla.edit',['plantilla' => $plantilla_info, 'categorias' => $categorias, 
-        'subcategorias' => $subcategorias, 'preguntas' => $preguntas]);
+        return view('plantilla.edit',['plantilla' => $plantilla_info, 'categorias' => $categorias ?? null, 
+        'subcategorias' => $subcategorias ?? null, 'preguntas' => $preguntas ?? null]);
     }
 
     public function update(Request $request, $id)

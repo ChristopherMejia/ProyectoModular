@@ -12,23 +12,24 @@
             <div id="categoria_1" class="card-header" >
                 <div class="card-header"><input type="hidden" name="id_categorias[]"><input type="text" name="categorias[]" placeholder="Categoría"></div>
                 <div id="subCategoria_1_1" class="card-header">
-                    <div class="card-header"><input type="text" placeholder="Subcategoría"></div>
+                    <div class="card-header"><input type="hidden" name="id_subcategorias[0][]"><input type="text" name="subcategorias[0][]" placeholder="Subcategoría"></div>
                     <div id="preguntas_1_1" class="col-md-12">
                         <div id="Pregunta_1_1_1" class="card" ultimaSubpreguntaId=0>
                             <div class="card-header">
                                 <label>1.</label>
-                                <input type="text" placeholder="Pregunta"></input>
-                                <select id="tipo_Pregunta_1_1_1" value="Pregunta" onChange="cambiarTipo('Pregunta_1_1_1')">
+                                <input type="hidden" name="id_preguntas[0][0][]">
+                                <input type="text"  name="preguntas[0][0][]" placeholder="Pregunta"></input>
+                                <select id="tipo_Pregunta_1_1_1" name="tipos[0][0][]" value="Pregunta" onChange="cambiarTipo('Pregunta_1_1_1')">
                                     <option value="0">Cierto o falso</option>
                                     <option value="1">Opción múltiple</option>
                                     <option value="2">Selección múltiple</option>
                                     <option value="3">Abierta</option>
                                 </select>
                                 <input id=check_Pregunta_1_1_1 type="checkbox" onChange="habilitarEvidencia('Pregunta_1_1_1')">Evidencia</input>
-                                <textarea id=evidencia_Pregunta_1_1_1 placeholder="Describir evidencia" hidden></textarea>
+                                <textarea id=evidencia_Pregunta_1_1_1 name="evidencias[0][0][]" placeholder="Describir evidencia" hidden></textarea>
                                 <div id="adjunto_Pregunta_1_1_1">
                                     <label>Adjunto</label>
-                                    <input type="file"></input>
+                                    <input name="adjuntos[0][0][]" type="file"></input>
                                 </div>
                             </div>
                             <div class="card-body">
