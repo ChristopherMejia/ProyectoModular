@@ -107,8 +107,10 @@ class PlantillaController extends Controller
         $id_preguntas = $request->get('id_preguntas');
         $tipos = $request->get('tipos');
         $evidencias = $request->get('evidencias');
+        $adjuntos = $request->get('adjuntos');
 
         $i = 0;
+        
         while($i < count($categorias)){ //itera por cada categoria
             if($id_categorias[$i] != null){ //si ya existe la categoria, la actualiza
                 $categoriasUpdate = DB::table('categorias')
@@ -140,15 +142,17 @@ class PlantillaController extends Controller
                         $subcategoria->save();
                     }
 
-                    if($preguntas){//verifica que existan las preguntas
+                    if($preguntas)//verifica que existan las preguntas
+                    if($preguntas[$i] ?? null){//verifica que existan las preguntas en la subcategoria
                         $k=0;
                         while($k < count($preguntas[$i][$j])){//itera por cada pregunta
                             if($id_preguntas[$i][$j][$k] != null){ //si ya existe la pregunta, la actualiza
-                                $preguntasUpdate = DB::table('subcategorias')
+                                $preguntasUpdate = DB::table('preguntas')
                                 ->where('id', $id_preguntas[$i][$j][$k])
                                 ->update(['descripcion' => $preguntas[$i][$j][$k],
                                 'idTipo' => $tipos[$i][$j][$k],
-                                'conEvidencia' => ($evidencias[$i][$j][$k] ? '1' : '0')]);
+                                'conEvidencia' => ($evidencias[$i][$j][$k] ? '1' : '0'),
+                                'conAdjunto'   => ($adjuntos[$i][$j][$k] ? '1' : '0')]);
 
                                 $pregunta = Pregunta::find($id_preguntas[$i][$j][$k]);
                             } 
@@ -158,6 +162,7 @@ class PlantillaController extends Controller
                                 $pregunta->descripcion = $preguntas[$i][$j][$k];
                                 $pregunta->idTipo = $tipos[$i][$j][$k];
                                 $pregunta->conEvidencia = ($evidencias[$i][$j][$k] ? '1' : '0');
+                                $pregunta->conAdjunto = ($adjuntos[$i][$j][$k] ? '1' : '0');
                                 $pregunta->save();
                             }
                             $k=$k+1;
@@ -169,7 +174,7 @@ class PlantillaController extends Controller
             $i=$i+1;
         }
         return array(/*'ids' => $id_categorias, 'categorias' => $categorias, 'ids_subcategorias' => $id_subcategorias, 
-        'subcategorias' =>$subcategorias,*/ 'ids_preguntas' => $id_preguntas, 'preguntas' => $preguntas, 'tipos' => $tipos, 'evidencias' => $evidencias);
+        'subcategorias' =>$subcategorias,*/ 'ids_preguntas' => $id_preguntas, 'preguntas' => $preguntas, 'tipos' => $tipos, 'evidencias' => $evidencias, 'adjuntos' => $adjuntos);
     }
 
     public function destroy($id)

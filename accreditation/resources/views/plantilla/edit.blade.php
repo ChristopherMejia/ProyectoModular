@@ -38,10 +38,10 @@
                                     <option value="3">Abierta</option>
                                 </select>
                                 <input id=check_Pregunta_{{$i}}_{{$j}}_{{$k}} type="checkbox" onChange="habilitarEvidencia('Pregunta_{{$i}}_{{$j}}_{{$k}}')">Evidencia</input>
-                                <textarea id=evidencia_Pregunta_{{$i}}_{{$j}}_{{$k}} placeholder="Describir evidencia" hidden></textarea>
+                                <textarea id=evidencia_Pregunta_{{$i}}_{{$j}}_{{$k}} name="evidencias[{{$i-1}}][{{$j-1}}][]" placeholder="Describir evidencia" hidden></textarea>
                                 <div id="adjunto_Pregunta_{{$i}}_{{$j}}_{{$k}}">
                                     <label>Adjunto</label>
-                                    <input type="file"></input>
+                                    <input name="adjuntos[{{$i-1}}][{{$j-1}}][]" type="file"></input>
                                 </div>
                             </div>
                             <div class="card-body">

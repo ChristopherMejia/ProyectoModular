@@ -174,13 +174,23 @@
         return nuevaOpcionMultiple;
     }
 
-    function crearEspacioAdjunto(idPregunta){
+    /**
+     * Crear un espacio para adjuntar un archivo
+     * @param {number} idCategoria 
+     * @param {number} idSubcategoria 
+     * @param {string} idPregunta 
+     * @returns HTMLDivElement
+     */
+    function crearEspacioAdjunto(idCategoria,idSubcategoria,idPregunta){
+        var i = idCategoria - 1;
+        var j = idSubcategoria -1;
         var nuevoEspacioAdjunto = document.createElement("div");
         adjuntoText = document.createTextNode("Adjunto");
         adjuntoLabel = document.createElement("label");
         adjuntoLabel.appendChild(adjuntoText);
         nuevoAdjunto = document.createElement("input");
         nuevoAdjunto.type = "file";
+        nuevoAdjunto.name = "adjuntos["+i+"]["+j+"][]";
         nuevoEspacioAdjunto.appendChild(adjuntoLabel);
         nuevoEspacioAdjunto.appendChild(nuevoAdjunto);
         nuevoEspacioAdjunto.id = "adjunto_" + idPregunta;
@@ -231,7 +241,7 @@
 
         var nuevaDescripcionEvidencia = crearDescripcionEvidencia(idCategoria,idSubcategoria,nuevaPregunta.id);
 
-        var nuevoEspacioAdjunto = crearEspacioAdjunto(nuevaPregunta.id);
+        var nuevoEspacioAdjunto = crearEspacioAdjunto(idCategoria,idSubcategoria,nuevaPregunta.id);
 
         var nuevoCiertoFalso = crearCiertoFalso(nuevaPregunta.id);
 
