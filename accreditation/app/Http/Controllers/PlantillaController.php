@@ -9,6 +9,7 @@ use App\Organismo;
 use App\Categoria;
 use App\Subcategoria;
 use App\Pregunta;
+use App\Subpregunta;
 use DB;
 
 class PlantillaController extends Controller
@@ -47,7 +48,16 @@ class PlantillaController extends Controller
         $plantilla->version = $version;
         $plantilla->save();
 
-        return \redirect()->back()->with('message', 'Successfully');
+        $nombre  = $plantilla->organismo->nombre;
+        $version = $plantilla->version;
+        $id      = $plantilla->id;
+        $plantilla_info = array(
+            'plantilla_id'      => $id,
+            'plantilla_nombre'  => $nombre,
+            'plantilla_version' => $version,
+        );
+
+        return view('plantilla.start')->with('plantilla', $plantilla_info);
     }
 
     public function show($id)
@@ -74,12 +84,16 @@ class PlantillaController extends Controller
         }
 
         $i=0;
-
         foreach($categorias as $categoria){
             $j=0;
             $subcategorias[$i] = DB::table('subcategorias')->where('idCategoria','=', $categoria->id)->get();
             foreach($subcategorias[$i] as $subcategoria){
+                $k=0;
                 $preguntas[$i][$j] = DB::table('preguntas')->where('idSubcategoria','=', $subcategoria->id)->get();
+                foreach($preguntas[$i][$j] as $pregunta){
+                    $subpreguntas[$i][$j][$k] = DB::table('subpreguntas')->where('idPregunta','=', $pregunta->id)->get();
+                    $k++;
+                }
                 $j++;
             }
             $i++;
@@ -87,7 +101,7 @@ class PlantillaController extends Controller
 
         //return array('plantilla' => $plantilla_info, 'categorias' => $categorias, 'subcategorias' => $subcategorias, 'preguntas' => $preguntas);
         return view('plantilla.edit',['plantilla' => $plantilla_info, 'categorias' => $categorias ?? null, 
-        'subcategorias' => $subcategorias ?? null, 'preguntas' => $preguntas ?? null]);
+        'subcategorias' => $subcategorias ?? null, 'preguntas' => $preguntas ?? null, 'subpreguntas' => $subpreguntas ?? null]);
     }
 
     public function update(Request $request, $id)
@@ -108,6 +122,11 @@ class PlantillaController extends Controller
         $tipos = $request->get('tipos');
         $evidencias = $request->get('evidencias');
         $adjuntos = $request->get('adjuntos');
+
+        //arreglos de cuatro dimensiones[][][][] para las subpreguntas
+        $subpreguntas = $request->get('subpreguntas');
+        $id_subpreguntas = $request->get('id_subpreguntas');
+        $tipos_sub = $request->get('tipos_sub');
 
         $i = 0;
         
@@ -165,8 +184,30 @@ class PlantillaController extends Controller
                                 $pregunta->conAdjunto = ($adjuntos[$i][$j][$k] ? '1' : '0');
                                 $pregunta->save();
                             }
-                            $k=$k+1;
-                        }
+                            if($subpreguntas)//verifica que existan las subpreguntas
+                            if($subpreguntas[$i][$j] ?? null){//verifica que existan las subpreguntas en la pregunta
+                                $l=0;
+                                while($l < count($subpreguntas[$i][$j][$k])){//itera por cada subpregunta
+                                    if($id_subpreguntas[$i][$j][$k][$l] != null){ //si ya existe la subpregunta, la actualiza
+                                        $subpreguntasUpdate = DB::table('subpreguntas')
+                                        ->where('id', $id_subpreguntas[$i][$j][$k][$l])
+                                        ->update(['descripcion' => $subpreguntas[$i][$j][$k][$l],
+                                        'idTipo' => $tipos_sub[$i][$j][$k][$l]]);
+        
+                                        $subpregunta = Subpregunta::find($id_subpreguntas[$i][$j][$k][$l]);
+                                    } 
+                                    else{ //si no existe la subspregunta, crea una nueva
+                                        $subpregunta = new Subpregunta();
+                                        $subpregunta->idPregunta = $pregunta->id;
+                                        $subpregunta->descripcion = $subpreguntas[$i][$j][$k][$l];
+                                        $subpregunta->idTipo = $tipos_sub[$i][$j][$k][$l];
+                                        $subpregunta->save();
+                                    }
+                                $l=$l+1;
+                                }
+                            }
+                            $k=$k+1;  
+                        } 
                     }
                     $j=$j+1;
                 }
@@ -174,7 +215,7 @@ class PlantillaController extends Controller
             $i=$i+1;
         }
         return array(/*'ids' => $id_categorias, 'categorias' => $categorias, 'ids_subcategorias' => $id_subcategorias, 
-        'subcategorias' =>$subcategorias,*/ 'ids_preguntas' => $id_preguntas, 'preguntas' => $preguntas, 'tipos' => $tipos, 'evidencias' => $evidencias, 'adjuntos' => $adjuntos);
+        'subcategorias' =>$subcategorias,*/ 'ids_preguntas' => $id_preguntas, 'preguntas' => $preguntas, 'tipos' => $tipos, 'evidencias' => $evidencias, 'adjuntos' => $adjuntos, 'subpreguntas' => $subpreguntas);
     }
 
     public function destroy($id)

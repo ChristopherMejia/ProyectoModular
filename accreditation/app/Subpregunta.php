@@ -12,9 +12,7 @@ class Subpregunta extends Model
     protected $fillable =[
         'idTipo',
         'descripcion',
-        'conEvidencia',
-        'conAdjunto',
-        'idSubcategoria',
+        'idPregunta',
         'identificacion',
     ];
 }

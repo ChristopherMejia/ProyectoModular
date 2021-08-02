@@ -19,16 +19,19 @@
             <div id="categoria_{{$i}}" class="card-header" >
                 <div class="card-header"><input type="hidden" name="id_categorias[]" value = "{{$categoria->id}}"><input type="text" name="categorias[]" value = "{{$categoria->descripcion}}" placeholder="Categoría"></div>
                 @foreach($subcategorias[$i-1] as $subcategoria)
+                <?php
+                    $k = 1;
+                ?>
                 <div id="subCategoria_{{$i}}_{{$j}}" class="card-header">
                     <div class="card-header"><input type="hidden" name="id_subcategorias[{{$i-1}}][]" value = "{{$subcategoria->id}}"><input type="text"  value = "{{$subcategoria->descripcion}}" name="subcategorias[{{$i-1}}][]" placeholder="Subcategoría"></div>
                     <div id="preguntas_{{$i}}_{{$j}}" class="col-md-12">
                         @foreach($preguntas[$i-1][$j-1] as $pregunta)
                         <?php
-                            $k = 1;
+                            $l = 1;
                         ?>
-                        <div id="Pregunta_{{$i}}_{{$j}}_{{$k}}" class="card" ultimaSubpreguntaId=0>
+                        <div id="Pregunta_{{$i}}_{{$j}}_{{$k}}" class="card" ultimaSubpreguntaId={{count($subpreguntas[$i-1][$j-1][$k-1])}}>
                             <div class="card-header">
-                                <label>1.</label>
+                                <label>{{$k}}.</label>
                                 <input type="hidden" name="id_preguntas[{{$i-1}}][{{$j-1}}][]" value = "{{$pregunta->id}}"> 
                                 <input type="text" value = "{{$pregunta->descripcion}}" name="preguntas[{{$i-1}}][{{$j-1}}][]" placeholder="Pregunta"></input>
                                 <select id="tipo_Pregunta_{{$i}}_{{$j}}_{{$k}}" name="tipos[{{$i-1}}][{{$j-1}}][]" onChange="cambiarTipo('Pregunta_{{$i}}_{{$j}}_{{$k}}')">
@@ -60,6 +63,40 @@
                                 </div>
                                 <input id="res_Pregunta_{{$i}}_{{$j}}_{{$k}}" type="text" value="Respuesta" disabled hidden=true></input>
                             </div>
+                            @foreach($subpreguntas[$i-1][$j-1][$k-1] as $subpregunta)
+                            <div id="{{$i}}_{{$j}}_{{$k}}_SubPregunta_{{$l}}" class="card">
+                            <div class="card-header">
+                                <label>{{$k}}.{{$l}}.</label>
+                                <input type="hidden" name="id_subpreguntas[{{$i-1}}][{{$j-1}}][{{$k-1}}][]" value = "{{$subpregunta->id}}"> 
+                                <input type="text" value = "{{$subpregunta->descripcion}}" name="subpreguntas[{{$i-1}}][{{$j-1}}][{{$k-1}}][]" placeholder="Subregunta"></input>
+                                <select id="tipo_{{$i}}_{{$j}}_{{$k}}_SubPregunta_{{$l}}" name="tipos_sub[{{$i-1}}][{{$j-1}}][{{$k-1}}][]" onChange="cambiarTipo('{{$i}}_{{$j}}_{{$k}}_SubPregunta_{{$l}}')">
+                                    <option value="0">Cierto o falso</option>
+                                    <option value="1">Opción múltiple</option>
+                                    <option value="2">Selección múltiple</option>
+                                    <option value="3">Abierta</option>
+                                </select>
+                            </div>
+                            <div class="card-body">
+                                <div id="ciertoFalso_{{$i}}_{{$j}}_{{$k}}_SubPregunta_{{$l}}">
+                                    <input type="radio" disabled></input>
+                                    <label>Cierto</label>
+                                    <input type="radio" disabled></input>
+                                    <label>Falso</label>
+                                </div>
+                                <div id="opcionMultiple_{{$i}}_{{$j}}_{{$k}}_SubPregunta_{{$l}}" hidden=true>
+                                    <div id="opciones_{{$i}}_{{$j}}_{{$k}}_SubPregunta_{{$l}}">
+                                        <input type="radio" disabled></input>
+                                        <input id={{$i}}_{{$j}}_{{$k}}_SubPregunta_{{$l}}_opc-1 type=text placeholder="Opción 1"></input>
+                                    </div>
+                                    <button id="+opc_1" type="button" onClick="agregarOpcion('{{$i}}_{{$j}}_{{$k}}_SubPregunta_{{$l}}')">Añadir opción</button>
+                                </div>
+                                <input id="res_{{$i}}_{{$j}}_{{$k}}_SubPregunta_{{$l}}" type="text" value="Respuesta" disabled hidden=true></input>
+                            </div>
+                            </div>
+                            <?php
+                                $l++;
+                            ?>
+                            @endforeach
                             <button id="Boton_{{$i}}_{{$j}}_{{$k}}" type="button" onClick="agregarSubPregunta({{$i}},{{$j}},{{$k}})">Agregar subpregunta</button>
                         </div>
                         <?php

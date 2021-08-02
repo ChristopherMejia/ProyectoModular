@@ -284,6 +284,10 @@
         // crea un nuevo div
         // y añade contenido
         var idNuevaSubPregunta =  ++($("#Pregunta_"+idCategoria + "_" + idSubcategoria + "_" + idPregunta)[0].attributes.ultimaSubpreguntaId.value);
+        var i = idCategoria-1; // valor en el arreglo de categorias
+        var j = idSubcategoria-1; // valor en el arreglo de subcategorias
+        var k = idPregunta-1; // valor en el arreglo de preguntas
+
         var nuevaSubPregunta = document.createElement("div");
         nuevaSubPregunta.className = "card";
         nuevaSubPregunta.id = idCategoria + "_" + idSubcategoria + "_" + idPregunta + "_SubPregunta_" + idNuevaSubPregunta;
@@ -295,7 +299,13 @@
         identificadorText = document.createTextNode(idPregunta + "." + idNuevaSubPregunta + ".");
         nuevoIdentificadorPregunta.appendChild(identificadorText);
 
+        //agregar <input type="hidden" name="id_preguntas[i][j][]"></input>
+        var nuevoIdPregunta = document.createElement("input"); 
+        nuevoIdPregunta.name = "id_subpreguntas["+i+"]["+j+"]["+k+"][]";
+        nuevoIdPregunta.type = "hidden";
+
         var nuevoTituloPregunta = document.createElement("input");
+        nuevoTituloPregunta.name = "subpreguntas["+i+"]["+j+"]["+k+"][]";
         nuevoTituloPregunta.placeholder = "Subpregunta"
 
         var nuevoSelectTipo = crearSelectTipoSub(idCategoria,idSubcategoria,idPregunta,nuevaSubPregunta.id);
@@ -316,6 +326,7 @@
         nuevoCuerpoPregunta.className = "card-body"
 
         nuevaSubPregunta.appendChild(nuevoEncabezadoPregunta); 
+        nuevoEncabezadoPregunta.appendChild(nuevoIdPregunta);
         nuevoEncabezadoPregunta.appendChild(nuevoIdentificadorPregunta);
         nuevoEncabezadoPregunta.appendChild(nuevoTituloPregunta); //añade texto al div creado.
         nuevoEncabezadoPregunta.appendChild(nuevoSelectTipo);  
