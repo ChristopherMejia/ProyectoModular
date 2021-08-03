@@ -9,7 +9,9 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use Notifiable;
-
+    const MANAGER = 1;
+    const COORDINATOR = 2;
+    const TEACHER = 3;
     /**
      * The attributes that are mass assignable.
      *
@@ -32,4 +34,14 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
     ];
+
+    public function isManager(){
+        return $this->role_id ===  User::MANAGER;
+    }
+    public function isCoordinator(){
+        return $this->role_id === User::COORDINATOR;
+    }
+    public function isTeacher(){
+        return $this->role_id === User::TEACHER;
+    }
 }

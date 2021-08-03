@@ -37,9 +37,9 @@
                         
                         <select class="form-select" id="inputGroupRoles" name="inputGroupRoles">
                             <option selected disabled>Selecciona una opción...</option>
-                            <option value="1">Administrador</option>
-                            <option value="2">Operador</option>
-                            <option value="3">Usuario</option>
+                            <option value="1">Director</option>
+                            <option value="2">Coordinador</option>
+                            <option value="3">Maestro</option>
                         </select>
                         <label class="input-group-text" for="inputGroupSelect01">Roles</label>
                     </div>
