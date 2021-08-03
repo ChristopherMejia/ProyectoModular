@@ -17,9 +17,9 @@ class RolesTableSeeder extends Seeder
         DB::table('roles')->delete();
 
         DB::table('roles')->insert([
-            ['name' => 'admin'],
-            ['name' => 'operator'],
-            ['name' => 'customer'],
+            ['name' => 'Director'],
+            ['name' => 'Coordinador'],
+            ['name' => 'Maestro'],
         ]);
 
     }
