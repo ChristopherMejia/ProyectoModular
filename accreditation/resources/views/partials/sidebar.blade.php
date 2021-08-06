@@ -1,6 +1,7 @@
 <div class="sidebar">
 	<nav>
 		<ul class="list-unstyled components">
+			@if (Auth::user()->role_id == 1)
 			<li>
 				<span class="material-icons icon">accessibility_new</span>
 				<a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle ">Usuario</a>
@@ -13,6 +14,7 @@
                     </li>
 				</ul>
 			</li>
+			@endif
 			<li>
 				<span class="material-icons">text_snippet</span>
 				<a href="#PlantillaSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Plantilla</a>
@@ -25,6 +27,7 @@
                     </li>
 				</ul>
 			</li>
+			@if (Auth::user()->role_id == 1)
 			<li>
 				<span class="material-icons">analytics</span>
 				<a href="#EducacionSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle ">Educación</a>
@@ -37,6 +40,7 @@
 					</li>
 				</ul>
 			</li>
+			
 			<li>
 			<span class="material-icons">approval</span>
 				<a href="#OrgSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle ">Organismo</a>
@@ -49,6 +53,7 @@
                     </li>
 				</ul>
 			</li>
+			@endif
 		</ul>
 	</nav>
 </div>
