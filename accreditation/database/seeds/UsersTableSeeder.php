@@ -21,6 +21,22 @@ class UsersTableSeeder extends Seeder
             'password' => Hash::make('awesome'),
             'role_id'  => '1',
         ));
+
+        User::create(array(
+            'first_name' => 'Coordinador',
+            'last_name' => 'Lastname',
+            'email'    => 'username@gmail.com',
+            'password' => Hash::make('awesome'),
+            'role_id'  => '2',
+        ));
+
+        User::create(array(
+            'first_name' => 'Maestro',
+            'last_name' => 'Lastname',
+            'email'    => 'username@gmail.com',
+            'password' => Hash::make('awesome'),
+            'role_id'  => '3',
+        ));
     }
 
 }
