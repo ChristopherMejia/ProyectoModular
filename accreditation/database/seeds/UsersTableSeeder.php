@@ -25,7 +25,7 @@ class UsersTableSeeder extends Seeder
         User::create(array(
             'first_name' => 'Coordinador',
             'last_name' => 'Lastname',
-            'email'    => 'username@gmail.com',
+            'email'    => 'coordinador@gmail.com',
             'password' => Hash::make('awesome'),
             'role_id'  => '2',
         ));
@@ -33,7 +33,7 @@ class UsersTableSeeder extends Seeder
         User::create(array(
             'first_name' => 'Maestro',
             'last_name' => 'Lastname',
-            'email'    => 'username@gmail.com',
+            'email'    => 'maestro@gmail.com',
             'password' => Hash::make('awesome'),
             'role_id'  => '3',
         ));
