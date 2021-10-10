@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddPermissionUsersTable extends Migration
+class AddEvidenceDescriptionPreguntasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddPermissionUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->unsignedBigInteger('role_id');
+        Schema::table('preguntas', function (Blueprint $table) {
+            $table->string('descripcionEvidencia')->after('conEvidencia')->nullable();;
         });
     }
 
@@ -25,8 +25,8 @@ class AddPermissionUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('role_id');
+        Schema::table('preguntas', function (Blueprint $table) {
+            $table->dropColumn('descripcionEvidencia');
         });
     }
 }

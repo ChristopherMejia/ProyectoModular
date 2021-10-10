@@ -13,6 +13,7 @@ class Pregunta extends Model
         'idTipo',
         'descripcion',
         'conEvidencia',
+        'descripcionEvidencia',
         'conAdjunto',
         'idSubcategoria',
         'identificacion',

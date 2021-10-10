@@ -144,7 +144,8 @@ class PlantillaController extends Controller
                 $categoria->descripcion = $categorias[$i];
                 $categoria->save();
             }
-            if($subcategorias){//verifica que existan las categorias
+            if($subcategorias)//verifica que existan las subcategorias
+            if($subcategorias[$i] ?? null){//verifica que existan las subcategorias en la categoria
                 $j=0;
                 while($j < count($subcategorias[$i])){//itera por cada subcategoria
                     if($id_subcategorias[$i][$j] != null){ //si ya existe la subcategoria, la actualiza
@@ -162,7 +163,7 @@ class PlantillaController extends Controller
                     }
 
                     if($preguntas)//verifica que existan las preguntas
-                    if($preguntas[$i] ?? null){//verifica que existan las preguntas en la subcategoria
+                    if($preguntas[$i][$j] ?? null){//verifica que existan las preguntas en la subcategoria
                         $k=0;
                         while($k < count($preguntas[$i][$j])){//itera por cada pregunta
                             if($id_preguntas[$i][$j][$k] != null){ //si ya existe la pregunta, la actualiza
@@ -171,6 +172,7 @@ class PlantillaController extends Controller
                                 ->update(['descripcion' => $preguntas[$i][$j][$k],
                                 'idTipo' => $tipos[$i][$j][$k],
                                 'conEvidencia' => ($evidencias[$i][$j][$k] ? '1' : '0'),
+                                'descripcionEvidencia' => $evidencias[$i][$j][$k],
                                 'conAdjunto'   => ($adjuntos[$i][$j][$k] ? '1' : '0')]);
 
                                 $pregunta = Pregunta::find($id_preguntas[$i][$j][$k]);
@@ -181,30 +183,31 @@ class PlantillaController extends Controller
                                 $pregunta->descripcion = $preguntas[$i][$j][$k];
                                 $pregunta->idTipo = $tipos[$i][$j][$k];
                                 $pregunta->conEvidencia = ($evidencias[$i][$j][$k] ? '1' : '0');
+                                $pregunta->descripcionEvidencia = $evidencias[$i][$j][$k];
                                 $pregunta->conAdjunto = ($adjuntos[$i][$j][$k] ? '1' : '0');
                                 $pregunta->save();
                             }
                             if($subpreguntas)//verifica que existan las subpreguntas
-                            if($subpreguntas[$i][$j] ?? null){//verifica que existan las subpreguntas en la pregunta
+                            if($subpreguntas[$i][$j][$k] ?? null){//verifica que existan las subpreguntas en la pregunta
                                 $l=0;
-                                while($l < count($subpreguntas[$i][$j][$k])){//itera por cada subpregunta
-                                    if($id_subpreguntas[$i][$j][$k][$l] != null){ //si ya existe la subpregunta, la actualiza
-                                        $subpreguntasUpdate = DB::table('subpreguntas')
-                                        ->where('id', $id_subpreguntas[$i][$j][$k][$l])
-                                        ->update(['descripcion' => $subpreguntas[$i][$j][$k][$l],
-                                        'idTipo' => $tipos_sub[$i][$j][$k][$l]]);
-        
-                                        $subpregunta = Subpregunta::find($id_subpreguntas[$i][$j][$k][$l]);
-                                    } 
-                                    else{ //si no existe la subspregunta, crea una nueva
-                                        $subpregunta = new Subpregunta();
-                                        $subpregunta->idPregunta = $pregunta->id;
-                                        $subpregunta->descripcion = $subpreguntas[$i][$j][$k][$l];
-                                        $subpregunta->idTipo = $tipos_sub[$i][$j][$k][$l];
-                                        $subpregunta->save();
+                                    while($l < count($subpreguntas[$i][$j][$k])){//itera por cada subpregunta ##CORREGIR
+                                        if($id_subpreguntas[$i][$j][$k][$l] != null){ //si ya existe la subpregunta, la actualiza
+                                            $subpreguntasUpdate = DB::table('subpreguntas')
+                                            ->where('id', $id_subpreguntas[$i][$j][$k][$l])
+                                            ->update(['descripcion' => $subpreguntas[$i][$j][$k][$l],
+                                            'idTipo' => $tipos_sub[$i][$j][$k][$l]]);
+            
+                                            $subpregunta = Subpregunta::find($id_subpreguntas[$i][$j][$k][$l]);
+                                        } 
+                                        else{ //si no existe la subspregunta, crea una nueva
+                                            $subpregunta = new Subpregunta();
+                                            $subpregunta->idPregunta = $pregunta->id;
+                                            $subpregunta->descripcion = $subpreguntas[$i][$j][$k][$l];
+                                            $subpregunta->idTipo = $tipos_sub[$i][$j][$k][$l];
+                                            $subpregunta->save();
+                                        }
+                                    $l=$l+1;
                                     }
-                                $l=$l+1;
-                                }
                             }
                             $k=$k+1;  
                         } 
