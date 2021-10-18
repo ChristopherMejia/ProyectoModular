@@ -6,12 +6,12 @@
 			<h2 class="h5 text-white text-uppercase mb-0">{{ Auth::user()->first_name}} {{Auth::user()->last_name}}</h2>
 			<p class="text-sm mb-0 text-muted">Web Developer</p>
 			</div>
-			<!-- Small Brand information, appears on minimized sidebar--><a class="brand-small text-center" href="index.html">
+			<!-- Small Brand information, appears on minimized sidebar--><a class="brand-small text-center" href="/home">
 			<p class="h1 m-0">EC</p></a>
 		</div>
       	<!-- Sidebar Navigation Menus--><span class="text-uppercase text-gray-500 text-sm fw-bold letter-spacing-0 mx-lg-2 heading">Menu</span>
 		<ul class="list-unstyled">
-			<li class="sidebar-item"><a class="sidebar-link" href="index.html"> 
+			<li class="sidebar-item"><a class="sidebar-link" href="/home"> 
 				<svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
 				<use xlink:href="#real-estate-1"> </use>
 				</svg>Home </a>
@@ -73,7 +73,7 @@
 							<svg class="svg-icon svg-icon-sm svg-icon-heavy text-white">
 							<use xlink:href="#menu-1"> </use></svg>
 						</a>
-						<a class="navbar-brand ms-2" href="index.html">
+						<a class="navbar-brand ms-2" href="#">
 						<div class="brand-text d-none d-md-inline-block text-uppercase letter-spacing-0">
 							<span class="text-white fw-normal text-xs">Evaluación de </span><strong class="text-primary text-sm"> Carreras</strong>
 						</div>
@@ -90,7 +90,7 @@
 						<li class="nav-item dropdown">
 							<a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
 							<svg class="svg-icon svg-icon-xs svg-icon-heavy">
-									<use xlink:href="#security-1"> </use>
+									<use xlink:href="#security-1" style="color: white;"> </use>
 								</svg>  <span class="caret"></span>
 							</a>
 

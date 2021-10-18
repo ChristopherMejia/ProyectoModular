@@ -31,19 +31,17 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UserPostRequest $request)
+    public function store(Request $request)
     {
         //dd($request->all());
         $user = new User;
-        $user->first_name = $request->FirstName;
-        $user->last_name = $request->LastName;
+        $user->first_name = $request->name;
+        $user->last_name = $request->lastName;
         $user->email = $request->email;
-        $user->role_id = $request->inputGroupRoles;
+        $user->role_id = $request->role;
         $user->password = Hash::make($request->password);
         $user->save();
-        return \redirect()->back()->with('message', 'Successfully');
-
-
+        return response()->json(['message' => 'success'], 200);
     }
 
     /**
