@@ -8,9 +8,11 @@ Auth::routes(["register" => false]);
 Route::get('/home', 'OrganismoController@index')->name('home');
 
 Route::group(['middleware' => ['manager']], function () {
-    Route::resource('/users', 'UserController');
+    
+    Route::get('/users','UserController@index');
+    Route::post('/users/create/user','UserController@store');
 
-    Route::get('/organismo', 'OrganismoController@create');
+    Route::get('/organismos', 'OrganismoController@display');
     Route::post('/organismo/save', 'OrganismoController@store');
     Route::get('/organismo/show','OrganismoController@show');
     Route::post('/organismo/edit', 'OrganismoController@edit');

@@ -64,11 +64,13 @@ window.addEventListener('DOMContentLoaded', (event) => {
             role : $role,
             password : $password.value
         }
-        console.log(user);
-        postData('/users', user)
+        
+        postData('/users/create/user', user)
           .then( response =>{
             toastList[0].show();
-            defaultValue();
+            setTimeout( () =>{
+              location.reload()
+            }, 3000)
 
           })
           .catch( error => {

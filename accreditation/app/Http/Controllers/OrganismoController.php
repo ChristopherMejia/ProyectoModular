@@ -18,9 +18,12 @@ class OrganismoController extends Controller
         return view('home');
     }
 
-    public function create()
+    public function display()
     {
-        return view('organismo/create');
+        $organismos = Organismo::orderBy('nombre')->paginate(10);
+        return view('organismo/organismos', [
+            'organismos' => $organismos,
+        ]);
     }
 
     public function store(OrganismoRequest $request)

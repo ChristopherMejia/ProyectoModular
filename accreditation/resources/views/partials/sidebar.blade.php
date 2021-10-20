@@ -22,8 +22,7 @@
 				<use xlink:href="#browser-window-1"> </use>
 				</svg>Usuarios </a>
 				<ul class="collapse list-unstyled " id="usuarios">
-					<li><a class="sidebar-link" href="#">Desplegar Usuarios</a></li>
-					<li><a class="sidebar-link" href="/users">Crear Usuario</a></li>
+					<li><a class="sidebar-link" href="/users">Desplegar Usuarios</a></li>
 				</ul>
         	</li>
 			@endif
@@ -54,8 +53,7 @@
               <use xlink:href="#imac-screen-1"> </use>
             </svg>Organismo</a>
 				<ul class="collapse list-unstyled " id="organismo">
-					<li><a class="sidebar-link" href="#">Crear Organismo</a></li>
-					<li><a class="sidebar-link" href="#">Desplegar Organismo</a></li>
+					<li><a class="sidebar-link" href="/organismos">Desplegar Organismos</a></li>
 				</ul>
         	</li>
 
