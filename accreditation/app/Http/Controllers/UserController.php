@@ -47,23 +47,30 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        //
+        $user = User::where('id', $request->idUser)->first();
+        return response()->json(['message' => 'success', 'user' => $user], 200);
     }
 
-    public function edit($id)
+    public function update(Request $request)
     {
-        //
+        $user = User::where('id', $request->id)->first();
+        $user->first_name = $request->name;
+        $user->last_name = $request->lastName;
+        $user->email = $request->email;
+        $user->role_id = $request->role;
+        
+        ($request->password == null) ? '' : $user->password = $request->password;
+        $user->save();
+        return response()->json(['message' => 'success'], 200);
     }
 
-    public function update(Request $request, $id)
+    public function delete(Request $request)
     {
-        //
-    }
+        $user = User::where('id', $request->id)->first();
+        $user->delete();
 
-    public function destroy($id)
-    {
-        //
+        return response()->json(['message' => 'success'], 200);
     }
 }

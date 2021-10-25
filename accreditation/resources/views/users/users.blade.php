@@ -68,6 +68,7 @@
 
 </div>
 
+<!-- modal to create user -->
 <div class="modal fade text-start" id="crearUsuario" tabindex="-1" aria-labelledby="crearUsuarioLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -137,10 +138,99 @@
     </div>
 </div>
 
+<!-- modal to edit user -->
+<div class="modal fade text-start" id="editarUsuario" tabindex="-1" aria-labelledby="editarUsuarioLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editarUsuarioLabel">Editar Usuario</h5>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- mensajes de validación -->
+                <div id="alert_name_edit"></div> 
+                <div id="alert_email_edit"></div>
+                <div id="alert_role_edit"></div>
+
+                <form id="form_create_user_edit" action="#" method="post" class="form-horizontal">
+                    <div class="row gy-2 mb-4">
+                        <label class="col-sm-3 form-label" for="FirstNameEdit">Nombre</label>
+                        <div class="col-sm-9">
+                            <input type="text" aria-label="First name" class="form-control" id="FirstNameEdit" name="FirstNameEdit">
+                            <small class="form-text">Nombre del usuaria</small>
+                        </div>
+
+                    </div>
+                    <div class="row gy-2 mb-4">
+                        <label class="col-sm-3 form-label" for="LastNameEdit">Apellido</label>
+                        <div class="col-sm-9">
+                            <input type="text" aria-label="Last name" class="form-control" id="LastNameEdit" name="LastNameEdit">
+                            <small class="form-text">Apellido del usuario</small>
+                        </div>
+
+                    </div>
+
+                    <div  class="row gy-2 mb-4">
+                        <label class="col-sm-3 form-label" for="email_edit">Email</label>
+                        <div class="col-sm-9">
+                        <input id="email_edit" type="email" class="form-control" aria-label="Email" aria-describedby="email_help" name="email_edit">
+                        <small class="form-text">No se compartira tu email con nadie</small>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                      <label class="col-sm-3 form-label" for="rolesEdit">Roles</label>
+                      <div class="col-sm-9">
+                        <select class="form-select mb-3" name="rolesEdit" id="rolesEdit">
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="password_edit">Contraseña</label>
+                        <input class="form-control" id="password_edit" type="password" placeholder="Contraseña">
+                    </div>
+
+                    <input type="hidden" id="user_id" value="">
+                    
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" type="submit">Guardar</button>
+                        <button id="btn_close_edit" class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+
+                </form>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade text-start" id="eliminarUsuario" tabindex="-1" aria-labelledby="eliminarUsuarioLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="crearUsuarioLabel">Eliminar Usuario</h5>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="form_delete_user" class="form-horizontal">
+                    <p id="phrase" style="text-align: center;"></p>
+                    <input type="hidden" id="user_delete">
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" type="submit">Aceptar</button>
+                        <button id="btn_close_delete" class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <!-- mensajes de error y success -->
 <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-    <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header">
+    <div id="liveToastCreate" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header" style="background-color: #0d6efd;">
         <i class="fas fa-users"></i>
         <strong class="me-auto"> Usuario</strong>
         <small>hace 1 minuto</small>
@@ -151,15 +241,39 @@
         </div>
     </div>
 
-    <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header">
+    <div id="liveToastEdit" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header" style="background-color: #0d6efd;">
         <i class="fas fa-users"></i>
         <strong class="me-auto"> Usuario</strong>
         <small>hace 1 minuto</small>
         <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
         <div class="toast-body">
-        ¡Error! Usuario nuevo no registrado
+        ¡Correcto! Usuario Actualizado
+        </div>
+    </div>
+
+    <div id="toastDelete" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header" style="background-color: #0d6efd;">
+        <i class="fas fa-users"></i>
+        <strong class="me-auto"> Usuario</strong>
+        <small>hace 1 minuto</small>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+        ¡Correcto! Usuario Eliminado
+        </div>
+    </div>
+
+    <div id="liveToastError" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header" style="background-color: red;">
+        <i class="fas fa-users"></i>
+        <strong class="me-auto"> Usuario</strong>
+        <small>hace 1 minuto</small>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+        ¡Error! Algo Sucedio 
         </div>
     </div>
 </div>

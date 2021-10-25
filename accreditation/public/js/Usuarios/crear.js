@@ -37,20 +37,20 @@ window.addEventListener('DOMContentLoaded', (event) => {
       `)
     };
 
-    const defaultValue = () =>{
-      $FirstName.value='';
-      $LastName.value='';
-      $Email.value='';
-      $password.value='';
+    const defaultValue = (name, lastname, email) =>{
+      name.value='';
+      lastname.value='';
+      email.value='';
     }
     
     $FormCreateUser.addEventListener('submit', async(event) => {
         event.preventDefault();
         const $role = $inputGroupRoles.options[$inputGroupRoles.selectedIndex].value;
-        const toastElList = [].slice.call(document.querySelectorAll('.toast'))
-        const toastList = toastElList.map(function (toastEl) {
-          return new bootstrap.Toast(toastEl, 5000)
-        });
+        const toastElList = document.getElementById('liveToastCreate');
+        const toastList = new bootstrap.Toast(toastElList, 5000);
+
+        const toastError = document.getElementById('liveToastError');
+        const toastErrorShow = new bootstrap.Toast(toastError, 5000);
 
         ($FirstName.value == '') ? $divAlert.innerHTML = message('nombre') : $divAlert.innerHTML = '';
         ($Email.value == '') ? $divAlertEmail.innerHTML = message('email') : $divAlertEmail.innerHTML = '';
@@ -67,16 +67,155 @@ window.addEventListener('DOMContentLoaded', (event) => {
         
         postData('/users/create/user', user)
           .then( response =>{
-            toastList[0].show();
+            $('#crearUsuario').modal('hide');
+            toastList.show();
             setTimeout( () =>{
               location.reload()
             }, 3000)
 
           })
           .catch( error => {
-            toastList[1].show();
+            toastErrorShow.show();
           });
  
     });
 
+    const getUser = async( idUser) => {
+      const response = await postData('/users/get/user', {idUser});
+      const { message , user} = response;
+      return user;
+    }
+
+    const getRoles = async() => {
+      const response = await postData('/roles/get', {});
+      const { message , roles} = response;
+      return roles;
+    }
+    
+    ///function to edit user///
+    const $FirstNameEdit = document.getElementById('FirstNameEdit');
+    const $LastNameEdit = document.getElementById('LastNameEdit');
+    const $email_edit = document.getElementById('email_edit');
+    const $rolesEdit = document.getElementById('rolesEdit');
+    const $userId = document.getElementById('user_id');
+    const $form_create_user_edit = document.getElementById('form_create_user_edit');
+    const $btn_close_edit = document.getElementById('btn_close_edit');
+    const $alertNamEdit = document.getElementById('alert_name_edit');
+    const $alertEmailEdit = document.getElementById('alert_email_edit');
+    const $alertRolEdit = document.getElementById('alert_role_edit');
+
+
+    const addOptionSelectedRole = async(select, IdRole) => {
+        const roles = await getRoles();
+        roles.forEach(element => {
+          let option = document.createElement('option');
+          if(element.id === IdRole){
+            option.value = element.id;
+            option.innerHTML = `${element.name}`;
+            option.setAttribute("selected", "");
+            select.appendChild(option);
+          }else{
+            option.value = element.id;
+            option.innerHTML = `${element.name}`;
+            select.appendChild(option);
+          }
+        });
+    }
+    $btn_close_edit.addEventListener('click', async() => {
+      defaultValue($FirstNameEdit, $LastNameEdit, $email_edit);
+    });
+
+    editaUsuario = async(idUser) =>{
+      const user = await getUser(idUser);
+      console.log(user);
+      $userId.value = user.id;
+      $FirstNameEdit.value = user.first_name;
+      $LastNameEdit.value = user.last_name;
+      $email_edit.value = user.email;
+      addOptionSelectedRole($rolesEdit, user.role_id);
+    }
+
+    $form_create_user_edit.addEventListener('submit', async(event) =>{
+      event.preventDefault();
+      const $role = $rolesEdit.options[$rolesEdit.selectedIndex].value;
+      const toastElList = document.getElementById('liveToastEdit')
+      const toastList = new bootstrap.Toast(toastElList, 5000);
+      const toastError = document.getElementById('liveToastError');
+      const toastErrorShow = new bootstrap.Toast(toastError, 5000);
+
+
+      ($FirstNameEdit.value == '') ? $alertNamEdit.innerHTML = message('nombre') : $alertNamEdit.innerHTML = '';
+      ($email_edit.value == '') ? $alertEmailEdit.innerHTML = message('email') : $alertEmailEdit.innerHTML = '';
+      ($role == '') ? $alertRolEdit.innerHTML = message('role') : $alertRolEdit.innerHTML = '';
+
+      const user = {
+        id : $userId.value,
+        name : $FirstNameEdit.value,
+        lastName : $LastNameEdit.value,
+        email : $email_edit.value,
+        role : $role,
+        password : $password.value
+      }
+
+      postData('/users/update/user', user)
+          .then( response =>{
+            $('#editarUsuario').modal('hide');
+            toastList.show();
+            setTimeout( () =>{
+              location.reload()
+            }, 3000)
+
+          })
+          .catch( error => {
+            toastErrorShow.show();
+          });
+
+    });
+
+    //function to delete User//
+    const $user_delete = document.getElementById('user_delete');
+    const $phrase = document.getElementById('phrase');
+    const $btn_close_delete = document.getElementById('btn_close_delete');
+    const $form_delete_user = document.getElementById('form_delete_user');
+
+    eliminarUsuario = async(idUser) => {
+      const user = await getUser(idUser);
+      $user_delete.value = user.id;
+      $phrase.innerText = `¿Desea eliminar el usuario ${user.first_name}?`
+    }
+
+    $btn_close_delete.addEventListener('click', () =>{
+      $phrase.innerText = ``;
+    });
+
+    $form_delete_user.addEventListener('submit', async(event) => {
+      event.preventDefault();
+
+      const toastDelete = document.getElementById('toastDelete')
+      const toastDeleteShow = new bootstrap.Toast(toastDelete, 5000);
+      const toastError = document.getElementById('liveToastError');
+      const toastErrorShow = new bootstrap.Toast(toastError, 5000);
+      const user = {
+        id : $user_delete.value,
+      }
+
+      postData('/users/delete/user', user)
+          .then( response =>{
+            $('#eliminarUsuario').modal('hide');
+            toastDeleteShow.show();
+            setTimeout( () =>{
+              location.reload()
+            }, 3000)
+
+          })
+          .catch( error => {
+            toastErrorShow.show();
+          });
+
+    });
+
+
+
 });
+
+

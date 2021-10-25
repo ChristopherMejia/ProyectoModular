@@ -11,6 +11,11 @@ Route::group(['middleware' => ['manager']], function () {
     
     Route::get('/users','UserController@index');
     Route::post('/users/create/user','UserController@store');
+    Route::post('/users/get/user', 'UserController@show');
+    Route::post('/users/update/user', 'UserController@update');
+    Route::post('/users/delete/user', 'UserController@delete');
+
+    Route::post('/roles/get', 'RoleController@index');
 
     Route::get('/organismos', 'OrganismoController@display');
     Route::post('/organismo/save', 'OrganismoController@store');
