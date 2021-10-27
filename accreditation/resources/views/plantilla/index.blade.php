@@ -1,65 +1,70 @@
 @extends('layouts.app')
 @section('content')
-<div class="main-container">
-    <div class="row justify-content-center">
-        <div class="col-md-12">
+<div class="section">
+
+  <div class="bg-gray-200 text-sm">
+        <div class="container-fluid">
+            <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 py-3">
+                <li class="breadcrumb-item"><a class="fw-light" href="/home" style="text-decoration: none;">Inicio</a></li>
+                <li class="breadcrumb-item active fw-light" aria-current="page">Plantilla</li>
+            </ol>
+            </nav>
+        </div>
+  </div>
+
+  <div class="card-header header-table"><h4> Plantillas <h4></div>
+
+  <div class="col-12" align="right">
+      <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#crearPlantilla" style="margin-right: 16px ;margin-top: 13px;">
+          <i class="fa fa-user-plus" aria-hidden="true"></i> Nuevo
+      </button>
+  </div>
+
+  <div class="card-body">
+        <div class="col-lg-12">
             <div class="card">
-                <div class="card-header header-table"><h4>Plantillas<h4></div>
-                <div class="card-body">
-                <table class="table table-hover table-sm" style="text-align: center;">
+            <div class="card-header border-bottom">
+                <h3 class="h4 mb-0">Información de Usuarios</h3>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                <table class="table text-sm mb-0 table-striped table-sm">
                     <thead>
-                        <th>Organismo</th>
-                        <th>Versión</th>
-                        <th colspan=2>Acciones</th>
-                    </thead>
-                    @foreach($plantillas as $plantilla)
                         <tr>
-                            <td>{{$plantilla->nombre}}</td>
-                            <td>{{$plantilla->version}}</td>
-                            <td>
-                                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete-plantilla" id="button_delete">
-                                    <span class="material-icons" data-id="{{$plantilla->id}}" data-name="{{$plantilla->nombre}}">delete_outline</span>
-                                </button>
-                                <button type="button" class="btn btn-primary btn-sm">
-                                  <a href="/plantilla/edit/{{$plantilla->id}}"><span class="material-icons">add_circle</span></a>
-                                </button>
-                            </td>
-                           
+                            <th>#</th>
+                            <th>Organismo</th>
+                            <th>Versión</th>
+                            <th>Acciones<th>
                         </tr>
-                    @endforeach
-                    {{ $plantillas->links() }}
+                    </thead>
+                    <tbody>
+                        @foreach($plantillas as $plantilla)
+                        <tr>
+                          <td>{{$plantilla->id}}</td>
+                          <td>{{$plantilla->nombre}}</td>
+                          <td>{{$plantilla->version}}</td>
+                            <td>
+                                <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#crearGuia" href="#" onclick="crearGuia({{$plantilla->id}})">
+                                    <i class="far fa-edit"></i>
+                                </a>
+                                <a class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#eliminarPlantilla" href="#" onclick="eliminarPlantilla({{$plantilla->id}})">
+                                    <i class="fas fa-user-times"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        @endforeach
+                        {{ $plantillas->links() }}
+                    </tbody>
                 </table>
                 </div>
             </div>
-        </div>
-
-     <!-- Modal Delete -->
-        <div class="modal fade" id="delete-plantilla" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-              <div class="modal-header delete">
-                <h5 class="modal-title" id="staticBackdropLabel">Borrar Plantilla</h5>
-              </div>
-              <div class="modal-body">
-                <form action="/plantilla/delete" method="post">
-                @csrf
-                  <div class="form-group">
-                    <label class="form-label">¿Seguro que desea eliminarlo?</label>
-                    <input type="text" name="name" class="form-control" id="name_delete" disabled>
-                    <input type="hidden" name="id" id="delete_id">
-                  </div>
-                  <div class="modal-footer">
-                    <button id="btn-close" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-primary">Guardar</button>
-                  </div>
-                </form>
-              </div>
             </div>
-          </div>
         </div>
-
     </div>
 </div>
+
+
 <script type="application/javascript" src="{{ asset('js/plantilla.js') }}"></script>
 
 @endsection

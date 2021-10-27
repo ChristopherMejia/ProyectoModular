@@ -18,10 +18,10 @@ Route::group(['middleware' => ['manager']], function () {
     Route::post('/roles/get', 'RoleController@index');
 
     Route::get('/organismos', 'OrganismoController@display');
-    Route::post('/organismo/save', 'OrganismoController@store');
-    Route::get('/organismo/show','OrganismoController@show');
-    Route::post('/organismo/edit', 'OrganismoController@edit');
-    Route::post('/organismo/delete', 'OrganismoController@destroy');
+    Route::post('/organismos/create', 'OrganismoController@store');
+    Route::post('/organismos/get','OrganismoController@show');
+    Route::post('/organismos/update', 'OrganismoController@edit');
+    Route::post('/organismos/delete', 'OrganismoController@destroy');
 
     Route::get('/programa-educativo', 'ProgramaEducativoController@index');
     Route::post('/programa-educativo/save', 'ProgramaEducativoController@store');

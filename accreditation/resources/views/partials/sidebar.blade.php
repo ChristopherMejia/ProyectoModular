@@ -31,8 +31,8 @@
 				<use xlink:href="#portfolio-grid-1"> </use>
 				</svg>Plantillas </a>
 				<ul class="collapse list-unstyled " id="plantillas">
-					<li><a class="sidebar-link" href="#">Desplegar Plantillas</a></li>
-					<li><a class="sidebar-link" href="#">Crear Plantilla</a></li>
+					<li><a class="sidebar-link" href="/plantilla">Desplegar Plantillas</a></li>
+					<!-- <li><a class="sidebar-link" href="#">Crear Plantilla</a></li> -->
 				</ul>
         	</li>
 			@if (Auth::user()->role_id == 1)
