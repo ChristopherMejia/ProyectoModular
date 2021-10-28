@@ -43,8 +43,8 @@
               <use xlink:href="#sales-up-1"> </use>
             </svg>Educación </a>
 				<ul class="collapse list-unstyled " id="nivelEducativo">
-					<li><a class="sidebar-link" href="#">Nivel Educativo</a></li>
-					<li><a class="sidebar-link" href="#">Desplegar Niveles</a></li>
+					<!-- <li><a class="sidebar-link" href="#">Nivel Educativo</a></li> -->
+					<li><a class="sidebar-link" href="/programa-educativo">Desplegar Programas Educativos</a></li>
 				</ul>
         	</li>
 			

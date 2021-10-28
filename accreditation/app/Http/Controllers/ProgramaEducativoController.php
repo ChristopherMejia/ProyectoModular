@@ -16,17 +16,20 @@ class ProgramaEducativoController extends Controller
 
     public function index()
     {
-        return view('programa_educativo.create_level');
+        $programas = ProgramaEducativo::paginate(10);
+        return view('programa_educativo.programas_educativos',[
+            'programas' => $programas,
+        ]);
     }
-    public function store(ProgramaEducativoRequest $request)
+    public function store(Request $request)
     {
         
         $programa = new ProgramaEducativo;
-        $programa->nombre = $request->educacion;
-        $programa->nivel  = $request->nivel;
+        $programa->nombre = $request->name;
+        $programa->nivel  = $request->level;
         $programa->save();
 
-        return \redirect()->back()->with('message', 'Successfully');
+        return response()->json(['message' => 'success'], 200);
 
     }
     public function show()
