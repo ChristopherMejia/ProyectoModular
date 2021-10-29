@@ -140,24 +140,45 @@
                         <label class="col-sm-3 form-label" for="nivelProgramaEditar">Nivel</label>
                         <div class="col-sm-9">
                             <select class="form-select mb-3" name="nivelProgramaEditar" id="nivelProgramaEditar">
-                                <!-- <option value="" selected disabled>Selecciona una opción...</option> -->
-                                <option value="Tecnico Superior Universitario"> Tecnico Superior Universitario </option>
-                                <option value="Ingeniería"> Ingeniería </option>
-                                <option value="Licenciatura"> Licenciatura </option>
+                            
                             </select>
 
                             <small class="form-text">Nivel del programa educativo</small>
                         </div>
 
                     </div>
+
+                    <input type="hidden" id="idProgramaEditar">
                     
                     <div class="modal-footer">
                         <button class="btn btn-primary" type="submit">Guardar</button>
-                        <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cerrar</button>
+                        <button id="btnCloseEdit" class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cerrar</button>
                     </div>
 
                 </form>
                 
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal delete -->
+<div class="modal fade text-start" id="eliminarPrograma" tabindex="-1" aria-labelledby="eliminarProgramaEducativoLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="eliminarProgramaEducativoLabel">Eliminar Programa Educativo</h5>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="form_delete_programa" class="form-horizontal">
+                    <p id="phrase" style="text-align: center;"></p>
+                    <input type="hidden" id="programa_delete">
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" type="submit">Aceptar</button>
+                        <button id="btn_close_delete" class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -174,6 +195,30 @@
         </div>
         <div class="toast-body">
         ¡Correcto! Programa educativo registrado
+        </div>
+    </div>
+
+    <div id="liveToastEdit" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header" style="background-color: #0d6efd;">
+        <i class="fas fa-users"></i>
+        <strong class="me-auto"> Programa Educativo </strong>
+        <small>hace 1 minuto</small>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+        ¡Correcto! Programa educativo actualizado
+        </div>
+    </div>
+
+    <div id="toastDelete" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header" style="background-color: #0d6efd;">
+        <i class="fas fa-users"></i>
+        <strong class="me-auto"> Programa Educativo </strong>
+        <small>hace 1 minuto</small>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+        ¡Correcto! Programa educativo Eliminado
         </div>
     </div>
 

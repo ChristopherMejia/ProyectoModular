@@ -68,15 +68,126 @@ window.addEventListener('DOMContentLoaded', (event) => {
     });
 
     // Editar Nivel Educativo
-
     const $formEditarPrograma = document.getElementById('form_editar_programa');
     const $nombreProgramaEditar = document.getElementById('nombreProgramaEditar');
     const $nivelProgramaEditar = document.getElementById('nivelProgramaEditar');
+    const $idProgramaEditar = document.getElementById('idProgramaEditar');
     const $alertNameEditar = document.getElementById('alert_name_editar');
     const $alertLevelEditar = document.getElementById('alert_level_editar');
+    const $btnCloseEdit = document.getElementById('btnCloseEdit');
+
+    const arrayLevels = [
+      'Tecnico Superior Universitario',
+      'Ingeniería',
+      'Licenciatura',
+    ];
+
+
+    const getProgramaEducativo = async (id) => {
+      const response = await postData('/programa-educativo/get', {id : id})
+      const { message , programaEducativo} = response;
+      return programaEducativo;
+    }
+    const optionSelectNivel = async(nivel) => {
+      arrayLevels.forEach(element => {
+        let option = document.createElement('option');
+          if(element === nivel){
+              option.value = element;
+              option.innerHTML = element;
+              option.setAttribute("selected", "");
+              $nivelProgramaEditar.appendChild(option);
+          }else{
+            option.value = element;
+            option.innerHTML = element;
+            $nivelProgramaEditar.appendChild(option);
+          }
+      });
+    }
 
     editarPrograma = async(id) => {
-        console.log(id);
+        const programaEducativo = await getProgramaEducativo(id)
+        $nombreProgramaEditar.value = programaEducativo.nombre;
+        $idProgramaEditar.value = programaEducativo.id;
+        optionSelectNivel(programaEducativo.nivel);
     }
+
+    $btnCloseEdit.addEventListener('click', async() => {
+      if ($nivelProgramaEditar.length >= 1) {
+        for (let i = $nivelProgramaEditar.length - 1; i >= 0; i--) { //Eliminamos del DOM las opciones cargadas
+          $nivelProgramaEditar.remove(i);
+        }
+      }
+      $nombreProgramaEditar.value = '';
+      $idProgramaEditar.value = '';
+        
+    });
+
+    $formEditarPrograma.addEventListener('submit', async(event) => {
+      event.preventDefault();
+        const $level  = $nivelProgramaEditar.options[$nivelProgramaEditar.selectedIndex].value;
+        const toastElList = document.getElementById('liveToastEdit')
+        const toastList = new bootstrap.Toast(toastElList, 5000);
+        const toastError = document.getElementById('liveToastError');
+        const toastErrorShow = new bootstrap.Toast(toastError, 5000);
+
+
+        ($nombreProgramaEditar.value == '') ? $alertNameEditar.innerHTML = message('nombre') : $alertNameEditar.innerHTML = '';
+        ($level == '') ? $alertLevelEditar.innerHTML = message('Nivel Educativo') : $alertLevelEditar.innerHTML = '';
+
+        const programaEducativo = {
+          id : $idProgramaEditar.value,
+          name : $nombreProgramaEditar.value,
+          level : $level,
+        }
+
+        postData('/programa-educativo/update', programaEducativo)
+          .then( response =>{
+            $('#editarProgramaEducativo').modal('hide');
+            toastList.show();
+            setTimeout( () =>{
+              location.reload()
+            }, 3000)
+
+          })
+          .catch( error => {
+            toastErrorShow.show();
+          });
+    });
+
+    ///Eliminar Programa
+    const $form_delete_programa = document.getElementById('form_delete_programa');
+    const $phrase = document.getElementById('phrase');
+    const $programa_delete = document.getElementById('programa_delete');
+
+    eliminarPrograma = async(id) => {
+      const programaEducativo = await getProgramaEducativo(id);
+      $phrase.innerText = `¿Desea eliminar el programa educativo
+      ${programaEducativo.nombre} / ${programaEducativo.nivel} ?`;
+      $programa_delete.value = programaEducativo.id;
+    } 
+
+    $form_delete_programa.addEventListener('submit', async(event) => {
+      event.preventDefault();
+      const toastDelete = document.getElementById('toastDelete')
+      const toastDeleteShow = new bootstrap.Toast(toastDelete, 5000);
+      const toastError = document.getElementById('liveToastError');
+      const toastErrorShow = new bootstrap.Toast(toastError, 5000);
+      const programaEducativo = {
+        id : $programa_delete.value,
+      }
+      postData('/programa-educativo/delete', programaEducativo)
+      .then( response =>{
+        $('#eliminarPrograma').modal('hide');
+        toastDeleteShow.show();
+        setTimeout( () =>{
+          location.reload()
+        }, 3000)
+
+      })
+      .catch( error => {
+        toastErrorShow.show();
+      });
+    });
+
 
 });

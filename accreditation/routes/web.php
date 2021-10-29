@@ -25,16 +25,17 @@ Route::group(['middleware' => ['manager']], function () {
 
     Route::get('/programa-educativo', 'ProgramaEducativoController@index');
     Route::post('/programa-educativo/save', 'ProgramaEducativoController@store');
-    Route::get('/programa-educativo/show', 'ProgramaEducativoController@show');
-    Route::post('/programa-educativo/edit', 'ProgramaEducativoController@edit');
+    Route::post('/programa-educativo/get', 'ProgramaEducativoController@show');
+    Route::post('/programa-educativo/update', 'ProgramaEducativoController@edit');
     Route::post('/programa-educativo/delete', 'ProgramaEducativoController@destroy');
 });
 
 
 Route::group (['middleware' => ['coordinator']], function () {
 
-    Route::get('/plantilla', 'PlantillaController@index');
-    Route::get('/plantilla/create', 'PlantillaController@create');
+    Route::get('/plantillas', 'PlantillaController@index');
+    Route::post('/plantillas/create', 'PlantillaController@create');
+    Route::post('/plantillas/guia', 'PlantillaController@createGuia');
     Route::post('/plantilla/save', 'PlantillaController@store');
     Route::get('/plantilla/start/{id}', 'PlantillaController@start');
     Route::get('/plantilla/edit/{id}', 'PlantillaController@edit');

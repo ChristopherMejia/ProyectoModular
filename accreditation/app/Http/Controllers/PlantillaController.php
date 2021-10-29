@@ -10,6 +10,8 @@ use App\Categoria;
 use App\Subcategoria;
 use App\Pregunta;
 use App\Subpregunta;
+use App\ProgramaEducativo;
+
 use DB;
 
 class PlantillaController extends Controller
@@ -26,16 +28,30 @@ class PlantillaController extends Controller
             ->select('plantilla.id','organismo.nombre','plantilla.version')
             ->orderBy('plantilla.organismo_id','desc')
             ->paginate(7);
+
+        $organismos = Organismo::all()->sortBy('nombre');
+        $programas = ProgramaEducativo::all()->sortBy('nombre');
         //dd($plantillas);
-        return view('plantilla.index',["plantillas"=>$plantillas]);
+        return view('plantilla.index',[
+            "plantillas" => $plantillas,
+            "organismos" => $organismos,
+            "programas" => $programas,
+        ]);
     }
 
-    public function create()
+    public function create(Request $request)
     {
-        $organismos=DB::table('organismos as orgs')
-            ->select('orgs.id','orgs.nombre')
-            ->get();
-        return view('plantilla.create',["organismos"=>$organismos]);
+        $plantilla = new Plantilla;
+        $plantilla->organismo_id = $request->idOrganismo;
+        $plantilla->version = $request->version;
+        $plantilla->save();
+
+        return response()->json(['message' => 'success'], 200);
+
+    }
+
+    public function createGuia(Request $request){
+        dd($request);
     }
 
     public function store(PlantillaRequest $request)
