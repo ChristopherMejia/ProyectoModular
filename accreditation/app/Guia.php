@@ -14,5 +14,7 @@ class Guia extends Model
         'programa_educativo_id',
         'nombre_coordinador',
         'fecha',
+        'created_at',
+        'updated_at',
     ];
 }

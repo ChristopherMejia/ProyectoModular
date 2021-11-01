@@ -11,6 +11,7 @@ use App\Subcategoria;
 use App\Pregunta;
 use App\Subpregunta;
 use App\ProgramaEducativo;
+use App\Guia;
 
 use DB;
 
@@ -51,29 +52,25 @@ class PlantillaController extends Controller
     }
 
     public function createGuia(Request $request){
-        dd($request);
+        // dd($request);
+        $id = $request->plantilla_id;
+        $guia = new Guia;
+        $guia->plantilla_id = $request->plantilla_id;
+        $guia->programa_educativo_id = $request->programa_educativo_id;
+        $guia->nombre_coordinador = $request->nombre_coordinador;
+        $guia->fecha_inicio = $request->fecha_inicio;
+        // $guia->save();
+        
+        $plantilla = Plantilla::find($id);
+
+        // return view('plantilla.start')->with('plantilla', $plantilla_info);
+        return redirect()->route('start', [$plantilla]);
+
     }
 
     public function store(PlantillaRequest $request)
     {
-        $idOrganismo = $request->input('idOrganismo');
-        $version = $request->input('version');
-
-        $plantilla = new Plantilla;
-        $plantilla->organismo_id = $idOrganismo;
-        $plantilla->version = $version;
-        $plantilla->save();
-
-        $nombre  = $plantilla->organismo->nombre;
-        $version = $plantilla->version;
-        $id      = $plantilla->id;
-        $plantilla_info = array(
-            'plantilla_id'      => $id,
-            'plantilla_nombre'  => $nombre,
-            'plantilla_version' => $version,
-        );
-
-        return view('plantilla.start')->with('plantilla', $plantilla_info);
+       ///
     }
 
     public function show($id)

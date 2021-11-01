@@ -66,4 +66,61 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
     });
 
+    const $formCreateGuia = document.getElementById('form_create_guia');
+    const $programaEducativo = document.getElementById('programaEducativo');
+    const $coordinador = document.getElementById('coordinador');
+    const $fecha = document.getElementById('fecha');
+    const $idPlantilla = document.getElementById('id_plantilla');
+    const $alertCoordinador = document.getElementById('alert_coordinador');
+    const $alertProgramaEducativo = document.getElementById('alert_programaEducativo');
+    const $alertFecha = document.getElementById('alert_fecha');
+
+    crearGuia = async (id) => {
+      $idPlantilla.value = id;
+    }
+
+
+    $formCreateGuia.addEventListener('submit', async(event) => {
+      event.preventDefault();
+
+      const valueProgramaEducativo = $programaEducativo.options[$programaEducativo.selectedIndex].value;
+      const valueCoordinador = $coordinador.value;
+      const valueDate = $fecha.value;
+      const valueIdPlantilla = $idPlantilla.value;
+
+      const toastElList = document.getElementById('liveToastCreate');
+      const toastList = new bootstrap.Toast(toastElList, 5000);
+
+      const toastError = document.getElementById('liveToastError');
+      const toastErrorShow = new bootstrap.Toast(toastError, 5000);
+
+      console.log(valueCoordinador, valueProgramaEducativo, valueDate, valueIdPlantilla);
+      (valueCoordinador == '') ? $alertCoordinador.innerHTML = message('coordinador') : $alertCoordinador.innerHTML = '';
+      (valueProgramaEducativo == '') ? $alertProgramaEducativo.innerHTML = message('programa educativo') : $alertProgramaEducativo.innerHTML = '';
+      (valueDate == '') ? $alertFecha.innerHTML = message('fecha') : $alertFecha.innerHTML = '';
+
+      const guia = {
+        plantilla_id : valueIdPlantilla,
+        programa_educativo_id : valueProgramaEducativo,
+        nombre_coordinador : valueCoordinador,
+        fecha_inicio : valueDate,
+      }
+
+      postData('/plantilla/create/guia', guia);
+          // .then( response =>{
+          //   $('#crearGuia').modal('hide');
+          //   toastList.show();
+          //   setTimeout( () =>{
+          //     location.reload()
+          //   }, 2000)
+
+          // })
+          // .catch( error => {
+          //   toastErrorShow.show();
+          // });
+
+    });      
+
+
+
 });

@@ -155,6 +155,8 @@
                             <small class="form-text">Fecha de Inicio</small>
                         </div>
                     </div>
+
+                    <input type="hidden" id="id_plantilla">
                     
                     <div class="modal-footer">
                         <button class="btn btn-primary" type="submit">Guardar</button>

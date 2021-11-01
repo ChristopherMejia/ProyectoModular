@@ -35,9 +35,9 @@ Route::group (['middleware' => ['coordinator']], function () {
 
     Route::get('/plantillas', 'PlantillaController@index');
     Route::post('/plantillas/create', 'PlantillaController@create');
-    Route::post('/plantillas/guia', 'PlantillaController@createGuia');
+    Route::post('/plantilla/create/guia', 'PlantillaController@createGuia');
     Route::post('/plantilla/save', 'PlantillaController@store');
-    Route::get('/plantilla/start/{id}', 'PlantillaController@start');
+    Route::post('/plantilla/start/{id}', 'PlantillaController@start')->name('start');
     Route::get('/plantilla/edit/{id}', 'PlantillaController@edit');
     Route::put('/plantilla/update/{id}', 'PlantillaController@update');
     
