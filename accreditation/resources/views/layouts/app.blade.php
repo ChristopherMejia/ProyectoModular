@@ -57,7 +57,7 @@
     <link href="{{ asset('css/home.css') }}" rel="stylesheet">
     <!-- <link href="{{ asset('css/sidebar.css') }}" rel="stylesheet"> -->
     <!-- <link href="{{ asset('css/organismo.css') }}" rel="stylesheet"> -->
-    <!-- <link href="{{ asset('css/plantilla.css') }}" rel="stylesheet"> -->
+    <link href="{{ asset('css/plantilla.css') }}" rel="stylesheet">
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
 
 

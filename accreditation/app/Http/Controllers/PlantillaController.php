@@ -59,12 +59,13 @@ class PlantillaController extends Controller
         $guia->programa_educativo_id = $request->programa_educativo_id;
         $guia->nombre_coordinador = $request->nombre_coordinador;
         $guia->fecha_inicio = $request->fecha_inicio;
-        // $guia->save();
+        $guia->save();
         
-        $plantilla = Plantilla::find($id);
+        // $plantilla = Plantilla::find($id);
 
         // return view('plantilla.start')->with('plantilla', $plantilla_info);
-        return redirect()->route('start', [$plantilla]);
+        // return redirect()->route('start', [$plantilla]);
+        return response()->json(['message' => 'success'], 200);
 
     }
 
@@ -241,14 +242,15 @@ class PlantillaController extends Controller
 
     public function start($id)
     {
+        // dd($request->all());
         $plantilla = Plantilla::find($id);
-        $nombre  = $plantilla->organismo->nombre;
-        $version = $plantilla->version;
-        $plantilla_info = array(
-            'plantilla_nombre'  => $nombre,
-            'plantilla_version' => $version,
-        );
-        return view('plantilla.start')->with('plantilla', $plantilla_info);
+        // $nombre  = $plantilla->organismo->nombre;
+        // $version = $plantilla->version;
+        // $plantilla_info = array(
+        //     'plantilla_nombre'  => $nombre,
+        //     'plantilla_version' => $version,
+        // );
+        return view('plantilla.start')->with('plantilla', $plantilla);
 
     }
 }

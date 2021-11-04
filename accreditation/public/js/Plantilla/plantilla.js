@@ -12,6 +12,9 @@ window.addEventListener('DOMContentLoaded', (event) => {
         });
         return response.json(); // parses JSON response into native JavaScript objects
     }
+
+    const $guiaContinue = document.getElementById('guia_complete');
+    const $guiaCreate = document.getElementById('guia_create');
     
     ///crear plantilla
     const $formCreatePlantilla = document.getElementById('form_create_plantilla');
@@ -74,6 +77,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
     const $alertCoordinador = document.getElementById('alert_coordinador');
     const $alertProgramaEducativo = document.getElementById('alert_programaEducativo');
     const $alertFecha = document.getElementById('alert_fecha');
+    const $closeModal = document.getElementById('close_guia_modal');
 
     crearGuia = async (id) => {
       $idPlantilla.value = id;
@@ -106,18 +110,24 @@ window.addEventListener('DOMContentLoaded', (event) => {
         fecha_inicio : valueDate,
       }
 
-      postData('/plantilla/create/guia', guia);
-          // .then( response =>{
-          //   $('#crearGuia').modal('hide');
-          //   toastList.show();
+      postData('/plantilla/create/guia', guia)
+          .then( response =>{
+            console.log(response)
+            // $('#crearGuia').modal('hide');
+            $closeModal.click();
+            toastList.show();
+            $guiaContinue.classList.remove("hide");
+            $guiaCreate.classList.add("hide");
+
           //   setTimeout( () =>{
           //     location.reload()
           //   }, 2000)
 
-          // })
-          // .catch( error => {
-          //   toastErrorShow.show();
-          // });
+          })
+          .catch( error => {
+            console.log(error)
+            toastErrorShow.show();
+          });
 
     });      
 

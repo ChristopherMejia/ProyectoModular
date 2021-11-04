@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+
 <div class="section">
 
   <div class="bg-gray-200 text-sm">
@@ -45,11 +46,15 @@
                           <td>{{$plantilla->nombre}}</td>
                           <td>{{$plantilla->version}}</td>
                             <td>
-                                <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#crearGuia" href="#" onclick="crearGuia({{$plantilla->id}})">
+                                <a id="guia_create" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#crearGuia" href="#" onclick="crearGuia({{$plantilla->id}})">
                                     <i class="fas fa-plus-circle"></i>
                                 </a>
                                 <a class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#eliminarPlantilla" href="#" onclick="eliminarPlantilla({{$plantilla->id}})">
                                     <i class="fas fa-user-times"></i>
+                                </a>
+
+                                <a id="guia_complete" href="/plantilla/start/{{$plantilla->id}}" class="btn btn-success hide">
+                                    <i class="fas fa-arrow-circle-right"></i>
                                 </a>
                             </td>
                         </tr>
@@ -160,7 +165,7 @@
                     
                     <div class="modal-footer">
                         <button class="btn btn-primary" type="submit">Guardar</button>
-                        <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cerrar</button>
+                        <button id="close_guia_modal" class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cerrar</button>
                     </div>
 
                 </form>
