@@ -13,7 +13,9 @@ class AddStatusGuiaTable extends Migration
      */
     public function up()
     {
-        //
+        Schema::table('guias', function (Blueprint $table) {
+            $table->string('status')->after('fecha_inicio');
+        });
     }
 
     /**

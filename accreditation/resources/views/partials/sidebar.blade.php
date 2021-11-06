@@ -29,9 +29,9 @@
 			<li class="sidebar-item"><a class="sidebar-link dropdown-toggle" href="#plantillas" data-toggle="collapse"> 
 				<svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
 				<use xlink:href="#portfolio-grid-1"> </use>
-				</svg>Plantillas </a>
+				</svg>Plantillas - Guias</a>
 				<ul class="collapse list-unstyled " id="plantillas">
-					<li><a class="sidebar-link" href="/plantillas">Desplegar Plantillas</a></li>
+					<li><a class="sidebar-link" href="/plantillas">Desplegar Plantillas - Guias</a></li>
 					<!-- <li><a class="sidebar-link" href="#">Crear Plantilla</a></li> -->
 				</ul>
         	</li>

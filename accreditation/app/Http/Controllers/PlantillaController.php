@@ -24,19 +24,40 @@ class PlantillaController extends Controller
 
     public function index()
     {
+        $data = array();
+        $organismos = Organismo::all()->sortBy('nombre');
+        $programas = ProgramaEducativo::all()->sortBy('nombre');
         $plantillas=DB::table('plantillas as plantilla')
             ->join('organismos as organismo','plantilla.organismo_id','=','organismo.id')
             ->select('plantilla.id','organismo.nombre','plantilla.version')
             ->orderBy('plantilla.organismo_id','desc')
             ->paginate(7);
+        $guias = Guia::with('plantillas')->with('programasEducativos')->orderBy('plantilla_id')->paginate(7);
 
-        $organismos = Organismo::all()->sortBy('nombre');
-        $programas = ProgramaEducativo::all()->sortBy('nombre');
-        //dd($plantillas);
+        // informacion de las guias organizada
+        foreach($guias as $guia)
+        {
+            $organimos = Organismo::where('id', $guia->plantillas->organismo_id)->first();
+            
+            $arrayAux = [
+                "id" => $guia->id,
+                "plantilla" => $organimos->nombre,
+                "programa_educativo_nivel" => $guia->programasEducativos->nivel,
+                "programa_educativo_nombre" => $guia->programasEducativos->nombre,
+                "nombre_coordinador" => $guia->nombre_coordinador,
+                "status" => $guia->status,
+            ];
+            array_push($data, $arrayAux);
+        }
+
+
+      
+        // dd($data);
         return view('plantilla.index',[
             "plantillas" => $plantillas,
             "organismos" => $organismos,
             "programas" => $programas,
+            "guias" => $data,
         ]);
     }
 
@@ -59,12 +80,9 @@ class PlantillaController extends Controller
         $guia->programa_educativo_id = $request->programa_educativo_id;
         $guia->nombre_coordinador = $request->nombre_coordinador;
         $guia->fecha_inicio = $request->fecha_inicio;
+        $guia->status = $request->status;
         $guia->save();
-        
-        // $plantilla = Plantilla::find($id);
 
-        // return view('plantilla.start')->with('plantilla', $plantilla_info);
-        // return redirect()->route('start', [$plantilla]);
         return response()->json(['message' => 'success'], 200);
 
     }

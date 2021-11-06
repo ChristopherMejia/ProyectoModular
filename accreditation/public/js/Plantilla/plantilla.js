@@ -108,6 +108,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
         programa_educativo_id : valueProgramaEducativo,
         nombre_coordinador : valueCoordinador,
         fecha_inicio : valueDate,
+        status : 'Activo',
       }
 
       postData('/plantilla/create/guia', guia)
@@ -116,12 +117,9 @@ window.addEventListener('DOMContentLoaded', (event) => {
             // $('#crearGuia').modal('hide');
             $closeModal.click();
             toastList.show();
-            $guiaContinue.classList.remove("hide");
-            $guiaCreate.classList.add("hide");
-
-          //   setTimeout( () =>{
-          //     location.reload()
-          //   }, 2000)
+            setTimeout( () =>{
+              location.reload()
+            }, 2000)
 
           })
           .catch( error => {

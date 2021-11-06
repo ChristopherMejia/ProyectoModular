@@ -22,51 +22,99 @@
       </button>
   </div>
 
-  <div class="card-body">
-        <div class="col-lg-12">
+<section class="tables">
+    <div class="container-fluid">
+        <div class="row">
+
+        <div class="col-lg-6">
             <div class="card">
-            <div class="card-header border-bottom">
-                <h3 class="h4 mb-0">Información de Plantillas</h3>
-            </div>
+                <div class="card-header border-bottom">
+                    <h3 class="h4 mb-0">Información de Plantillas</h3>
+                </div>
             <div class="card-body">
                 <div class="table-responsive">
-                <table class="table text-sm mb-0 table-striped table-sm">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Organismo</th>
-                            <th>Versión</th>
-                            <th>Acciones<th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($plantillas as $plantilla)
-                        <tr>
-                          <td>{{$plantilla->id}}</td>
-                          <td>{{$plantilla->nombre}}</td>
-                          <td>{{$plantilla->version}}</td>
-                            <td>
-                                <a id="guia_create" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#crearGuia" href="#" onclick="crearGuia({{$plantilla->id}})">
-                                    <i class="fas fa-plus-circle"></i>
-                                </a>
-                                <a class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#eliminarPlantilla" href="#" onclick="eliminarPlantilla({{$plantilla->id}})">
-                                    <i class="fas fa-user-times"></i>
-                                </a>
+                    <table class="table text-sm mb-0 table-striped table-sm">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Organismo</th>
+                                <th>Versión</th>
+                                <th>Acciones<th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($plantillas as $plantilla)
+                            <tr>
+                            <td>{{$plantilla->id}}</td>
+                            <td>{{$plantilla->nombre}}</td>
+                            <td>{{$plantilla->version}}</td>
 
-                                <a id="guia_complete" href="/plantilla/start/{{$plantilla->id}}" class="btn btn-success hide">
-                                    <i class="fas fa-arrow-circle-right"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        @endforeach
-                        {{ $plantillas->links() }}
-                    </tbody>
-                </table>
+                                <td>
+                                    <a id="guia_create" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#crearGuia" href="#" onclick="crearGuia({{$plantilla->id}})">
+                                        <i class="fas fa-plus-circle"></i>
+                                    </a>
+                                    <a class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#eliminarPlantilla" href="#" onclick="eliminarPlantilla({{$plantilla->id}})">
+                                        <i class="fas fa-user-times"></i>
+                                    </a>
+
+                                </td>
+                            </tr>
+                            @endforeach
+                            {{ $plantillas->links() }}
+                        </tbody>
+                    </table>
                 </div>
-            </div>
             </div>
         </div>
     </div>
+    
+
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-header border-bottom">
+                    <h3 class="h4 mb-0">Información de Guias</h3>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table text-sm mb-0 table-striped table-sm">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Plantilla</th>
+                                    <th>Progragama Nivel</th>
+                                    <th>Progragama Nombre</th>
+                                    <th>Coordinador</th>
+                                    <th>Estatus</th>
+                                    <th>Acciones<th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($guias as $guia)
+                                <tr>
+                                <td>{{$guia['id']}}</td>
+                                <td>{{$guia['plantilla']}}</td>
+                                <td>{{$guia['programa_educativo_nivel']}}</td>
+                                <td>{{$guia['programa_educativo_nombre']}}</td>
+                                <td>{{$guia['nombre_coordinador']}}</td>
+                                <td>{{$guia['status']}}</td>
+
+                                    <td>
+
+                                    </td>
+
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+</section>
+
 </div>
 
 <div class="modal fade text-start" id="crearPlantilla" tabindex="-1" aria-labelledby="crearPlantillaLabel" aria-hidden="true">

@@ -14,9 +14,9 @@ class Plantilla extends Model
         'version',
     ];
 
-    public function evaluacion()
+    public function guias()
     {
-        return $this->hasMany('App\Evaluacion');
+        return $this->hasMany('App\Guia');
     }
     public function organismo()
     {
