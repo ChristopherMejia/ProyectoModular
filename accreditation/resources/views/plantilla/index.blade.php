@@ -100,7 +100,7 @@
                                                 <th>#</th>
                                                 <th>Plantilla</th>
                                                 <th>Progragama Nivel</th>
-                                                <th>Progragama Nombre</th>
+                                                <th>Programa Nombre</th>
                                                 <th>Coordinador</th>
                                                 <th>Estatus</th>
                                                 <th>Acciones<th>
@@ -117,7 +117,7 @@
                                             <td>{{$guia['status']}}</td>
 
                                             <td>
-                                                <a id="guia_comenzar" class="btn btn-primary" data-bs-toggle="comenzarGuia" data-bs-target="#comenzarGuia"  href="/plantilla/iniciar">
+                                                <a id="guia_comenzar" class="btn btn-primary" data-bs-toggle="comenzarGuia" data-bs-target="#comenzarGuia"  href="plantillas/iniciar/{{$guia['id']}}">
                                                     <i class="far fa-play-circle"></i>
                                                 </a>
                                             </td>

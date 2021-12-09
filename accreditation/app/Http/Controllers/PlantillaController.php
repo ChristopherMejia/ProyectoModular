@@ -247,21 +247,11 @@ class PlantillaController extends Controller
         //
     }
 
-    public function start()
+    public function start($id)
     {
-        // dd($id);
-        $plantilla = Plantilla::find(1);
-        // $nombre  = $plantilla->organismo->nombre;
-        // $version = $plantilla->version;
-        // $plantilla_info = array(
-        //     'plantilla_nombre'  => $nombre,
-        //     'plantilla_version' => $version,
-        // );
-
-        // dd($plantilla_info);
-        return view('plantilla.start', [
-            'plantilla' => $plantilla
-        ]);
+        $plantilla = Plantilla::find($id);
+        
+        return view('plantilla.start', [ 'plantilla' => $plantilla]);
 
     }
 }

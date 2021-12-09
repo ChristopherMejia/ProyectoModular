@@ -1,8 +1,9 @@
 @extends('layouts.app')
 @section('content')
-<!-- <div class="section"> -->
 
-    <!-- <div class="bg-gray-200 text-sm">
+    <div class="section">
+
+    <div class="bg-gray-200 text-sm">
         <div class="container-fluid">
             <nav aria-label="breadcrumb">
             <ol class="breadcrumb mb-0 py-3">
@@ -11,15 +12,15 @@
             </ol>
             </nav>
         </div>
-    </div> -->
+    </div>
     
-        <!-- <form action="/plantilla/update/{{ $plantilla['plantilla_id']}}" method="POST">
-        @csrf
-        @method('put')
-        <div class="card" style="text-align: center;">
-            <div class="card-header"><h4>Plantilla {{ $plantilla['plantilla_nombre'] }} - {{ $plantilla['plantilla_version'] }}</h4></div>
-        </div> -->
-    <!-- <form id="form_guardar_plantilla" action="#" method="POST">
+    <form action="/plantilla/update/{{ $plantilla['plantilla_id']}}" method="POST">
+    @csrf
+    @method('put')
+    <div class="card" style="text-align: center;">
+        <div class="card-header"><h4>Plantilla {{ $plantilla['plantilla_nombre'] }} - {{ $plantilla['plantilla_version'] }}</h4></div>
+    </div>
+    <form id="form_guardar_plantilla" action="#" method="POST">
     
     <div id="categorias" class="col-md-12">
         <div id="categoria_1" class="card-header" >
@@ -73,9 +74,8 @@
     <button id="btnGuardar" type="submit" class="btn btn-success">Guardar</button>
     </form>
     
-</div> -->
+</div>
 
-<!-- <script type="application/javascript" src="{{ asset('js/Plantilla/edicion_plantilla.js') }}"></script> -->
-
+<script type="application/javascript" src="{{ asset('js/Plantilla/edicion_plantilla.js') }}"></script>
 @endsection
 

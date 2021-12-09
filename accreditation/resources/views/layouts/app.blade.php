@@ -14,13 +14,13 @@
     <!-- Google fonts - Roboto -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
     <!-- Choices CSS-->
-    <link rel="stylesheet" href="vendor/choices.js/public/assets/styles/choices.min.css">
+    <link rel="stylesheet" href="{{ asset('vendor/choices.js/public/assets/styles/choices.min.css') }}">
     <!-- Custom Scrollbar-->
-    <link rel="stylesheet" href="vendor/overlayscrollbars/css/OverlayScrollbars.min.css">
+    <link rel="stylesheet" href="{{ asset('vendor/overlayscrollbars/css/OverlayScrollbars.min.css') }}">
     <!-- theme stylesheet-->
-    <link rel="stylesheet" href="css/style.default.css" id="theme-stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/style.default.css') }}" id="theme-stylesheet">
     <!-- Custom stylesheet - for your changes-->
-    <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
     <!-- Favicon-->
     <link rel="shortcut icon" href="img/favicon.ico">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css">
