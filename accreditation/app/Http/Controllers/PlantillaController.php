@@ -33,7 +33,7 @@ class PlantillaController extends Controller
             ->orderBy('plantilla.organismo_id','desc')
             ->paginate(7);
         $guias = Guia::with('plantillas')->with('programasEducativos')->orderBy('plantilla_id')->paginate(7);
-
+        // dd($guias);
         // informacion de las guias organizada
         foreach($guias as $guia)
         {
@@ -41,6 +41,7 @@ class PlantillaController extends Controller
             
             $arrayAux = [
                 "id" => $guia->id,
+                "id_plantilla" => $guia->plantillas->id,
                 "plantilla" => $organimos->nombre,
                 "programa_educativo_nivel" => $guia->programasEducativos->nivel,
                 "programa_educativo_nombre" => $guia->programasEducativos->nombre,
@@ -49,9 +50,6 @@ class PlantillaController extends Controller
             ];
             array_push($data, $arrayAux);
         }
-
-
-      
         // dd($data);
         return view('plantilla.index',[
             "plantillas" => $plantillas,
@@ -87,15 +85,6 @@ class PlantillaController extends Controller
 
     }
 
-    public function store(PlantillaRequest $request)
-    {
-       ///
-    }
-
-    public function show($id)
-    {
-        //
-    }
 
     public function edit($id)
     {
@@ -258,17 +247,21 @@ class PlantillaController extends Controller
         //
     }
 
-    public function start($id)
+    public function start()
     {
-        // dd($request->all());
-        $plantilla = Plantilla::find($id);
+        // dd($id);
+        $plantilla = Plantilla::find(1);
         // $nombre  = $plantilla->organismo->nombre;
         // $version = $plantilla->version;
         // $plantilla_info = array(
         //     'plantilla_nombre'  => $nombre,
         //     'plantilla_version' => $version,
         // );
-        return view('plantilla.start')->with('plantilla', $plantilla);
+
+        // dd($plantilla_info);
+        return view('plantilla.start', [
+            'plantilla' => $plantilla
+        ]);
 
     }
 }
