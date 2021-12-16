@@ -17,8 +17,8 @@ class ProgramaEducativo extends Model
 
     protected $table = 'programa_educativo';
 
-    public function evaluacion()
+    public function guias()
     {
-        return $this->hasMany('App\Evaluacion');
+        return $this->hasMany('App\Guia');
     }
 }

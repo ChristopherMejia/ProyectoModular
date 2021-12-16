@@ -10,6 +10,9 @@ use App\Categoria;
 use App\Subcategoria;
 use App\Pregunta;
 use App\Subpregunta;
+use App\ProgramaEducativo;
+use App\Guia;
+
 use DB;
 
 class PlantillaController extends Controller
@@ -21,55 +24,73 @@ class PlantillaController extends Controller
 
     public function index()
     {
+        $data = array();
+        $organismos = Organismo::all()->sortBy('nombre');
+        $programas = ProgramaEducativo::all()->sortBy('nombre');
         $plantillas=DB::table('plantillas as plantilla')
             ->join('organismos as organismo','plantilla.organismo_id','=','organismo.id')
             ->select('plantilla.id','organismo.nombre','plantilla.version')
             ->orderBy('plantilla.organismo_id','desc')
             ->paginate(7);
-        //dd($plantillas);
-        return view('plantilla.index',["plantillas"=>$plantillas]);
+        $guias = Guia::with('plantillas')->with('programasEducativos')->orderBy('plantilla_id')->paginate(7);
+        // dd($guias);
+        // informacion de las guias organizada
+        foreach($guias as $guia)
+        {
+            $organimos = Organismo::where('id', $guia->plantillas->organismo_id)->first();
+
+            $arrayAux = [
+                "id" => $guia->id,
+                "id_plantilla" => $guia->plantillas->id,
+                "plantilla" => $organimos->nombre,
+                "programa_educativo_nivel" => $guia->programasEducativos->nivel,
+                "programa_educativo_nombre" => $guia->programasEducativos->nombre,
+                "nombre_coordinador" => $guia->nombre_coordinador,
+                "status" => $guia->status,
+            ];
+            array_push($data, $arrayAux);
+        }
+        // dd($data);
+        return view('plantilla.index',[
+            "plantillas" => $plantillas,
+            "organismos" => $organismos,
+            "programas" => $programas,
+            "guias" => $data,
+        ]);
     }
 
-    public function create()
+    public function create(Request $request)
     {
-        $organismos=DB::table('organismos as orgs')
-            ->select('orgs.id','orgs.nombre')
-            ->get();
-        return view('plantilla.create',["organismos"=>$organismos]);
-    }
-
-    public function store(PlantillaRequest $request)
-    {
-        $idOrganismo = $request->input('idOrganismo');
-        $version = $request->input('version');
-
         $plantilla = new Plantilla;
-        $plantilla->organismo_id = $idOrganismo;
-        $plantilla->version = $version;
+        $plantilla->organismo_id = $request->idOrganismo;
+        $plantilla->version = $request->version;
         $plantilla->save();
 
-        $nombre  = $plantilla->organismo->nombre;
-        $version = $plantilla->version;
-        $id      = $plantilla->id;
-        $plantilla_info = array(
-            'plantilla_id'      => $id,
-            'plantilla_nombre'  => $nombre,
-            'plantilla_version' => $version,
-        );
+        return response()->json(['message' => 'success'], 200);
 
-        return view('plantilla.start')->with('plantilla', $plantilla_info);
     }
 
-    public function show($id)
-    {
-        //
+    public function createGuia(Request $request){
+        // dd($request);
+        $id = $request->plantilla_id;
+        $guia = new Guia;
+        $guia->plantilla_id = $request->plantilla_id;
+        $guia->programa_educativo_id = $request->programa_educativo_id;
+        $guia->nombre_coordinador = $request->nombre_coordinador;
+        $guia->fecha_inicio = $request->fecha_inicio;
+        $guia->status = $request->status;
+        $guia->save();
+
+        return response()->json(['message' => 'success'], 200);
+
     }
+
 
     public function edit($id)
     {
         $plantilla = Plantilla::find($id);
         $categorias = DB::table('categorias')->where('idplantilla','=', $plantilla->id)->get();
-        
+
         $nombre  = $plantilla->organismo->nombre;
         $version = $plantilla->version;
         $id      = $plantilla->id;
@@ -100,7 +121,7 @@ class PlantillaController extends Controller
         }
 
         //return array('plantilla' => $plantilla_info, 'categorias' => $categorias, 'subcategorias' => $subcategorias, 'preguntas' => $preguntas);
-        return view('plantilla.edit',['plantilla' => $plantilla_info, 'categorias' => $categorias ?? null, 
+        return view('plantilla.edit',['plantilla' => $plantilla_info, 'categorias' => $categorias ?? null,
         'subcategorias' => $subcategorias ?? null, 'preguntas' => $preguntas ?? null, 'subpreguntas' => $subpreguntas ?? null]);
     }
 
@@ -129,7 +150,7 @@ class PlantillaController extends Controller
         $tipos_sub = $request->get('tipos_sub');
 
         $i = 0;
-        
+
         while($i < count($categorias)){ //itera por cada categoria
             if($id_categorias[$i] != null){ //si ya existe la categoria, la actualiza
                 $categoriasUpdate = DB::table('categorias')
@@ -137,7 +158,7 @@ class PlantillaController extends Controller
                 ->update(['descripcion' => $categorias[$i]]);
 
                 $categoria = Categoria::find($id_categorias[$i]);
-            } 
+            }
             else{ //si no existe la categoria, crea una nueva
                 $categoria = new Categoria();
                 $categoria->idPlantilla = $plantilla->id;
@@ -154,7 +175,7 @@ class PlantillaController extends Controller
                         ->update(['descripcion' => $subcategorias[$i][$j]]);
 
                         $subcategoria = Subcategoria::find($id_subcategorias[$i][$j]);
-                    } 
+                    }
                     else{ //si no existe la subcategoria, crea una nueva
                         $subcategoria = new Subcategoria();
                         $subcategoria->idCategoria = $categoria->id;
@@ -176,7 +197,7 @@ class PlantillaController extends Controller
                                 'conAdjunto'   => ($adjuntos[$i][$j][$k] ? '1' : '0')]);
 
                                 $pregunta = Pregunta::find($id_preguntas[$i][$j][$k]);
-                            } 
+                            }
                             else{ //si no existe la pregunta, crea una nueva
                                 $pregunta = new Pregunta();
                                 $pregunta->idSubcategoria = $subcategoria->id;
@@ -196,9 +217,9 @@ class PlantillaController extends Controller
                                             ->where('id', $id_subpreguntas[$i][$j][$k][$l])
                                             ->update(['descripcion' => $subpreguntas[$i][$j][$k][$l],
                                             'idTipo' => $tipos_sub[$i][$j][$k][$l]]);
-            
+
                                             $subpregunta = Subpregunta::find($id_subpreguntas[$i][$j][$k][$l]);
-                                        } 
+                                        }
                                         else{ //si no existe la subspregunta, crea una nueva
                                             $subpregunta = new Subpregunta();
                                             $subpregunta->idPregunta = $pregunta->id;
@@ -209,15 +230,15 @@ class PlantillaController extends Controller
                                     $l=$l+1;
                                     }
                             }
-                            $k=$k+1;  
-                        } 
+                            $k=$k+1;
+                        }
                     }
                     $j=$j+1;
                 }
             }
             $i=$i+1;
         }
-        return array(/*'ids' => $id_categorias, 'categorias' => $categorias, 'ids_subcategorias' => $id_subcategorias, 
+        return array(/*'ids' => $id_categorias, 'categorias' => $categorias, 'ids_subcategorias' => $id_subcategorias,
         'subcategorias' =>$subcategorias,*/ 'ids_preguntas' => $id_preguntas, 'preguntas' => $preguntas, 'tipos' => $tipos, 'evidencias' => $evidencias, 'adjuntos' => $adjuntos, 'subpreguntas' => $subpreguntas);
     }
 
@@ -228,14 +249,10 @@ class PlantillaController extends Controller
 
     public function start($id)
     {
-        $plantilla = Plantilla::find($id);
-        $nombre  = $plantilla->organismo->nombre;
-        $version = $plantilla->version;
-        $plantilla_info = array(
-            'plantilla_nombre'  => $nombre,
-            'plantilla_version' => $version,
-        );
-        return view('plantilla.start')->with('plantilla', $plantilla_info);
+
+        $data = Guia::with('plantillas')->with('programasEducativos')->where( 'id' , $id)->first();
+        // dd($data);
+        return view('plantilla.start', [ 'data' => $data]);
 
     }
 }

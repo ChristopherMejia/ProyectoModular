@@ -17,33 +17,28 @@ class UserController extends Controller
 
     public function index()
     {
-        return view('users.create');
+        $users = User::orderBy('first_name')->paginate(10);
+        return view('users.users',[
+            'users' => $users,
+        ]);
     }
 
     public function create()
     {
-        //
+        return view('users.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(UserPostRequest $request)
+    public function store(Request $request)
     {
         //dd($request->all());
         $user = new User;
-        $user->first_name = $request->FirstName;
-        $user->last_name = $request->LastName;
+        $user->first_name = $request->name;
+        $user->last_name = $request->lastName;
         $user->email = $request->email;
-        $user->role_id = $request->inputGroupRoles;
+        $user->role_id = $request->role;
         $user->password = Hash::make($request->password);
         $user->save();
-        return \redirect()->back()->with('message', 'Successfully');
-
-
+        return response()->json(['message' => 'success'], 200);
     }
 
     /**
@@ -52,42 +47,30 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        //
+        $user = User::where('id', $request->idUser)->first();
+        return response()->json(['message' => 'success', 'user' => $user], 200);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function update(Request $request)
     {
-        //
+        $user = User::where('id', $request->id)->first();
+        $user->first_name = $request->name;
+        $user->last_name = $request->lastName;
+        $user->email = $request->email;
+        $user->role_id = $request->role;
+        
+        ($request->password == null) ? '' : $user->password = $request->password;
+        $user->save();
+        return response()->json(['message' => 'success'], 200);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function delete(Request $request)
     {
-        //
-    }
+        $user = User::where('id', $request->id)->first();
+        $user->delete();
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return response()->json(['message' => 'success'], 200);
     }
 }

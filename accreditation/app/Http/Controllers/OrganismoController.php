@@ -18,9 +18,12 @@ class OrganismoController extends Controller
         return view('home');
     }
 
-    public function create()
+    public function display()
     {
-        return view('organismo/create');
+        $organismos = Organismo::orderBy('nombre')->paginate(10);
+        return view('organismo/organismos', [
+            'organismos' => $organismos,
+        ]);
     }
 
     public function store(OrganismoRequest $request)
@@ -31,16 +34,14 @@ class OrganismoController extends Controller
         $organismo->nombre = $name;
         $organismo->save();
 
-        return \redirect()->back()->with('message', 'Successfully');
+        return response()->json(['message' => 'success'], 200);
     }
 
-    public function show()
+    public function show(Request $request)
     {
-        return view('organismo/show',
-        [
-            'Organismos' => Organismo::paginate(8)
-           
-        ]);
+        // dd($request->all());
+        $organismo = Organismo::where('id', $request->id)->first();
+        return response()->json(['message' => 'success', 'organismo' => $organismo], 200);
     }
 
     public function edit(OrganismoRequest $request)
@@ -49,7 +50,8 @@ class OrganismoController extends Controller
         $organismo = Organismo::find($request->id);
         $organismo->nombre = $request->name;
         $organismo->save();
-        return \redirect()->back()->with('message', 'Successfully');
+        return response()->json(['message' => 'success'], 200);
+
     }
 
     public function destroy(Request $request)
@@ -57,6 +59,7 @@ class OrganismoController extends Controller
         // dd($request);
         $organismo = Organismo::find($request->id);
         $organismo->delete();
-        return \redirect()->back()->with('message', 'Successfully');
+        return response()->json(['message' => 'success'], 200);
+
     }
 }

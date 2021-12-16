@@ -16,45 +16,43 @@ class ProgramaEducativoController extends Controller
 
     public function index()
     {
-        return view('programa_educativo.create_level');
+        $programas = ProgramaEducativo::paginate(10);
+        return view('programa_educativo.programas_educativos',[
+            'programas' => $programas,
+        ]);
     }
-    public function store(ProgramaEducativoRequest $request)
+    public function store(Request $request)
     {
         
         $programa = new ProgramaEducativo;
-        $programa->nombre = $request->educacion;
-        $programa->nivel  = $request->nivel;
+        $programa->nombre = $request->name;
+        $programa->nivel  = $request->level;
         $programa->save();
 
-        return \redirect()->back()->with('message', 'Successfully');
+        return response()->json(['message' => 'success'], 200);
 
     }
-    public function show()
+    public function show(Request $request)
     {
-        return view('programa_educativo.show',
-        [
-            'Programas' => ProgramaEducativo::paginate(8)
-        ]);
+        $programaEducativo = ProgramaEducativo::where('id', $request->id)->first();
+        return response()->json(['message' => 'success', 'programaEducativo' => $programaEducativo], 200);
     }
 
-    public function edit(ProgramaEducativoRequest $request)
+    public function edit(Request $request)
     {
-        $id_program = $request->id;
-        $programSchool = ProgramaEducativo::where('id', $id_program)->first();
-        if($request->nivel === "null"){
-            $programSchool->nombre = $request->educacion;
-        }else{
-            $programSchool->nombre = $request->educacion;
-            $programSchool->nivel = $request->nivel;
-        }
-        $programSchool->save();
+        $programaEducativo = ProgramaEducativo::where('id', $request->id)->first();
+        $programaEducativo->nombre = $request->name;
+        $programaEducativo->nivel = $request->level;
+        $programaEducativo->save();
 
-        return \redirect()->back()->with('message', 'Successfully');
+        return response()->json(['message' => 'success'], 200);
      
     }
 
     public function destroy(Request $request)
     {
-        dd($request->all());
+        $programaEducativo = ProgramaEducativo::where('id', $request->id)->first();
+        $programaEducativo->delete();
+        return response()->json(['message' => 'success'], 200);
     }
 }
