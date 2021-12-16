@@ -15,7 +15,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
     const $guiaContinue = document.getElementById('guia_complete');
     const $guiaCreate = document.getElementById('guia_create');
-    
+
     ///crear plantilla
     const $formCreatePlantilla = document.getElementById('form_create_plantilla');
     const $organismoPlantilla = document.getElementById('organismoPlantilla');
@@ -98,7 +98,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
       const toastError = document.getElementById('liveToastError');
       const toastErrorShow = new bootstrap.Toast(toastError, 5000);
 
-      console.log(valueCoordinador, valueProgramaEducativo, valueDate, valueIdPlantilla);
+    //   console.log(valueCoordinador, valueProgramaEducativo, valueDate, valueIdPlantilla);
       (valueCoordinador == '') ? $alertCoordinador.innerHTML = message('coordinador') : $alertCoordinador.innerHTML = '';
       (valueProgramaEducativo == '') ? $alertProgramaEducativo.innerHTML = message('programa educativo') : $alertProgramaEducativo.innerHTML = '';
       (valueDate == '') ? $alertFecha.innerHTML = message('fecha') : $alertFecha.innerHTML = '';
@@ -127,7 +127,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
             toastErrorShow.show();
           });
 
-    });      
+    });
 
 
 

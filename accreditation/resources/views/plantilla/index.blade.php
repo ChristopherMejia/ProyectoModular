@@ -26,7 +26,7 @@
                             Plantillas
                             </a>
                         </li>
-                        
+
                         <li class="nav-item">
                             <a id="select_guias" class="nav-link " data-bs-toggle="tab" href="#guias" role="tablist" aria-expanded="false" >
                             Guias
@@ -42,7 +42,7 @@
                         <div  class="tab-pane active" id="plan" aria-expanded="true">
                                 <div class="col-12" align="right">
                                     <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#crearPlantilla" style="margin-right: 16px ;margin-top: 13px;">
-                                        <i class="fa fa-user-plus" aria-hidden="true"></i> Nuevo
+                                        <i class="fa fa-user-plus" aria-hidden="true"></i> Nueva Plantilla
                                     </button>
                                 </div>
                                 <div class="card">
@@ -86,7 +86,7 @@
                                 </div>
                         </div>
 
-    
+
                 <div  class="tab-pane" id="guias" aria-expanded="true">
                         <div class="card">
                             <div class="card-header border-bottom">
@@ -99,7 +99,7 @@
                                             <tr>
                                                 <th>#</th>
                                                 <th>Plantilla</th>
-                                                <th>Progragama Nivel</th>
+                                                <th>Programa Nivel</th>
                                                 <th>Programa Nombre</th>
                                                 <th>Coordinador</th>
                                                 <th>Estatus</th>
@@ -130,7 +130,7 @@
                                 </div>
                             </div>
                     </div>
-                    
+
                 </div>
             </div>
         </div>
@@ -150,11 +150,11 @@
             </div>
             <div class="modal-body">
                 <!-- mensajes de validación -->
-                <div id="alert_organismo"></div> 
+                <div id="alert_organismo"></div>
                 <div id="alert_version"></div>
 
                 <form id="form_create_plantilla" action="#" method="post" class="form-horizontal">
-                    
+
                     <div class="row">
                       <label class="col-sm-3 form-label" for="organismoPlantilla">Organismo</label>
                       <div class="col-sm-9">
@@ -176,14 +176,14 @@
 
                     </div>
 
-                    
+
                     <div class="modal-footer">
                         <button class="btn btn-primary" type="submit">Guardar</button>
                         <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cerrar</button>
                     </div>
 
                 </form>
-                
+
             </div>
         </div>
     </div>
@@ -198,13 +198,13 @@
             </div>
             <div class="modal-body">
                 <!-- mensajes de validación -->
-                <div id="alert_programaEducativo"></div> 
+                <div id="alert_programaEducativo"></div>
                 <div id="alert_coordinador"></div>
                 <div id="alert_fecha"></div>
 
 
                 <form id="form_create_guia" action="#" method="post" class="form-horizontal">
-                    
+
                     <div class="row">
                       <label class="col-sm-3 form-label" for="programaEducativo">Programa Educativo</label>
                       <div class="col-sm-9">
@@ -234,14 +234,14 @@
                     </div>
 
                     <input type="hidden" id="id_plantilla">
-                    
+
                     <div class="modal-footer">
                         <button class="btn btn-primary" type="submit">Guardar</button>
                         <button id="close_guia_modal" class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cerrar</button>
                     </div>
 
                 </form>
-                
+
             </div>
         </div>
     </div>
@@ -293,7 +293,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
         <div class="toast-body">
-        ¡Error! Algo Sucedio 
+        ¡Error! Algo Sucedio
         </div>
     </div>
 </div>
