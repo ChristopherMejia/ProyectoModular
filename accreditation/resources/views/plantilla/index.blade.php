@@ -22,7 +22,7 @@
                         <ul class="nav nav-pills nav-pills-primary" role="tablist">
 
                         <li class="nav-item">
-                        <a id="select_plantilla" class="nav-link active" data-bs-toggle="tab"  href="#plan" aria-expanded="false">
+                            <a id="select_plantilla" class="nav-link active" data-bs-toggle="tab"  href="#plan" aria-expanded="false">
                             Plantillas
                             </a>
                         </li>

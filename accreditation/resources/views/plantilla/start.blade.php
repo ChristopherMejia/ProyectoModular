@@ -61,7 +61,11 @@
                                         <div id="Pregunta_1_1_1" ultimaSubpreguntaId=0>
 
                                             <div class="row" style="margin-bottom: 10px;">
-                                                <label class="col-sm">1. Pregunta </label>
+                                                <label
+                                                    class="form-check-label col-sm"
+                                                    style="margin-bottom: 10px;">
+                                                    1. Pregunta
+                                                </label>
 
                                                 <div>
                                                     <input type="hidden" name="id_preguntas[0][0][]">
@@ -77,6 +81,8 @@
                                             <div style="
                                                 display: flex;
                                                 align-items: center;">
+
+                                                <label class="form-check-label" style="margin-right: 20px;" >Tipo de Pregunta </label>
 
                                                 <div style="margin-right: 20px;">
                                                     <select
@@ -106,6 +112,7 @@
                                                 </div>
 
                                                 <div style="margin: 10px 0px 10px 52px;">
+                                                     {{-- área de texto para la descripcion de la evidencia  --}}
                                                     <textarea
                                                         id=evidencia_Pregunta_1_1_1
                                                         name="evidencias[0][0][]"
@@ -118,36 +125,118 @@
 
                                             </div>
 
-                                            {{-- área de texto para la descripcion de la evidencia  --}}
 
-
-                                            <div id="adjunto_Pregunta_1_1_1">
-                                                <label>Adjunto</label>
-                                                <input name="adjuntos[0][0][]" type="file"></input>
+                                            <div id="adjunto_Pregunta_1_1_1" style="margin-top: 10px;">
+                                                <label for="formFile" class="form-label">Adjuntar archivo</label>
+                                                <input id="formFile" name="adjuntos[0][0][]" type="file" class="form-control"></input>
                                             </div>
 
                                             <div class="card-body">
-                                                <div id="ciertoFalso_Pregunta_1_1_1">
-                                                    <input type="radio" disabled></input>
-                                                    <label>Cierto</label>
-                                                    <input type="radio" disabled></input>
-                                                    <label>Falso</label>
-                                                </div>
-                                                <div id="opcionMultiple_Pregunta_1_1_1" hidden=true>
-                                                    <div id="opciones_Pregunta_1_1_1">
-                                                        <input type="radio" disabled></input>
-                                                        <input id=Pregunta_1_1_1_opc-1 type=text placeholder="Opción 1"></input>
+
+                                                <div id="ciertoFalso_Pregunta_1_1_1" class="form-check">
+                                                    <div >
+
+                                                        <input
+                                                            class="form-check-input"
+                                                            type="radio"
+                                                            name="radioCierto"
+                                                            id="radioCierto1"
+                                                            disabled>
+                                                        </input>
+                                                        <label
+                                                            class="form-check-label"
+                                                            for="radioCierto1">
+                                                            Cierto
+                                                        </label>
+
                                                     </div>
-                                                    <button id="+opc_1" type="button" onClick="agregarOpcion('Pregunta_1_1_1')">Añadir opción</button>
+
+                                                    <div >
+
+                                                        <input
+                                                            class="form-check-input"
+                                                            type="radio"
+                                                            name="radioFalso"
+                                                            id="radioFalso1"
+                                                            type="radio"
+                                                            disabled>
+                                                        </input>
+                                                        <label
+                                                            class="form-check-label"
+                                                            for="radioFalso1">
+                                                            Falso
+                                                        </label>
+                                                    </div>
+
                                                 </div>
-                                                <input id="res_Pregunta_1_1_1" type="text" value="Respuesta" disabled hidden=true></input>
+
+                                                <div id="opcionMultiple_Pregunta_1_1_1" hidden=true>
+
+                                                    <div id="opciones_Pregunta_1_1_1" style="margin-bottom: 10px;">
+                                                        <input
+                                                            class="form-check-input"
+                                                            type="radio"
+                                                            disabled />
+                                                        <input
+                                                            id=Pregunta_1_1_1_opc-1
+                                                            type=text
+                                                            placeholder="Opción 1"
+                                                            class="form-control col-3"
+                                                            >
+                                                        </input>
+                                                    </div>
+
+                                                    <button
+                                                        id="+opc_1"
+                                                        type="button"
+                                                        onClick="agregarOpcion('Pregunta_1_1_1')"
+                                                        class="btn btn-primary"
+                                                        data-bs-toggle="tooltip"
+                                                        title="Agregar opción"
+                                                        data-bs-placement="right">
+                                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                                        Opción
+                                                    </button>
+
+                                                </div>
+
+                                                <input
+                                                    id="res_Pregunta_1_1_1"
+                                                    type="text"
+                                                    value="Respuesta"
+                                                    class="form-control col-3"
+                                                    disabled
+                                                    hidden=true>
+                                                </input>
+                                                <hr />
+
                                             </div>
 
-                                            <button id="Boton_1_1_1" type="button" onClick="agregarSubPregunta(1,1,1)">Agregar subpregunta</button>
+                                            <button
+                                                id="Boton_1_1_1"
+                                                type="button"
+                                                onClick="agregarSubPregunta(1,1,1)"
+                                                class="btn btn-primary"
+                                                data-bs-toggle="tooltip"
+                                                title="Agregar Subpregunta"
+                                                data-bs-placement="right">
+                                                <i class="fa fa-plus" aria-hidden="true"></i>
+                                                Subpregunta
+                                            </button>
                                         </div>
                                     </div>
 
-                                    <button id="buttonAgregar_1_1" type="button" onClick="agregarPregunta(1,1)">Agregar pregunta</button>
+                                    <button
+                                        id="buttonAgregar_1_1"
+                                        type="button"
+                                        onClick="agregarPregunta(1,1)"
+                                        class="btn btn-primary"
+                                        data-bs-toggle="tooltip"
+                                        title="Agregar Pregunta"
+                                        data-bs-placement="right">
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                        Pregunta
+                                    </button>
                                 </div>
 
                             </div>
