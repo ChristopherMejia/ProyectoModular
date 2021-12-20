@@ -30,6 +30,7 @@
                     <form id="form_guardar_plantilla" action="#" method="POST" class="form-horizontal">
 
                         <div id="categorias">
+
                             <div id="categoria_1" >
 
                                 <div class="row col-7">
@@ -224,27 +225,62 @@
                                                 Subpregunta
                                             </button>
                                         </div>
+
                                     </div>
 
-                                    <button
-                                        id="buttonAgregar_1_1"
-                                        type="button"
-                                        onClick="agregarPregunta(1,1)"
-                                        class="btn btn-primary"
-                                        data-bs-toggle="tooltip"
-                                        title="Agregar Pregunta"
-                                        data-bs-placement="right">
-                                        <i class="fa fa-plus" aria-hidden="true"></i>
-                                        Pregunta
-                                    </button>
                                 </div>
 
                             </div>
-                            <button id="btnAgregarSubcategoria_1" type="button" onClick="agregarSubcategoria(1)">Agregar subcategoria</button>
+
                         </div>
 
-                        <button id="btnAgregarCategoria" type="button" onClick="agregarCategoria()" >Agregar categoria</button>
-                        <button id="btnGuardar" type="submit" class="btn btn-success">Guardar</button>
+                        <div style="display: flex;justify-content: space-evenly;align-items: center;">
+
+                            <button
+                                id="buttonAgregar_1_1"
+                                type="button"
+                                onClick="agregarPregunta(1,1)"
+                                class="btn btn-primary"
+                                data-bs-toggle="tooltip"
+                                title="Agregar Pregunta"
+                                data-bs-placement="right">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                                Pregunta
+                            </button>
+
+                            <button 
+                                id="btnAgregarSubcategoria_1" 
+                                type="button" 
+                                onClick="agregarSubcategoria(1)"
+                                class="btn btn-primary"
+                                data-bs-toggle="tooltip"
+                                title="Agregar Subcategoría"
+                                data-bs-placement="bottom">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                                Subcategoría
+                            </button>
+
+                            <button 
+                                id="btnAgregarCategoria" 
+                                type="button" 
+                                onClick="agregarCategoria()" 
+                                class="btn btn-primary"
+                                data-bs-toggle="tooltip"
+                                title="Agregar Categoría"
+                                data-bs-placement="bottom">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                                Categoría
+                            </button>
+    
+                        </div>
+
+                        <button 
+                            id="btnGuardar" 
+                            type="submit" 
+                            class="btn btn-success">
+                            Guardar
+                        </button>
+
                     </form>
                 </div>
 
