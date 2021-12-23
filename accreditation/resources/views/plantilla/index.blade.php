@@ -72,7 +72,7 @@
                                                                 <i class="fas fa-plus-circle"></i>
                                                             </a>
                                                             <a class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#eliminarPlantilla" href="#" onclick="eliminarPlantilla({{$plantilla->id}})">
-                                                                <i class="fas fa-user-times"></i>
+                                                                <i class="far fa-trash-alt"></i>
                                                             </a>
 
                                                         </td>
