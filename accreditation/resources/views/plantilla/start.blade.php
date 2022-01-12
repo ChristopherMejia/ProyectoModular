@@ -109,7 +109,6 @@
                                                     <label class="form-check-label" for="check_Pregunta_1_1_1">
                                                         Agregar Evidencia
                                                     </label>
-
                                                 </div>
 
                                                 <div style="margin: 10px 0px 10px 52px;">
@@ -218,10 +217,14 @@
                                                 type="button"
                                                 onClick="agregarSubPregunta(1,1,1)"
                                                 class="btn btn-primary"
-                                                data-bs-toggle="tooltip"
-                                                title="Agregar Subpregunta"
-                                                data-bs-placement="right">
-                                                <i class="fa fa-plus" aria-hidden="true"></i>
+                                                >
+                                                <i 
+                                                    class="fa fa-plus" 
+                                                    aria-hidden="true"
+                                                    data-bs-toggle="tooltip"
+                                                    title="Agregar Subpregunta"
+                                                    data-bs-placement="right"
+                                                ></i>
                                                 Subpregunta
                                             </button>
                                         </div>
@@ -241,10 +244,14 @@
                                 type="button"
                                 onClick="agregarPregunta(1,1)"
                                 class="btn btn-primary"
-                                data-bs-toggle="tooltip"
-                                title="Agregar Pregunta"
-                                data-bs-placement="right">
-                                <i class="fa fa-plus" aria-hidden="true"></i>
+                                >
+                                <i 
+                                    class="fa fa-plus" 
+                                    aria-hidden="true"
+                                    data-bs-toggle="tooltip"
+                                    title="Agregar Pregunta"
+                                    data-bs-placement="right"
+                                ></i>
                                 Pregunta
                             </button>
 
@@ -253,10 +260,14 @@
                                 type="button" 
                                 onClick="agregarSubcategoria(1)"
                                 class="btn btn-primary"
-                                data-bs-toggle="tooltip"
-                                title="Agregar Subcategoría"
-                                data-bs-placement="bottom">
-                                <i class="fa fa-plus" aria-hidden="true"></i>
+                                >
+                                <i 
+                                    class="fa fa-plus" 
+                                    aria-hidden="true"
+                                    data-bs-toggle="tooltip"
+                                    title="Agregar Subcategoría"
+                                    data-bs-placement="bottom"
+                                ></i>
                                 Subcategoría
                             </button>
 
@@ -265,10 +276,14 @@
                                 type="button" 
                                 onClick="agregarCategoria()" 
                                 class="btn btn-primary"
-                                data-bs-toggle="tooltip"
-                                title="Agregar Categoría"
-                                data-bs-placement="bottom">
-                                <i class="fa fa-plus" aria-hidden="true"></i>
+                                >
+                                <i 
+                                    class="fa fa-plus" 
+                                    aria-hidden="true"
+                                    data-bs-toggle="tooltip"
+                                    title="Agregar Categoría"
+                                    data-bs-placement="bottom"
+                                ></i>
                                 Categoría
                             </button>
     
