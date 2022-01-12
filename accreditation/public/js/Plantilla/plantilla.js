@@ -13,8 +13,8 @@ window.addEventListener('DOMContentLoaded', (event) => {
         return response.json(); // parses JSON response into native JavaScript objects
     }
 
-    const $guiaContinue = document.getElementById('guia_complete');
-    const $guiaCreate = document.getElementById('guia_create');
+    // const $guiaContinue = document.getElementById('guia_complete');
+    // const $guiaCreate = document.getElementById('guia_create');
 
     ///crear plantilla
     const $formCreatePlantilla = document.getElementById('form_create_plantilla');
@@ -83,6 +83,10 @@ window.addEventListener('DOMContentLoaded', (event) => {
       $idPlantilla.value = id;
     }
 
+    eliminarPlantilla = async (id) => {
+      console.log( id );
+    }
+
 
     $formCreateGuia.addEventListener('submit', async(event) => {
       event.preventDefault();
@@ -128,7 +132,5 @@ window.addEventListener('DOMContentLoaded', (event) => {
           });
 
     });
-
-
 
 });
