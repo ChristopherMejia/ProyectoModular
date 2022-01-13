@@ -153,6 +153,7 @@
 
     function crearEspacioRespuesta(idPregunta){
         var nuevoEspacioRespuesta = document.createElement("input");
+        nuevoEspacioRespuesta.className = "form-control col-6";
         nuevoEspacioRespuesta.value = "Respuesta";
         nuevoEspacioRespuesta.id = "res_" + idPregunta;
         nuevoEspacioRespuesta.hidden = true;
@@ -162,24 +163,42 @@
     }
 
     function crearOpcionMultiple(idPregunta){
+        var divPadreOpciones = document.createElement("div");
+        divPadreOpciones.style = "margin-bottom: 10px;";
+
         var nuevaOpcionRadio = document.createElement("input");
+        nuevaOpcionRadio.className = "form-check-input";
         nuevaOpcionRadio.type = "radio";
         nuevaOpcionRadio.disabled = true;
+
         var nuevaOpcion = document.createElement("input");
+        nuevaOpcion.className = "form-control col-3";
         nuevaOpcion.placeholder = "Opción 1";
         nuevaOpcion.id = idPregunta + "_opc-1";
+
+        divPadreOpciones.appendChild(nuevaOpcionRadio);
+        divPadreOpciones.appendChild(nuevaOpcion);
+
+
         var nuevasOpciones = document.createElement("div");
+        nuevasOpciones.style = "margin-bottom: 10px;";
         nuevasOpciones.id = "opciones_" + idPregunta;
-        nuevasOpciones.appendChild(nuevaOpcionRadio);
-        nuevasOpciones.appendChild(nuevaOpcion);
+        nuevasOpciones.appendChild(divPadreOpciones);
+
+        var iconAdd = document.createElement("i");
+        iconAdd.className = "fa fa-plus";
+        iconAdd.ariaHidden = "true";
+        iconAdd.title = "Agregar opción";
 
         var nuevoBotonOpcion = document.createElement("button"); 
-        botonText1 = document.createTextNode("Añadir opción");
+        botonText1 = document.createTextNode(" Opción");
+        nuevoBotonOpcion.appendChild(iconAdd);
         nuevoBotonOpcion.appendChild(botonText1);
         nuevoBotonOpcion.type = "button"; //se debe especificar que el boton es de tipo button o si no el default será tipo submit
-        nuevoBotonOpcion.addEventListener('click',function(){ 
-            agregarOpcion(idPregunta)}
-        );
+        nuevoBotonOpcion.className = "btn btn-primary";
+        nuevoBotonOpcion.addEventListener('click', () => { 
+            agregarOpcion(idPregunta); ///TODO///
+        });
 
         var nuevaOpcionMultiple = document.createElement("div");
         nuevaOpcionMultiple.id = "opcionMultiple_"+idPregunta;
@@ -417,20 +436,30 @@
     function agregarOpcion(idPregunta){
         var idOpcionActual = $("#opciones_"+idPregunta)[0].lastChild.id;
         var idNuevaOpcion =  parseInt(idOpcionActual.split('-')[1]) + 1;
+
         var nuevaOpcion= document.createElement("input");
+        nuevaOpcion.style ="margin-left: 5px";
+        nuevaOpcion.className = "form-control col-3";
+
         var nuevoBotonEliminar = document.createElement("button");
+        nuevoBotonEliminar.className = "btn btn-outline-danger";
         botonText = document.createTextNode("X");
         nuevoBotonEliminar.appendChild(botonText);
-        nuevoBotonEliminar.addEventListener('click',function(){ 
+        nuevoBotonEliminar.addEventListener('click', () => { 
             eliminarOpcion(idPregunta,idNuevaOpcion)
             this.remove();
-            }
-        );
+        });
         nuevaOpcion.placeholder = "Opción " + idNuevaOpcion;
         nuevaOpcion.id = idPregunta+"_opc-"+idNuevaOpcion;
+
+        var divPadreOpciones = document.createElement("div");
+        divPadreOpciones.style = "display: flex; margin-top: 10px;";
+        divPadreOpciones.appendChild(nuevoBotonEliminar);
+        divPadreOpciones.appendChild(nuevaOpcion);
+
         
-        $("#opciones_"+idPregunta)[0].appendChild(nuevoBotonEliminar);
-        $("#opciones_"+idPregunta)[0].appendChild(nuevaOpcion);
+        $("#opciones_"+idPregunta)[0].appendChild(divPadreOpciones);
+        // $("#opciones_"+idPregunta)[0].appendChild(nuevaOpcion);
     }
 
     function eliminarOpcion(idPregunta,idOpcion){

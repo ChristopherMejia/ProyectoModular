@@ -191,10 +191,12 @@
                                                         type="button"
                                                         onClick="agregarOpcion('Pregunta_1_1_1')"
                                                         class="btn btn-primary"
-                                                        data-bs-toggle="tooltip"
-                                                        title="Agregar opción"
-                                                        data-bs-placement="right">
-                                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                                        >
+                                                        <i class="fa fa-plus" aria-hidden="true"
+                                                            data-bs-toggle="tooltip"
+                                                            title="Agregar opción"
+                                                            data-bs-placement="right"
+                                                        ></i>
                                                         Opción
                                                     </button>
 
@@ -204,7 +206,7 @@
                                                     id="res_Pregunta_1_1_1"
                                                     type="text"
                                                     value="Respuesta"
-                                                    class="form-control col-3"
+                                                    class="form-control col-6"
                                                     disabled
                                                     hidden=true>
                                                 </input>
