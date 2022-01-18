@@ -120,10 +120,13 @@
                                                 <a
                                                     id="guia_comenzar"
                                                     class="btn btn-primary"
-                                                    data-bs-toggle="comenzarGuia"
                                                     data-bs-target="#comenzarGuia"
                                                     href="plantillas/iniciar/{{$guia['id']}}">
-                                                    <i class="far fa-play-circle"></i>
+                                                    <i class="far fa-play-circle"
+                                                        title="Iniciar"
+                                                        data-bs-placement="right"
+                                                        data-bs-toggle="tooltip"
+                                                    ></i>
                                                 </a>
                                             </td>
 
