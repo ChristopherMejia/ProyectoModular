@@ -117,7 +117,12 @@
                                             <td>{{$guia['status']}}</td>
 
                                             <td>
-                                                <a id="guia_comenzar" class="btn btn-primary" data-bs-toggle="comenzarGuia" data-bs-target="#comenzarGuia"  href="plantillas/iniciar/{{$guia['id']}}">
+                                                <a
+                                                    id="guia_comenzar"
+                                                    class="btn btn-primary"
+                                                    data-bs-toggle="comenzarGuia"
+                                                    data-bs-target="#comenzarGuia"
+                                                    href="plantillas/iniciar/{{$guia['id']}}">
                                                     <i class="far fa-play-circle"></i>
                                                 </a>
                                             </td>
