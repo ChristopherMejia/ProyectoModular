@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+
 <div class="login-page d-flex align-items-center bg-gray-100">
     <div class="container mb-3">
         <div class="row">
@@ -14,29 +15,26 @@
                 @csrf
                 <div class="row">
                     <div class="col-lg-7 mx-auto">
-                    <div class="input-material-group mb-3">
-                        <input id="email" type="email" class="input-material @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-                        <label class="label-material" for="email">Email</label>
-
-                        @error('email')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
+                        <div class="input-material-group mb-4">
+                            <input id="login-email" type="email" class="input-material @error('email') is-invalid @enderror" name="email" required autocomplete="current-email">
+                            <label class="label-material" style="@error('email') display: none @enderror" for="login-email">Email</label>
+                            @error('email')
+                                <span class="invalid-feedback" role="alert">
+                                    Error en las Credenciales
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="input-material-group mb-4">
+                            <input id="login-password" type="password" class="input-material @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                            <label class="label-material" for="login-password">Contraseña</label>
+                            @error('password')
+                                <span class="invalid-feedback" role="alert">
+                                    Error en la contraseña
+                                </span>
+                            @enderror
+                        </div>
                     </div>
-                    <div class="input-material-group mb-4">
-                        
-                        <input id="login-password" type="password" class="input-material @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-                        <label class="label-material" for="login-password">Contraseña</label>
-
-                        @error('password')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-                    </div>
-                    <div class="col-12 text-center">       
+                    <div class="col-12 text-center">
                     </div>
                     <button type="submit" class="btn btn-primary mb-3">
                         {{ __('Ingresar') }}
