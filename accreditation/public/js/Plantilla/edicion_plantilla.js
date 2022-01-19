@@ -220,7 +220,7 @@
         var i = idCategoria - 1;
         var j = idSubcategoria -1;
         var nuevoEspacioAdjunto = document.createElement("div");
-        adjuntoText = document.createTextNode("Adjunto");
+        adjuntoText = document.createTextNode("Adjuntar archivo");
         adjuntoLabel = document.createElement("label");
         adjuntoLabel.appendChild(adjuntoText);
         nuevoAdjunto = document.createElement("input");
@@ -247,17 +247,22 @@
         var j = idSubcategoria-1; // valor en el arreglo de subcategorias
 
         var nuevaPregunta = document.createElement("div");
-        nuevaPregunta.className = "card";
         nuevaPregunta.id = "Pregunta_" + idCategoria + "_" + idSubcategoria + "_" + idNuevaPregunta;
 
         ultimaSubpreguntaId = document.createAttribute("ultimaSubpreguntaId");
         ultimaSubpreguntaId.value=0;
         nuevaPregunta.setAttributeNode(ultimaSubpreguntaId);
 
-        var nuevoEncabezadoPregunta = document.createElement("div");
-        nuevoEncabezadoPregunta.className = "card-header";
 
-        var nuevoIdentificadorPregunta = crearLabel(idNuevaPregunta + ".")
+        var divPreguntaPadre = document.createElement("div");
+        var divPreguntaInput = document.createElement("div");
+
+        divPreguntaPadre.className = "row";
+        divPreguntaPadre.style = "margin-bottom: 10px;";
+
+        var nuevoIdentificadorPregunta = crearLabel(idNuevaPregunta + ". Pregunta");
+        nuevoIdentificadorPregunta.className = "form-check-label col-sm";
+        nuevoIdentificadorPregunta.style = "margin-bottom: 10px;";
 
         //agregar <input type="hidden" name="id_preguntas[i][j][]"></input>
         var nuevoIdPregunta = document.createElement("input");
@@ -267,16 +272,50 @@
         var nuevoTituloPregunta = document.createElement("input");
         nuevoTituloPregunta.name = "preguntas["+i+"]["+j+"][]";
         nuevoTituloPregunta.placeholder = "Pregunta";
+        nuevoTituloPregunta.className = "form-control col-12";
+
+
+        divPreguntaInput.appendChild(nuevoIdPregunta);
+        divPreguntaInput.appendChild(nuevoTituloPregunta);
+        divPreguntaPadre.appendChild(nuevoIdentificadorPregunta);
+        divPreguntaPadre.appendChild(divPreguntaInput);
+
+        var divTipoPregunta = document.createElement("div");
+        var divTipoPreguntaSelect = document.createElement("div");
+        var divTipoPreguntaCheck = document.createElement("div");
+        var divTipoPreguntaText = document.createElement("div");
+
+
+        divTipoPregunta.style = "display: flex; align-items: center;";
+        divTipoPreguntaSelect.style = "margin-right: 20px;";
+        divTipoPreguntaCheck.className = "form-check";
+        divTipoPreguntaText.style = "margin: 10px 0px 10px 52px;";
+
+        var labelTipoPregunta = crearLabel("Tipo de Pregunta");
+        labelTipoPregunta.className = "form-check-label";
+        labelTipoPregunta.style = "margin-right: 20px;";
 
         var nuevoSelectTipo = crearSelectTipo(idCategoria,idSubcategoria,nuevaPregunta.id);
+        divTipoPreguntaSelect.appendChild(nuevoSelectTipo);
 
         var nuevoCheckEvidencia = crearCheckEvidencia(nuevaPregunta.id);
-
         var checkLabel = crearLabel("Evidencia");
+        divTipoPreguntaCheck.appendChild(nuevoCheckEvidencia);
+        divTipoPreguntaCheck.appendChild(checkLabel);
 
         var nuevaDescripcionEvidencia = crearDescripcionEvidencia(idCategoria,idSubcategoria,nuevaPregunta.id);
+        divTipoPreguntaText.appendChild(nuevaDescripcionEvidencia);
+
+        divTipoPregunta.appendChild(labelTipoPregunta);
+        divTipoPregunta.appendChild(divTipoPreguntaSelect);
+        divTipoPregunta.appendChild(divTipoPreguntaCheck);
+        divTipoPregunta.appendChild(divTipoPreguntaText);
+
+        var divAdjuntar = document.createElement("div");
+        divAdjuntar.style = "margin-top: 10px;";
 
         var nuevoEspacioAdjunto = crearEspacioAdjunto(idCategoria,idSubcategoria,nuevaPregunta.id);
+        divAdjuntar.appendChild(nuevoEspacioAdjunto);
 
         var nuevoCiertoFalso = crearCiertoFalso(nuevaPregunta.id);
 
@@ -287,20 +326,14 @@
         var nuevoCuerpoPregunta = document.createElement("div");
         nuevoCuerpoPregunta.className = "card-body"
 
-        nuevaPregunta.appendChild(nuevoEncabezadoPregunta);
-        nuevoEncabezadoPregunta.appendChild(nuevoIdPregunta);
-        nuevoEncabezadoPregunta.appendChild(nuevoIdentificadorPregunta);
-        nuevoEncabezadoPregunta.appendChild(nuevoTituloPregunta);
-        nuevoEncabezadoPregunta.appendChild(nuevoSelectTipo);
-        nuevoEncabezadoPregunta.appendChild(nuevoCheckEvidencia);
-        nuevoEncabezadoPregunta.appendChild(checkLabel);
-        nuevoEncabezadoPregunta.appendChild(nuevaDescripcionEvidencia);
-        nuevoEncabezadoPregunta.appendChild(nuevoEspacioAdjunto);
+        nuevaPregunta.appendChild(divPreguntaPadre);
+        nuevaPregunta.appendChild(divTipoPregunta);
+        nuevaPregunta.appendChild(divAdjuntar);
+
         nuevaPregunta.appendChild(nuevoCuerpoPregunta);
         nuevoCuerpoPregunta.appendChild(nuevoCiertoFalso);
         nuevoCuerpoPregunta.appendChild(nuevaOpcionMultiple);
         nuevoCuerpoPregunta.appendChild(nuevoEspacioRespuesta);
-
         // añade el elemento creado y su contenido al DOM
         $("#preguntas_" + idCategoria + "_" + idSubcategoria)[0].appendChild(nuevaPregunta);
         //crear boton de subpregunta
