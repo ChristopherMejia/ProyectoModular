@@ -220,8 +220,8 @@
                                                 onClick="agregarSubPregunta(1,1,1)"
                                                 class="btn btn-primary"
                                                 >
-                                                <i 
-                                                    class="fa fa-plus" 
+                                                <i
+                                                    class="fa fa-plus"
                                                     aria-hidden="true"
                                                     data-bs-toggle="tooltip"
                                                     title="Agregar Subpregunta"
@@ -247,24 +247,24 @@
                                 onClick="agregarPregunta(1,1)"
                                 class="btn btn-primary"
                                 >
-                                <i 
-                                    class="fa fa-plus" 
+                                <i
+                                    class="fa fa-plus"
                                     aria-hidden="true"
                                     data-bs-toggle="tooltip"
                                     title="Agregar Pregunta"
-                                    data-bs-placement="right"
+                                    data-bs-placement="bottom"
                                 ></i>
                                 Pregunta
                             </button>
 
-                            <button 
-                                id="btnAgregarSubcategoria_1" 
-                                type="button" 
+                            <button
+                                id="btnAgregarSubcategoria_1"
+                                type="button"
                                 onClick="agregarSubcategoria(1)"
                                 class="btn btn-primary"
                                 >
-                                <i 
-                                    class="fa fa-plus" 
+                                <i
+                                    class="fa fa-plus"
                                     aria-hidden="true"
                                     data-bs-toggle="tooltip"
                                     title="Agregar Subcategoría"
@@ -273,14 +273,14 @@
                                 Subcategoría
                             </button>
 
-                            <button 
-                                id="btnAgregarCategoria" 
-                                type="button" 
-                                onClick="agregarCategoria()" 
+                            <button
+                                id="btnAgregarCategoria"
+                                type="button"
+                                onClick="agregarCategoria()"
                                 class="btn btn-primary"
                                 >
-                                <i 
-                                    class="fa fa-plus" 
+                                <i
+                                    class="fa fa-plus"
                                     aria-hidden="true"
                                     data-bs-toggle="tooltip"
                                     title="Agregar Categoría"
@@ -288,12 +288,12 @@
                                 ></i>
                                 Categoría
                             </button>
-    
+
                         </div>
 
-                        <button 
-                            id="btnGuardar" 
-                            type="submit" 
+                        <button
+                            id="btnGuardar"
+                            type="submit"
                             class="btn btn-success">
                             Guardar
                         </button>
