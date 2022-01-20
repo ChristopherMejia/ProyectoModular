@@ -68,6 +68,9 @@
                                                     <td>{{$plantilla->version}}</td>
 
                                                         <td>
+                                                            <a id="guia_create" class="btn btn-primary" href="{{ URL('admin/plantilla/edit/' . $plantilla->id)}}" onclick="crearGuia({{$plantilla->id}})">
+                                                                <i class="fas fa-pencil"></i>
+                                                            </a>
                                                             <a id="guia_create" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#crearGuia" href="#" onclick="crearGuia({{$plantilla->id}})">
                                                                 <i class="fas fa-plus-circle"></i>
                                                             </a>

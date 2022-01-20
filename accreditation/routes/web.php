@@ -1,5 +1,9 @@
 <?php
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+
 Route::get('/login', 'AuthController@index');
 Route::get('/logout', 'AuthController@logout');
 
@@ -28,6 +32,14 @@ Route::group(['middleware' => ['manager']], function () {
     Route::post('/programa-educativo/get', 'ProgramaEducativoController@show');
     Route::post('/programa-educativo/update', 'ProgramaEducativoController@edit');
     Route::post('/programa-educativo/delete', 'ProgramaEducativoController@destroy');
+
+    Route::get('/plantillas', 'PlantillaController@index');
+    Route::post('/plantillas/create', 'PlantillaController@create');
+    Route::post('/plantilla/create/guia', 'PlantillaController@createGuia');
+    Route::post('/plantilla/save', 'PlantillaController@store');
+    Route::get('/plantillas/iniciar/{id}', 'PlantillaController@start')->name('start');
+    Route::get('/plantilla/edit/{id}', 'PlantillaController@edit');
+    Route::put('/plantilla/update/{id}', 'PlantillaController@update');
 });
 
 
