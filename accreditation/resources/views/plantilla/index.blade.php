@@ -75,7 +75,7 @@
                                                                 <i class="fas fa-plus-circle"></i>
                                                             </a>
                                                             <a class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#eliminarPlantilla" href="#" onclick="eliminarPlantilla({{$plantilla->id}})">
-                                                                <i class="fas fa-user-times"></i>
+                                                                <i class="far fa-trash-alt"></i>
                                                             </a>
 
                                                         </td>
@@ -120,8 +120,16 @@
                                             <td>{{$guia['status']}}</td>
 
                                             <td>
-                                                <a id="guia_comenzar" class="btn btn-primary" data-bs-toggle="comenzarGuia" data-bs-target="#comenzarGuia"  href="plantillas/iniciar/{{$guia['id']}}">
-                                                    <i class="far fa-play-circle"></i>
+                                                <a
+                                                    id="guia_comenzar"
+                                                    class="btn btn-primary"
+                                                    data-bs-target="#comenzarGuia"
+                                                    href="plantillas/iniciar/{{$guia['id']}}">
+                                                    <i class="far fa-play-circle"
+                                                        title="Iniciar"
+                                                        data-bs-placement="right"
+                                                        data-bs-toggle="tooltip"
+                                                    ></i>
                                                 </a>
                                             </td>
 
