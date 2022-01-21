@@ -100,9 +100,9 @@ class PlantillaController extends Controller
             'plantilla_version' => $version,
         );
 
-        if($categorias->isEmpty()){//si la plantilla esta vacia redirige a start
+        /* if($categorias->isEmpty()){//si la plantilla esta vacia redirige a start
             return view('plantilla.start')->with('plantilla', $plantilla_info);
-        }
+        } */
 
         $i=0;
         foreach($categorias as $categoria){

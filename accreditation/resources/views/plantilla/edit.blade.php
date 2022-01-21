@@ -3,7 +3,7 @@
 <?php
     $i = 1;
 ?>
-<div class="main-container">
+<div class="section">
     <div class="row justify-content-center">
         <form action="/plantilla/update/{{ $plantilla['plantilla_id']}}" method="POST">
         @csrf 
