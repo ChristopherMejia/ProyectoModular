@@ -9,7 +9,7 @@
             <ol class="breadcrumb mb-0 py-3">
                 <li class="breadcrumb-item"><a class="fw-light" href="/home" style="text-decoration: none;">Inicio</a></li>
                 <li class="breadcrumb-item"><a class="fw-light" href="/plantillas" style="text-decoration: none;">Plantillas</a></li>
-                <li class="breadcrumb-item active fw-light" aria-current="page"> {{ $data->programasEducativos->nombre }} - {{ $data->programasEducativos->nivel }}</li>
+                <li class="breadcrumb-item active fw-light" aria-current="page"> Guia </li>
             </ol>
             </nav>
         </div>
@@ -219,6 +219,7 @@
                                                 type="button"
                                                 onClick="agregarSubPregunta(1,1,1)"
                                                 class="btn btn-primary"
+                                                style="margin-bottom: 10px;"
                                                 >
                                                 <i
                                                     class="fa fa-plus"

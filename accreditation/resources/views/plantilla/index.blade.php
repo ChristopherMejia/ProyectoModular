@@ -68,9 +68,7 @@
                                                     <td>{{$plantilla->version}}</td>
 
                                                         <td>
-                                                            <a id="guia_create" class="btn btn-primary" href="{{ URL('/plantilla/edit/' . $plantilla->id)}}">
-                                                                <i class="fas fa-edit"></i>
-                                                            </a>
+
                                                             <a id="guia_create" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#crearGuia" href="#" onclick="crearGuia({{$plantilla->id}})">
                                                                 <i class="fas fa-plus-circle"></i>
                                                             </a>
@@ -102,6 +100,7 @@
                                             <tr>
                                                 <th>#</th>
                                                 <th>Plantilla</th>
+                                                <th>Versión</th>
                                                 <th>Programa Nivel</th>
                                                 <th>Programa Nombre</th>
                                                 <th>Coordinador</th>
@@ -114,6 +113,7 @@
                                             <tr>
                                             <td>{{$guia['id']}}</td>
                                             <td>{{$guia['plantilla']}}</td>
+                                            <td>{{$guia['version']}}</td>
                                             <td>{{$guia['programa_educativo_nivel']}}</td>
                                             <td>{{$guia['programa_educativo_nombre']}}</td>
                                             <td>{{$guia['nombre_coordinador']}}</td>
@@ -121,7 +121,7 @@
 
                                             <td>
                                                 <a
-                                                    id="guia_comenzar"
+                                                    id="guia_crear"
                                                     class="btn btn-primary"
                                                     data-bs-target="#comenzarGuia"
                                                     href="plantillas/iniciar/{{$guia['id']}}">
@@ -131,6 +131,14 @@
                                                         data-bs-toggle="tooltip"
                                                     ></i>
                                                 </a>
+
+                                                <a
+                                                    id="guia_editar"
+                                                    class="btn btn-primary"
+                                                    href="{{ URL('/plantilla/edit/' . $guia['id'])}}">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+
                                             </td>
 
                                             </tr>

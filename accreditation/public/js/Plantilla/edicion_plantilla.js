@@ -18,6 +18,7 @@
         var i = idCategoria - 1;
         var j = idSubcategoria -1;
         var nuevoSelectTipo = document.createElement("select");
+        nuevoSelectTipo.className = "form-select";
         nuevoSelectTipo.options[0] = new Option("Cierto o falso",0);
         nuevoSelectTipo.options[1] = new Option("Opción múltiple",1);
         nuevoSelectTipo.options[2] = new Option("Selección múltiple",2);
@@ -63,6 +64,7 @@
      */
     function crearCheckEvidencia(idPregunta){
         var nuevoCheckEvidencia = document.createElement("input");
+        nuevoCheckEvidencia.className = "form-check-input";
         nuevoCheckEvidencia.type = "checkbox";
         nuevoCheckEvidencia.id = "check_" + idPregunta;
         nuevoCheckEvidencia.addEventListener('click',function(){
@@ -83,7 +85,9 @@
         var i = idCategoria - 1;
         var j = idSubcategoria -1;
         var nuevaDescripcionEvidencia = document.createElement("textarea");
-        nuevaDescripcionEvidencia.placeholder = "Describir evidencia";
+        nuevaDescripcionEvidencia.className = "form-control";
+        nuevaDescripcionEvidencia.cols = "80";
+        nuevaDescripcionEvidencia.placeholder = "Agregar Descripción de evidencia";
         nuevaDescripcionEvidencia.id = "evidencia_" + idPregunta;
         nuevaDescripcionEvidencia.name = "evidencias["+i+"]["+j+"][]";
         nuevaDescripcionEvidencia.hidden = true;
@@ -220,10 +224,13 @@
         var i = idCategoria - 1;
         var j = idSubcategoria -1;
         var nuevoEspacioAdjunto = document.createElement("div");
+        nuevoEspacioAdjunto.style = "margin-top: 10px;";
         adjuntoText = document.createTextNode("Adjuntar archivo");
         adjuntoLabel = document.createElement("label");
+        adjuntoLabel.className = "form-label";
         adjuntoLabel.appendChild(adjuntoText);
         nuevoAdjunto = document.createElement("input");
+        nuevoAdjunto.className = "form-control";
         nuevoAdjunto.type = "file";
         nuevoAdjunto.name = "adjuntos["+i+"]["+j+"][]";
         nuevoEspacioAdjunto.appendChild(adjuntoLabel);
@@ -271,7 +278,7 @@
 
         var nuevoTituloPregunta = document.createElement("input");
         nuevoTituloPregunta.name = "preguntas["+i+"]["+j+"][]";
-        nuevoTituloPregunta.placeholder = "Pregunta";
+        nuevoTituloPregunta.placeholder = "Agregar Pregunta";
         nuevoTituloPregunta.className = "form-control col-12";
 
 
@@ -300,6 +307,7 @@
 
         var nuevoCheckEvidencia = crearCheckEvidencia(nuevaPregunta.id);
         var checkLabel = crearLabel("Evidencia");
+        checkLabel.className = "form-check-label";
         divTipoPreguntaCheck.appendChild(nuevoCheckEvidencia);
         divTipoPreguntaCheck.appendChild(checkLabel);
 
@@ -338,11 +346,19 @@
         $("#preguntas_" + idCategoria + "_" + idSubcategoria)[0].appendChild(nuevaPregunta);
         //crear boton de subpregunta
         var nuevoBotonSubpregunta = document.createElement("button");
-        botonText = document.createTextNode("Agregar subpregunta");
+        var iconAddSub = document.createElement("i");
+        iconAddSub.className = "fa fa-plus";
+
+        botonText = document.createTextNode(" Subpregunta");
+        nuevoBotonSubpregunta.appendChild(iconAddSub);
         nuevoBotonSubpregunta.appendChild(botonText);
-        nuevoBotonSubpregunta.addEventListener('click',function(){
+        nuevoBotonSubpregunta.className = "btn btn-primary";
+        nuevoBotonSubpregunta.style = "margin-bottom: 10px;";
+
+        nuevoBotonSubpregunta.addEventListener('click', () => {
             agregarSubPregunta(idCategoria,idSubcategoria,idNuevaPregunta)}
         );
+
         nuevoBotonSubpregunta.id = "Boton_" + idNuevaPregunta;
         nuevoBotonSubpregunta.type = "button";
         nuevaPregunta.appendChild(nuevoBotonSubpregunta);
