@@ -212,6 +212,7 @@
                                                 </input>
                                                 <hr />
 
+
                                             </div>
 
                                             <button
@@ -230,6 +231,7 @@
                                                 ></i>
                                                 Subpregunta
                                             </button>
+                                            <hr />
                                         </div>
 
                                     </div>
