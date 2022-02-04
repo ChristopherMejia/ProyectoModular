@@ -15,11 +15,12 @@ class CreatePreguntasTable extends Migration
     {
         Schema::create('preguntas', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('idTipo');
+            $table->integer('tipo_id');
             $table->string('descripcion');
-            $table->boolean('conEvidencia');
-            $table->boolean('conAdjunto');
-            $table->unsignedBigInteger('idSubcategoria');
+            $table->boolean('evidencia');
+            $table->string('descripcion_evidencia')->nullable();
+            $table->boolean('adjunto');
+            $table->unsignedBigInteger('subcategoria_id');
         });
     }
 

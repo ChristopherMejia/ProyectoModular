@@ -15,10 +15,10 @@ class CreateSubpreguntasTable extends Migration
     {
         Schema::create('subpreguntas', function (Blueprint $table) {
                 $table->bigIncrements('id');
-                $table->unsignedBigInteger('idTipo');
+                $table->unsignedBigInteger('tipo_id');
                 $table->string('descripcion');
-                $table->unsignedBigInteger('idPregunta');
-                $table->foreign('idPregunta')
+                $table->unsignedBigInteger('pregunta_id');
+                $table->foreign('pregunta_id')
                         ->references('id')
                         ->on('preguntas')
                         ->onDelete('cascade');

@@ -15,8 +15,8 @@ class CreateSubopcionesTable extends Migration
     {
         Schema::create('subopciones', function (Blueprint $table) {
             $table->string('descripcion');
-            $table->unsignedBigInteger('idSubpregunta');
-                $table->foreign('idSubpregunta')
+            $table->unsignedBigInteger('subpregunta_id');
+                $table->foreign('subpregunta_id')
                         ->references('id')
                         ->on('subpreguntas')
                         ->onDelete('cascade');

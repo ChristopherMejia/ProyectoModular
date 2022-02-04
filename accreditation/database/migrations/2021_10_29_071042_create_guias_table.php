@@ -19,6 +19,7 @@ class CreateGuiasTable extends Migration
             $table->unsignedBigInteger('programa_educativo_id');
             $table->string('nombre_coordinador');
             $table->string('fecha_inicio');
+            $table->string('status');
             $table->foreign('plantilla_id')
                       ->references('id')
                       ->on('plantillas')

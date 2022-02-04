@@ -120,6 +120,8 @@
                                             <td>{{$guia['status']}}</td>
 
                                             <td>
+                                                @if ($guia['status'] == "Activo")
+
                                                 <a
                                                     id="guia_crear"
                                                     class="btn btn-primary"
@@ -131,13 +133,19 @@
                                                         data-bs-toggle="tooltip"
                                                     ></i>
                                                 </a>
+                                                @else
 
                                                 <a
                                                     id="guia_editar"
                                                     class="btn btn-primary"
                                                     href="{{ URL('/plantilla/edit/' . $guia['id'])}}">
-                                                    <i class="fas fa-edit"></i>
+                                                    <i class="fas fa-edit"
+                                                        title="Editar"
+                                                        data-bs-placement="right"
+                                                        data-bs-toggle="tooltip"
+                                                    ></i>
                                                 </a>
+                                                @endif
 
                                             </td>
 
