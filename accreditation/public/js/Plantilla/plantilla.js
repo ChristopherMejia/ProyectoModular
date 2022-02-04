@@ -117,7 +117,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
       postData('/plantilla/create/guia', guia)
           .then( response =>{
-            console.log(response)
             // $('#crearGuia').modal('hide');
             $closeModal.click();
             toastList.show();

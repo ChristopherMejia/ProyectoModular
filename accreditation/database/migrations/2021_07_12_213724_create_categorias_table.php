@@ -15,9 +15,9 @@ class CreateCategoriasTable extends Migration
     {
         Schema::create('categorias', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('idPlantilla');
+            $table->unsignedBigInteger('plantilla_id');
             $table->string('descripcion');
-            $table->foreign('idPlantilla')
+            $table->foreign('plantilla_id')
                     ->references('id')
                     ->on('plantillas')
                     ->onDelete('cascade');

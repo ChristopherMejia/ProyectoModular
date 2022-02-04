@@ -42,6 +42,7 @@ class PlantillaController extends Controller
             $arrayAux = [
                 "id" => $guia->id,
                 "id_plantilla" => $guia->plantillas->id,
+                "version" => $guia->plantillas->version,
                 "plantilla" => $organimos->nombre,
                 "programa_educativo_nivel" => $guia->programasEducativos->nivel,
                 "programa_educativo_nombre" => $guia->programasEducativos->nombre,
@@ -72,7 +73,6 @@ class PlantillaController extends Controller
 
     public function createGuia(Request $request){
         // dd($request);
-        $id = $request->plantilla_id;
         $guia = new Guia;
         $guia->plantilla_id = $request->plantilla_id;
         $guia->programa_educativo_id = $request->programa_educativo_id;
@@ -82,6 +82,9 @@ class PlantillaController extends Controller
         $guia->save();
 
         return response()->json(['message' => 'success'], 200);
+        // $data = ProgramaEducativo::find($idProgramaEducativo);
+        // // dd($data);
+        // return view('plantilla.start', [ 'data' => $data]);
 
     }
 
@@ -251,7 +254,6 @@ class PlantillaController extends Controller
     {
 
         $data = Guia::with('plantillas')->with('programasEducativos')->where( 'id' , $id)->first();
-        // dd($data);
         return view('plantilla.start', [ 'data' => $data]);
 
     }

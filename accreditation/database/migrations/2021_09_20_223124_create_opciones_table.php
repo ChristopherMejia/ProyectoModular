@@ -15,8 +15,8 @@ class CreateOpcionesTable extends Migration
     {
         Schema::create('opciones', function (Blueprint $table) {
             $table->string('descripcion');
-            $table->unsignedBigInteger('idPregunta');
-                $table->foreign('idPregunta')
+            $table->unsignedBigInteger('pregunta_id');
+                $table->foreign('pregunta_id')
                         ->references('id')
                         ->on('preguntas')
                         ->onDelete('cascade');
