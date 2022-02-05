@@ -144,7 +144,25 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
     $form_delete_plantilla.addEventListener('submit', async(event) =>{
         event.preventDefault();
+        const id_plantilla = $plantilla_delete.value;
+        const plantilla = { id : id_plantilla};
+        const toastDelete = document.getElementById('toastDelete')
+        const toastDeleteShow = new bootstrap.Toast(toastDelete, 5000);
+        const toastError = document.getElementById('liveToastError');
+        const toastErrorShow = new bootstrap.Toast(toastError, 5000);
 
+        postData('/plantilla/delete', plantilla)
+          .then( response =>{
+            $('#eliminarPlantilla').modal('hide');
+            toastDeleteShow.show();
+            setTimeout( () =>{
+              location.reload()
+            }, 3000)
+
+          })
+          .catch( error => {
+            toastErrorShow.show();
+          });
 
     });
 
