@@ -274,6 +274,40 @@
     </div>
 </div>
 
+
+<div class="modal fade text-start" id="eliminarPlantilla" tabindex="-1" aria-labelledby="eliminarPlantillaLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="eliminarPlantillaLabel">Eliminar Plantilla</h5>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <form id="form_delete_plantilla" action="#" method="post" class="form-horizontal">
+
+                    <div class="row">
+                        <p id="phrase" style="text-align: center;"></p>
+                        <input type="hidden" id="delete_plantilla">
+                    </div>
+                    <div class="row" style="text-align: center;">
+                        <p id="phrase_secondary" style="text-align: center;">
+                            <h5> Recuerda que si borras la plantilla, las guias relacionadas a esta tambien se eliminan</h5>
+                        </p>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="btn btn-danger" type="submit">Eliminar</button>
+                        <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- mensajes de error y success -->
 <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
     <div id="liveToastCreate" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
