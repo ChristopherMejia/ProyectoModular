@@ -259,8 +259,19 @@ class PlantillaController extends Controller
         return response()->json(['message' => 'success', 'plantilla' => $plantilla], 200);
     }
 
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $guias = Guia::where('plantilla_id', $request->id)->get();
+        if($guias->count() > 0){
+
+            foreach ($guias as $guia) {
+                # code...
+                $guia->delete();
+            }
+        }
+        $plantilla = Plantilla::find($request->id);
+        $plantilla->delete();
+        return response()->json(['message' => 'success'], 200);
+
     }
 }

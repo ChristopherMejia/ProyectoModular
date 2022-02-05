@@ -312,10 +312,10 @@
 <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
     <div id="liveToastCreate" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-header" style="background-color: #0d6efd;">
-        <i class="fas fa-users"></i>
-        <strong class="me-auto"> Plantilla </strong>
-        <small>hace 1 minuto</small>
-        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            <i class="fas fa-users"></i>
+            <strong class="me-auto" style="color: white"> Plantilla </strong>
+            <small style="color: white">hace 1 minuto</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
         <div class="toast-body">
         ¡Correcto! Plantilla nueva registrada
@@ -324,33 +324,33 @@
 
     <div id="liveToastEdit" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-header" style="background-color: #0d6efd;">
-        <i class="fas fa-users"></i>
-        <strong class="me-auto"> Plantilla </strong>
-        <small>hace 1 minuto</small>
-        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            <i class="fas fa-users"></i>
+            <strong class="me-auto" style="color: white"> Plantilla </strong>
+            <small style="color: white">hace 1 minuto</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
         <div class="toast-body">
-        ¡Correcto! Plantilla Actualizado
+        ¡Correcto! Plantilla Actualizada
         </div>
     </div>
 
     <div id="toastDelete" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-header" style="background-color: #0d6efd;">
-        <i class="fas fa-users"></i>
-        <strong class="me-auto"> Usuario</strong>
-        <small>hace 1 minuto</small>
-        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            <i class="fas fa-users"></i>
+            <strong class="me-auto" style="color: white"> Plantilla </strong>
+            <small style="color: white">hace 1 minuto</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
         <div class="toast-body">
-        ¡Correcto! Plantilla Eliminada
+            ¡Correcto! Plantilla Eliminada
         </div>
     </div>
 
     <div id="liveToastError" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-header" style="background-color: red;">
         <i class="fas fa-users"></i>
-        <strong class="me-auto"> Usuario</strong>
-        <small>hace 1 minuto</small>
+        <strong class="me-auto" style="color: white" > Plantilla </strong>
+        <small style="color: white">hace 1 minuto</small>
         <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
         <div class="toast-body">
