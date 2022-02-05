@@ -245,10 +245,6 @@ class PlantillaController extends Controller
         'subcategorias' =>$subcategorias,*/ 'ids_preguntas' => $id_preguntas, 'preguntas' => $preguntas, 'tipos' => $tipos, 'evidencias' => $evidencias, 'adjuntos' => $adjuntos, 'subpreguntas' => $subpreguntas);
     }
 
-    public function destroy($id)
-    {
-        //
-    }
 
     public function start($id)
     {
@@ -256,5 +252,15 @@ class PlantillaController extends Controller
         $data = Guia::with('plantillas')->with('programasEducativos')->where( 'id' , $id)->first();
         return view('plantilla.start', [ 'data' => $data]);
 
+    }
+
+    public function show(Request $request){
+        $plantilla = Plantilla::with('organismo')->where('id', $request->id)->first();
+        return response()->json(['message' => 'success', 'plantilla' => $plantilla], 200);
+    }
+
+    public function destroy($id)
+    {
+        //
     }
 }

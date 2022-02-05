@@ -12,7 +12,7 @@ Auth::routes(["register" => false]);
 Route::get('/home', 'OrganismoController@index')->name('home');
 
 Route::group(['middleware' => ['manager']], function () {
-    
+
     Route::get('/users','UserController@index');
     Route::post('/users/create/user','UserController@store');
     Route::post('/users/get/user', 'UserController@show');
@@ -46,22 +46,23 @@ Route::group(['middleware' => ['manager']], function () {
 Route::group (['middleware' => ['coordinator']], function () {
 
     Route::get('/plantillas', 'PlantillaController@index');
+    Route::post('/plantillas/get', 'PlantillaController@show');
     Route::post('/plantillas/create', 'PlantillaController@create');
     Route::post('/plantilla/create/guia', 'PlantillaController@createGuia');
     Route::post('/plantilla/save', 'PlantillaController@store');
     Route::get('/plantillas/iniciar/{id}', 'PlantillaController@start')->name('start');
     Route::get('/plantilla/edit/{id}', 'PlantillaController@edit');
     Route::put('/plantilla/update/{id}', 'PlantillaController@update');
-    
+
 });
 
-  
-    
-    
-    
-    
-   
-    
-    
+
+
+
+
+
+
+
+
 
 

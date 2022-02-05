@@ -13,8 +13,11 @@ window.addEventListener('DOMContentLoaded', (event) => {
         return response.json(); // parses JSON response into native JavaScript objects
     }
 
-    // const $guiaContinue = document.getElementById('guia_complete');
-    // const $guiaCreate = document.getElementById('guia_create');
+    const getPlantilla = async(id_plantilla) => {
+        const response = await postData('/plantillas/get', {id : id_plantilla});
+        const {message, plantilla } = response;
+        return plantilla;
+    }
 
     ///crear plantilla
     const $formCreatePlantilla = document.getElementById('form_create_plantilla');
@@ -83,10 +86,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
       $idPlantilla.value = id;
     }
 
-    eliminarPlantilla = async (id) => {
-      console.log( id );
-    }
-
 
     $formCreateGuia.addEventListener('submit', async(event) => {
       event.preventDefault();
@@ -131,5 +130,25 @@ window.addEventListener('DOMContentLoaded', (event) => {
           });
 
     });
+
+    const $form_delete_plantilla = document.getElementById('eliminarPlantilla');
+    const $phrase = document.getElementById('phrase');
+    const $plantilla_delete = document.getElementById('delete_plantilla');
+
+    eliminarPlantilla = async (id) => {
+        const plantilla = await getPlantilla(id);
+        const {organismo} = plantilla;
+        $phrase.innerText = `¿Desea eliminar la plantilla con el organismo ${organismo.nombre} y versión ${plantilla.version}?`;
+        $plantilla_delete.value = plantilla.id;
+    }
+
+    $form_delete_plantilla.addEventListener('submit', async(event) =>{
+        event.preventDefault();
+
+
+    });
+
+
+
 
 });
