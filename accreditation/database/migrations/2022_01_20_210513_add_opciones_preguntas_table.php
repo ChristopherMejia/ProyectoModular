@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddStatusGuiaTable extends Migration
+class AddOpcionesPreguntasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddStatusGuiaTable extends Migration
      */
     public function up()
     {
-        Schema::table('guias', function (Blueprint $table) {
-            $table->string('status')->after('fecha_inicio');
+        Schema::table('preguntas', function (Blueprint $table) {
+            $table->string('opciones')->after('descripcion')->nullable();;
         });
     }
 
@@ -26,7 +26,7 @@ class AddStatusGuiaTable extends Migration
     public function down()
     {
         Schema::table('preguntas', function (Blueprint $table) {
-            $table->dropColumn('status');
+            $table->dripColumn('opciones');
         });
     }
 }
