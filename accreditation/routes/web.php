@@ -36,12 +36,13 @@ Route::group(['middleware' => ['manager']], function () {
     Route::get('/plantillas', 'PlantillaController@index');
     Route::post('/plantillas/get', 'PlantillaController@show'); //obtiene la plantilla
     Route::post('/plantillas/create', 'PlantillaController@create');
-    Route::post('/plantilla/create/guia', 'PlantillaController@createGuia');
-    Route::post('/plantilla/save', 'PlantillaController@store');
-    Route::get('/plantillas/iniciar/{id}', 'PlantillaController@start')->name('start');
-    Route::get('/plantilla/edit/{id}', 'PlantillaController@edit');
-    Route::put('/plantilla/update/{id}', 'PlantillaController@update');
     Route::post('/plantilla/delete', 'PlantillaController@destroy');
+
+    Route::post('/guia/create', 'GuiaController@create');
+    Route::post('/guia/save', 'GuiaController@store');
+    Route::get('/guia/iniciar/{id}', 'GuiaController@start')->name('start');
+    Route::get('/guia/edit/{id}', 'GuiaController@edit');
+    Route::put('/guia/update/{id}', 'GuiaController@update');
 });
 
 

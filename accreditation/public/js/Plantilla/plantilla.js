@@ -114,7 +114,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
         status : 'Activo',
       }
 
-      postData('/plantilla/create/guia', guia)
+      postData('/guia/create', guia)
           .then( response =>{
             // $('#crearGuia').modal('hide');
             $closeModal.click();

@@ -15,11 +15,11 @@
         </div>
     </div>
 
-    {{-- <form action="/plantilla/update/{{ $plantilla['plantilla_id']}}" method="POST"> --}}
-    {{-- @csrf
-    @method('put') --}}
+    <form action="/guia/update/{{$guia->id}}" method="POST">
+    @csrf
+    @method('put')
     <div class="card" style="text-align: center;">
-        <div class="card-header"><h4>{{ $data->programasEducativos->nombre }} - {{ $data->programasEducativos->nivel }}</h4></div>
+        <div class="card-header"><h4>{{ $guia->programasEducativos->nombre }} - {{ $guia->programasEducativos->nivel }}</h4></div>
     </div>
 
     <div class="card">

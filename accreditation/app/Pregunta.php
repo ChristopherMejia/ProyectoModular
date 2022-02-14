@@ -9,13 +9,5 @@ class Pregunta extends Model
     protected $primaryKey = 'id';
     public $timestamps = false;
 
-    protected $fillable =[
-        'idTipo',
-        'descripcion',
-        'conEvidencia',
-        'descripcionEvidencia',
-        'conAdjunto',
-        'idSubcategoria',
-        'identificacion',
-    ];
+    protected $table = 'preguntas';
 }

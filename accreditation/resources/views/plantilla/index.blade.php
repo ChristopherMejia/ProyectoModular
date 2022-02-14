@@ -126,7 +126,7 @@
                                                     id="guia_crear"
                                                     class="btn btn-primary"
                                                     data-bs-target="#comenzarGuia"
-                                                    href="plantillas/iniciar/{{$guia['id']}}">
+                                                    href="guia/iniciar/{{$guia['id']}}">
                                                     <i class="far fa-play-circle"
                                                         title="Iniciar"
                                                         data-bs-placement="right"
@@ -138,7 +138,7 @@
                                                 <a
                                                     id="guia_editar"
                                                     class="btn btn-primary"
-                                                    href="{{ URL('/plantilla/edit/' . $guia['id'])}}">
+                                                    href="{{ URL('/guia/edit/' . $guia['id'])}}">
                                                     <i class="fas fa-edit"
                                                         title="Editar"
                                                         data-bs-placement="right"
