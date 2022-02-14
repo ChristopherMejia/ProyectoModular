@@ -68,9 +68,7 @@
                                                     <td>{{$plantilla->version}}</td>
 
                                                         <td>
-                                                            <a id="guia_create" class="btn btn-primary" href="{{ URL('/plantilla/edit/' . $plantilla->id)}}">
-                                                                <i class="fas fa-edit"></i>
-                                                            </a>
+
                                                             <a id="guia_create" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#crearGuia" href="#" onclick="crearGuia({{$plantilla->id}})">
                                                                 <i class="fas fa-plus-circle"></i>
                                                             </a>
@@ -102,6 +100,7 @@
                                             <tr>
                                                 <th>#</th>
                                                 <th>Plantilla</th>
+                                                <th>Versión</th>
                                                 <th>Programa Nivel</th>
                                                 <th>Programa Nombre</th>
                                                 <th>Coordinador</th>
@@ -114,14 +113,17 @@
                                             <tr>
                                             <td>{{$guia['id']}}</td>
                                             <td>{{$guia['plantilla']}}</td>
+                                            <td>{{$guia['version']}}</td>
                                             <td>{{$guia['programa_educativo_nivel']}}</td>
                                             <td>{{$guia['programa_educativo_nombre']}}</td>
                                             <td>{{$guia['nombre_coordinador']}}</td>
                                             <td>{{$guia['status']}}</td>
 
                                             <td>
+                                                @if ($guia['status'] == "Activo")
+
                                                 <a
-                                                    id="guia_comenzar"
+                                                    id="guia_crear"
                                                     class="btn btn-primary"
                                                     data-bs-target="#comenzarGuia"
                                                     href="plantillas/iniciar/{{$guia['id']}}">
@@ -131,6 +133,20 @@
                                                         data-bs-toggle="tooltip"
                                                     ></i>
                                                 </a>
+                                                @else
+
+                                                <a
+                                                    id="guia_editar"
+                                                    class="btn btn-primary"
+                                                    href="{{ URL('/plantilla/edit/' . $guia['id'])}}">
+                                                    <i class="fas fa-edit"
+                                                        title="Editar"
+                                                        data-bs-placement="right"
+                                                        data-bs-toggle="tooltip"
+                                                    ></i>
+                                                </a>
+                                                @endif
+
                                             </td>
 
                                             </tr>
@@ -258,14 +274,48 @@
     </div>
 </div>
 
+
+<div class="modal fade text-start" id="eliminarPlantilla" tabindex="-1" aria-labelledby="eliminarPlantillaLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="eliminarPlantillaLabel">Eliminar Plantilla</h5>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <form id="form_delete_plantilla" action="#" method="post" class="form-horizontal">
+
+                    <div class="row">
+                        <p id="phrase" style="text-align: center;"></p>
+                        <input type="hidden" id="delete_plantilla">
+                    </div>
+                    <div class="row" style="text-align: center;">
+                        <p id="phrase_secondary" style="text-align: center;">
+                            <h5> Recuerda que si borras la plantilla, las guias relacionadas a esta tambien se eliminan</h5>
+                        </p>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="btn btn-danger" type="submit">Eliminar</button>
+                        <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- mensajes de error y success -->
 <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
     <div id="liveToastCreate" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-header" style="background-color: #0d6efd;">
-        <i class="fas fa-users"></i>
-        <strong class="me-auto"> Plantilla </strong>
-        <small>hace 1 minuto</small>
-        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            <i class="fas fa-users"></i>
+            <strong class="me-auto" style="color: white"> Plantilla </strong>
+            <small style="color: white">hace 1 minuto</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
         <div class="toast-body">
         ¡Correcto! Plantilla nueva registrada
@@ -274,33 +324,33 @@
 
     <div id="liveToastEdit" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-header" style="background-color: #0d6efd;">
-        <i class="fas fa-users"></i>
-        <strong class="me-auto"> Plantilla </strong>
-        <small>hace 1 minuto</small>
-        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            <i class="fas fa-users"></i>
+            <strong class="me-auto" style="color: white"> Plantilla </strong>
+            <small style="color: white">hace 1 minuto</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
         <div class="toast-body">
-        ¡Correcto! Plantilla Actualizado
+        ¡Correcto! Plantilla Actualizada
         </div>
     </div>
 
     <div id="toastDelete" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-header" style="background-color: #0d6efd;">
-        <i class="fas fa-users"></i>
-        <strong class="me-auto"> Usuario</strong>
-        <small>hace 1 minuto</small>
-        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            <i class="fas fa-users"></i>
+            <strong class="me-auto" style="color: white"> Plantilla </strong>
+            <small style="color: white">hace 1 minuto</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
         <div class="toast-body">
-        ¡Correcto! Plantilla Eliminada
+            ¡Correcto! Plantilla Eliminada
         </div>
     </div>
 
     <div id="liveToastError" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-header" style="background-color: red;">
         <i class="fas fa-users"></i>
-        <strong class="me-auto"> Usuario</strong>
-        <small>hace 1 minuto</small>
+        <strong class="me-auto" style="color: white" > Plantilla </strong>
+        <small style="color: white">hace 1 minuto</small>
         <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
         <div class="toast-body">

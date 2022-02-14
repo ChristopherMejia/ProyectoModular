@@ -48,7 +48,7 @@
                             <i class="far fa-edit"></i>
                         </a>
                         <a class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#eliminarOrganismo" href="#" onclick="deleteOrganismo({{$organismo->id}})">
-                            <i class="fas fa-user-times"></i>
+                            <i class="far fa-trash-alt"></i>
                         </a>
                         </td>
                         </tr>
@@ -72,7 +72,7 @@
             </div>
             <div class="modal-body">
                 <!-- mensajes de validación -->
-                <div id="alert_name"></div> 
+                <div id="alert_name"></div>
 
                 <form id="form_create_organismo" action="#" method="post" class="form-horizontal">
                     <div class="row gy-2 mb-4">
@@ -83,14 +83,14 @@
                         </div>
 
                     </div>
-                    
+
                     <div class="modal-footer">
                         <button class="btn btn-primary" type="submit">Guardar</button>
                         <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cerrar</button>
                     </div>
 
                 </form>
-                
+
             </div>
         </div>
     </div>
@@ -105,7 +105,7 @@
             </div>
             <div class="modal-body">
                 <!-- mensajes de validación -->
-                <div id="alert_name_edit"></div> 
+                <div id="alert_name_edit"></div>
 
                 <form id="form_editar_organismo" action="#" method="post" class="form-horizontal">
                     <div class="row gy-2 mb-4">
@@ -118,14 +118,14 @@
                     </div>
 
                     <input type="hidden" id="organismo_editar" >
-                    
+
                     <div class="modal-footer">
                         <button class="btn btn-primary" type="submit">Guardar</button>
                         <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cerrar</button>
                     </div>
 
                 </form>
-                
+
             </div>
         </div>
     </div>
@@ -143,7 +143,7 @@
                     <p id="phrase" style="text-align: center;"></p>
                     <input type="hidden" id="organismo_delete">
                     <div class="modal-footer">
-                        <button class="btn btn-primary" type="submit">Aceptar</button>
+                        <button class="btn btn-danger" type="submit">Eliminar</button>
                         <button id="btn_close_delete" class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cerrar</button>
                     </div>
                 </form>
