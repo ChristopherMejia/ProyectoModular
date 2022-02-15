@@ -89,7 +89,7 @@
                                     <div id="opciones_{{$i}}_{{$j}}_{{$k}}_SubPregunta_{{$l}}" opciones="[{{$i-1}}][{{$j-1}}][{{$k-1}}][{{$l-1}}][]">
                                         <div style="display: flex; margin-top: 10px;">
                                         <input type="radio" disabled></input>
-                                        <input id="{{$i}}_{{$j}}_{{$k}}_SubPregunta_{{$l}}_opc-1" name="opciones[{{$i-1}}][{{$j-1}}][{{$k-1}}][{{$l-1}}][]" type=text placeholder="Opción 1"></input>
+                                        <input id="{{$i}}_{{$j}}_{{$k}}_SubPregunta_{{$l}}_opc-1" name="subopciones[{{$i-1}}][{{$j-1}}][{{$k-1}}][{{$l-1}}][]" type=text placeholder="Opción 1"></input>
                                         </div>
                                     </div>
                                     <button id="+opc_1" type="button" onClick="agregarOpcion('{{$i}}_{{$j}}_{{$k}}_SubPregunta_{{$l}}')">Añadir opción</button>
