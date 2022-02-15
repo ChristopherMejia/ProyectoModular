@@ -165,7 +165,7 @@
         return nuevoEspacioRespuesta;
     }
 
-    function crearOpcionMultiple(idPregunta){
+    function crearOpcionMultiple(idPregunta,arrayOpciones){
         var divPadreOpciones = document.createElement("div");
         divPadreOpciones.style = "margin-bottom: 10px;";
 
@@ -178,6 +178,7 @@
         nuevaOpcion.className = "form-control col-3";
         nuevaOpcion.placeholder = "Opción 1";
         nuevaOpcion.id = idPregunta + "_opc-1";
+        nuevaOpcion.name = "opciones"+arrayOpciones;
 
         divPadreOpciones.appendChild(nuevaOpcionRadio);
         divPadreOpciones.appendChild(nuevaOpcion);
@@ -186,6 +187,7 @@
         var nuevasOpciones = document.createElement("div");
         nuevasOpciones.style = "margin-bottom: 10px;";
         nuevasOpciones.id = "opciones_" + idPregunta;
+        nuevasOpciones.opciones = arrayOpciones;
         nuevasOpciones.appendChild(divPadreOpciones);
 
         var iconAdd = document.createElement("i");
@@ -251,6 +253,7 @@
         }
         var i = idCategoria-1; // valor en el arreglo de categorias
         var j = idSubcategoria-1; // valor en el arreglo de subcategorias
+        var k = idNuevaPregunta-1;
 
         var nuevaPregunta = document.createElement("div");
         nuevaPregunta.id = "Pregunta_" + idCategoria + "_" + idSubcategoria + "_" + idNuevaPregunta;
@@ -328,7 +331,8 @@
 
         var nuevoEspacioRespuesta = crearEspacioRespuesta(nuevaPregunta.id);
 
-        var nuevaOpcionMultiple = crearOpcionMultiple(nuevaPregunta.id);
+        var arrayOpciones = "["+i+"]["+j+"]["+k+"][]";
+        var nuevaOpcionMultiple = crearOpcionMultiple(nuevaPregunta.id,arrayOpciones);
         var hr = document.createElement("hr");
         var hr2 = document.createElement("hr");
 
@@ -380,6 +384,7 @@
         var i = idCategoria-1; // valor en el arreglo de categorias
         var j = idSubcategoria-1; // valor en el arreglo de subcategorias
         var k = idPregunta-1; // valor en el arreglo de preguntas
+        var l = idNuevaSubPregunta-1;
 
         var nuevaSubPregunta = document.createElement("div");
         nuevaSubPregunta.id = idCategoria + "_" + idSubcategoria + "_" + idPregunta + "_SubPregunta_" + idNuevaSubPregunta;
@@ -455,7 +460,8 @@
 
         var nuevoEspacioRespuesta = crearEspacioRespuesta(nuevaSubPregunta.id);
 
-        var nuevaOpcionMultiple = crearOpcionMultiple(nuevaSubPregunta.id);
+        var arrayOpciones = "["+i+"]["+j+"]["+k+"]["+l+"][]";
+        var nuevaOpcionMultiple = crearOpcionMultiple(nuevaSubPregunta.id,arrayOpciones);
 
         var nuevoCuerpoPregunta = document.createElement("div");
         nuevoCuerpoPregunta.className = "card-body"
@@ -512,6 +518,13 @@
         });
         nuevaOpcion.placeholder = "Opción " + idNuevaOpcion;
         nuevaOpcion.id = idPregunta+"_opc-"+idNuevaOpcion;
+        if($("#opciones_"+idPregunta)[0].opciones !== undefined){
+            nuevaOpcion.name ="opciones"+($("#opciones_"+idPregunta)[0].opciones);
+        }
+        else{
+            nuevaOpcion.name ="opciones"+($("#opciones_"+idPregunta)[0].attributes.opciones.value);
+        }
+        
 
         var divPadreOpciones = document.createElement("div");
         divPadreOpciones.style = "display: flex; margin-top: 10px;";

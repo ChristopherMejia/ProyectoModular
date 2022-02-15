@@ -124,6 +124,8 @@ class GuiaController extends Controller
     {
         $guia = Guia::find($id);
 
+        dd($request->all());
+
         //arreglos de una dimension [] para las categorias
         $categorias = $request->get('categorias');
         $id_categorias = $request->get('id_categorias');

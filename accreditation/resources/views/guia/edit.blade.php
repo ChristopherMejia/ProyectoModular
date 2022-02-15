@@ -55,9 +55,11 @@
                                     <label>Falso</label>
                                 </div>
                                 <div id="opcionMultiple_Pregunta_{{$i}}_{{$j}}_{{$k}}" @if($pregunta->tipo != 1 && $pregunta->tipo != 2) hidden @endif>
-                                    <div id="opciones_Pregunta_{{$i}}_{{$j}}_{{$k}}">
+                                    <div id="opciones_Pregunta_{{$i}}_{{$j}}_{{$k}}" opciones="[{{$i-1}}][{{$j-1}}][{{$k-1}}][]">
+                                        <div style="display: flex; margin-top: 10px;">
                                         <input type="radio" disabled></input>
-                                        <input id=Pregunta_{{$i}}_{{$j}}_{{$k}}_opc-1 type=text placeholder="Opción 1"></input>
+                                        <input id=Pregunta_{{$i}}_{{$j}}_{{$k}}_opc-1 name="opciones[{{$i-1}}][{{$j-1}}][{{$k-1}}][]" type=text placeholder="Opción 1"></input>
+                                        </div>
                                     </div>
                                     <button id="+opc_1" type="button" onClick="agregarOpcion('Pregunta_{{$i}}_{{$j}}_{{$k}}')">Añadir opción</button>
                                 </div>
@@ -84,9 +86,11 @@
                                     <label>Falso</label>
                                 </div>
                                 <div id="opcionMultiple_{{$i}}_{{$j}}_{{$k}}_SubPregunta_{{$l}}"  @if($subpregunta->tipo != 1 && $subpregunta->tipo != 2) hidden @endif>
-                                    <div id="opciones_{{$i}}_{{$j}}_{{$k}}_SubPregunta_{{$l}}">
+                                    <div id="opciones_{{$i}}_{{$j}}_{{$k}}_SubPregunta_{{$l}}" opciones="[{{$i-1}}][{{$j-1}}][{{$k-1}}][{{$l-1}}][]">
+                                        <div style="display: flex; margin-top: 10px;">
                                         <input type="radio" disabled></input>
-                                        <input id={{$i}}_{{$j}}_{{$k}}_SubPregunta_{{$l}}_opc-1 type=text placeholder="Opción 1"></input>
+                                        <input id="{{$i}}_{{$j}}_{{$k}}_SubPregunta_{{$l}}_opc-1" name="opciones[{{$i-1}}][{{$j-1}}][{{$k-1}}][{{$l-1}}][]" type=text placeholder="Opción 1"></input>
+                                        </div>
                                     </div>
                                     <button id="+opc_1" type="button" onClick="agregarOpcion('{{$i}}_{{$j}}_{{$k}}_SubPregunta_{{$l}}')">Añadir opción</button>
                                 </div>
