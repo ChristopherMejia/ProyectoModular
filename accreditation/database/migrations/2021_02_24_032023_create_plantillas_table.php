@@ -17,10 +17,7 @@ class CreatePlantillasTable extends Migration
                 $table->bigIncrements('id');
                 $table->unsignedBigInteger('organismo_id');
                 $table->string('version');
-                $table->foreign('organismo_id')
-                      ->references('id')
-                      ->on('organismos')
-                      ->onDelete('cascade');
+                $table->timestamps();
         });
     }
 

@@ -18,17 +18,6 @@ class CreateEvaluacionTable extends Migration
             $table->string('nombre_coordinador');
             $table->unsignedBigInteger('plantilla_id');
             $table->unsignedBigInteger('programa_educativo_id');
-            
-            $table->foreign('plantilla_id')
-                    ->references('id')
-                    ->on('plantillas')
-                    ->onDelete('cascade');
-
-            $table->foreign('programa_educativo_id')
-                    ->references('id')
-                    ->on('programa_educativo')
-                    ->onDelete('cascade');
-
             $table->timestamps();
         });
     }

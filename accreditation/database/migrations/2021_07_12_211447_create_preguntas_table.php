@@ -15,8 +15,9 @@ class CreatePreguntasTable extends Migration
     {
         Schema::create('preguntas', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('tipo_id');
+            $table->string('tipo');
             $table->string('descripcion');
+            $table->string('opciones')->nullable();
             $table->boolean('evidencia');
             $table->string('descripcion_evidencia')->nullable();
             $table->boolean('adjunto');
