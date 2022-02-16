@@ -47,15 +47,15 @@ Route::group(['middleware' => ['manager']], function () {
 
 Route::group (['middleware' => ['coordinator']], function () {
 
-    // Route::get('/plantillas', 'PlantillaController@index'); //muestra todas las plantillas
-    // Route::post('/plantillas/create', 'PlantillaController@create'); //creas la plantilla
-    // Route::post('/plantilla/create/guia', 'PlantillaController@createGuia'); //creas la guia en base a la plantilla relacionada
-    // Route::post('/plantilla/save', 'PlantillaController@store');
+    Route::get('/plantillas', 'PlantillaController@index'); //muestra todas las plantillas
+    Route::post('/plantillas/create', 'PlantillaController@create'); //creas la plantilla
+    Route::post('/plantilla/create/guia', 'PlantillaController@createGuia'); //creas la guia en base a la plantilla relacionada
+    Route::post('/plantilla/save', 'PlantillaController@store');
 
 
-    // Route::get('/plantillas/iniciar/{id}', 'PlantillaController@start')->name('start');
-    // Route::get('/plantilla/edit/{id}', 'PlantillaController@edit');
-    // Route::put('/plantilla/update/{id}', 'PlantillaController@update');
+    Route::get('/plantillas/iniciar/{id}', 'PlantillaController@start')->name('start');
+    Route::get('/plantilla/edit/{id}', 'PlantillaController@edit');
+    Route::put('/plantilla/update/{id}', 'PlantillaController@update');
 
 });
 
