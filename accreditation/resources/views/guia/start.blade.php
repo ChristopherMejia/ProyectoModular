@@ -41,7 +41,14 @@
                                     </div>
                                 </div>
 
-                                <div id="subCategoria_1_1" style="margin-top: 10px;" >
+                                <div
+                                    id="subCategoria_1_1"
+                                    style="
+                                        margin-top: 10px;
+                                        border: 1px solid gray;
+                                        border-radius: 10px;
+                                        padding: 20px;
+                                        margin: 10px;" >
 
                                     <div class="row col-7" >
                                         <label for="subcategorias[0][]" class="col-sm-3 form-label" ><h5>Subcategoría</h5></label>
@@ -235,7 +242,25 @@
                                             <hr />
                                         </div>
 
+
                                     </div>
+                                    {{-- Boton para agregar pregunta --}}
+                                    <button
+                                        id="buttonAgregar_1_1"
+                                        type="button"
+                                        onClick="agregarPregunta(1,1)"
+                                        class="btn btn-primary"
+                                        style="margin-left: 10px;"
+                                        >
+                                        <i
+                                            class="fa fa-plus"
+                                            aria-hidden="true"
+                                            data-bs-toggle="tooltip"
+                                            title="Agregar Pregunta"
+                                            data-bs-placement="bottom"
+                                        ></i>
+                                        Pregunta
+                                    </button>
 
                                 </div>
 
@@ -244,22 +269,6 @@
                         </div>
 
                         <div style="display: flex;justify-content: space-evenly;align-items: center;">
-
-                            <button
-                                id="buttonAgregar_1_1"
-                                type="button"
-                                onClick="agregarPregunta(1,1)"
-                                class="btn btn-primary"
-                                >
-                                <i
-                                    class="fa fa-plus"
-                                    aria-hidden="true"
-                                    data-bs-toggle="tooltip"
-                                    title="Agregar Pregunta"
-                                    data-bs-placement="bottom"
-                                ></i>
-                                Pregunta
-                            </button>
 
                             <button
                                 id="btnAgregarSubcategoria_1"
@@ -294,6 +303,8 @@
                             </button>
 
                         </div>
+
+
 
                         <button
                             id="btnGuardar"
