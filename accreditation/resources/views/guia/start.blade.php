@@ -15,11 +15,11 @@
         </div>
     </div>
 
-    {{-- <form action="/plantilla/update/{{ $plantilla['plantilla_id']}}" method="POST"> --}}
-    {{-- @csrf
-    @method('put') --}}
+    <form action="/guia/update/{{$guia->id}}" method="POST">
+    @csrf
+    @method('put')
     <div class="card" style="text-align: center;">
-        <div class="card-header"><h4>{{ $data->programasEducativos->nombre }} - {{ $data->programasEducativos->nivel }}</h4></div>
+        <div class="card-header"><h4>{{ $guia->programasEducativos->nombre }} - {{ $guia->programasEducativos->nivel }}</h4></div>
     </div>
 
     <div class="card">
@@ -172,13 +172,14 @@
 
                                                 <div id="opcionMultiple_Pregunta_1_1_1" hidden=true>
 
-                                                    <div id="opciones_Pregunta_1_1_1" style="margin-bottom: 10px;">
+                                                    <div id="opciones_Pregunta_1_1_1" style="margin-bottom: 10px;" opciones="[0][0][0][]">
                                                         <input
                                                             class="form-check-input"
                                                             type="radio"
                                                             disabled />
                                                         <input
                                                             id=Pregunta_1_1_1_opc-1
+                                                            name=opciones[0][0][0][]
                                                             type=text
                                                             placeholder="Opción 1"
                                                             class="form-control col-3"

@@ -9,10 +9,5 @@ class Subpregunta extends Model
     protected $primaryKey = 'id';
     public $timestamps = false;
 
-    protected $fillable =[
-        'idTipo',
-        'descripcion',
-        'idPregunta',
-        'identificacion',
-    ];
+    protected $table = 'subpreguntas';
 }

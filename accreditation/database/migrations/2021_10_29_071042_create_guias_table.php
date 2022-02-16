@@ -20,14 +20,6 @@ class CreateGuiasTable extends Migration
             $table->string('nombre_coordinador');
             $table->string('fecha_inicio');
             $table->string('status');
-            $table->foreign('plantilla_id')
-                      ->references('id')
-                      ->on('plantillas')
-                      ->onDelete('cascade');
-            $table->foreign('programa_educativo_id')
-                      ->references('id')
-                      ->on('programa_educativo')
-                      ->onDelete('cascade');
             $table->timestamps();
         });
     }

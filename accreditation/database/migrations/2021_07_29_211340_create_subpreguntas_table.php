@@ -15,13 +15,10 @@ class CreateSubpreguntasTable extends Migration
     {
         Schema::create('subpreguntas', function (Blueprint $table) {
                 $table->bigIncrements('id');
-                $table->unsignedBigInteger('tipo_id');
+                $table->string('tipo');
                 $table->string('descripcion');
+                $table->string('opciones')->nullable();
                 $table->unsignedBigInteger('pregunta_id');
-                $table->foreign('pregunta_id')
-                        ->references('id')
-                        ->on('preguntas')
-                        ->onDelete('cascade');
             });
     }
 
