@@ -600,7 +600,7 @@ function agregarSubcategoria(idCategoria){
     }
     var i = idCategoria-1; // valor en el arreglo de categorias
     var nuevaSubCategoria = document.createElement("div");
-    nuevaSubCategoria.style = "margin-top: 10px;";
+    nuevaSubCategoria.style = "margin-top: 10px; border: 1px solid gray; border-radius: 10px; padding: 20px; margin: 10px;";
     nuevaSubCategoria.id = "subCategoria_" + idCategoria + "_" + idNuevaSubcategoria;
 
     var divSubcategoria = document.createElement("div");
@@ -642,14 +642,13 @@ function agregarSubcategoria(idCategoria){
 
     //Agrega el boton de agregar pregunta
     var nuevoBotonPregunta = document.createElement("button");
+    nuevoBotonPregunta.style = "margin-left: 10px;";
     nuevoBotonPregunta.className = "btn btn-primary";
     nuevoBotonPregunta.type = "button";
     nuevoBotonPregunta.id = "buttonAgregar_" + idCategoria + "_" + idNuevaSubcategoria;
 
     botonText = document.createTextNode("Agregar pregunta");
     nuevoBotonPregunta.appendChild(botonText);
-
-
 
     //se agregan los elementos a la nueva categoria
     nuevaSubCategoria.appendChild(nuevasPreguntas);
@@ -669,25 +668,48 @@ function agregarSubcategoria(idCategoria){
 function agregarCategoria(){
     var idCategoriaActual = $("#categorias")[0].lastChild.id;
     var nuevaCategoria = document.createElement("div");
-    nuevaCategoria.className = "card-header";
+    nuevaCategoria.style = "margin-top: 20px;"
     var idNuevaCategoria = parseInt(idCategoriaActual.split('_')[1]) + 1;
     nuevaCategoria.id = "categoria_" + idNuevaCategoria;
 
+    let hr = document.createElement("hr");
+    nuevaCategoria.appendChild(hr);
     //se crea el encabezado de la categoria
-    var nuevoEncabezadoCategoria = document.createElement("div");
-    nuevoEncabezadoCategoria.className = "card-header";
+    let contenedorCategoria = document.createElement("div");
+    contenedorCategoria.className = "row col-7";
+
+    let labelCategorias = document.createElement("label");
+    labelCategorias.className = "col-sm-3 form-label";
+
+    let h5 = document.createElement("h5");
+    labelText = document.createTextNode("Categoría");
+    h5.appendChild(labelText);
+    labelCategorias.appendChild(h5);
+
+    contenedorCategoria.appendChild(labelCategorias);
+
+    let contenedorInputCategoria = document.createElement("div");
+    contenedorInputCategoria.className = "col-sm-9";
+
+
+    // var nuevoEncabezadoCategoria = document.createElement("div");
+    // nuevoEncabezadoCategoria.className = "card-header";
 
     //agregar <input type="hidden" name="id_categorias[]"></input>
     var nuevoIdCategoria = document.createElement("input");
     nuevoIdCategoria.name = "id_categorias[]";
     nuevoIdCategoria.type = "hidden";
-    nuevaCategoria.appendChild(nuevoIdCategoria);
+    contenedorInputCategoria.appendChild(nuevoIdCategoria);
 
     var nuevoNombreCategoria = document.createElement("input");
+    nuevoNombreCategoria.className = "form-control col-6";
     nuevoNombreCategoria.name = "categorias[]";
-    nuevoNombreCategoria.placeholder = "Categoria";
-    nuevoEncabezadoCategoria.appendChild(nuevoNombreCategoria);
-    nuevaCategoria.appendChild(nuevoEncabezadoCategoria);
+    nuevoNombreCategoria.placeholder = "Nombre de la Categoría";
+
+    contenedorInputCategoria.appendChild(nuevoNombreCategoria);
+    contenedorCategoria.appendChild(contenedorInputCategoria);
+
+    nuevaCategoria.appendChild(contenedorCategoria);
 
 
     //se agrega la nueva categoria
@@ -698,7 +720,9 @@ function agregarCategoria(){
 
     //Agrega el boton de agregar subcategoria
     var nuevoBotonSubcategoria = document.createElement("button");
-    botonText = document.createTextNode("Agregar subcategoria");
+    nuevoBotonSubcategoria.className = "btn btn-primary";
+    nuevoBotonSubcategoria.style = "margin-left: 10px;";
+    botonText = document.createTextNode("Agregar Subcategoría");
     nuevoBotonSubcategoria.appendChild(botonText);
     nuevoBotonSubcategoria.addEventListener('click',function(){
         agregarSubcategoria(idNuevaCategoria)}
