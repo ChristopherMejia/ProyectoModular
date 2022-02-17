@@ -29,7 +29,7 @@
                 <div class="card-body">
                     <form id="form_guardar_plantilla" action="#" method="POST" class="form-horizontal">
 
-                        <div id="categorias">
+                        <div id="categorias" style=" margin-bottom: 20px;">
 
                             <div id="categoria_1" >
 
@@ -252,66 +252,46 @@
                                         class="btn btn-primary"
                                         style="margin-left: 10px;"
                                         >
-                                        <i
-                                            class="fa fa-plus"
-                                            aria-hidden="true"
-                                            data-bs-toggle="tooltip"
-                                            title="Agregar Pregunta"
-                                            data-bs-placement="bottom"
-                                        ></i>
-                                        Pregunta
+                                        Agregar Pregunta
                                     </button>
 
                                 </div>
 
                             </div>
 
-                        </div>
-
-                        <div style="display: flex;justify-content: space-evenly;align-items: center;">
-
+                             {{-- Boton para agregar Subcategoría --}}
                             <button
                                 id="btnAgregarSubcategoria_1"
                                 type="button"
                                 onClick="agregarSubcategoria(1)"
                                 class="btn btn-primary"
+                                style="margin-left: 10px;"
                                 >
-                                <i
-                                    class="fa fa-plus"
-                                    aria-hidden="true"
-                                    data-bs-toggle="tooltip"
-                                    title="Agregar Subcategoría"
-                                    data-bs-placement="bottom"
-                                ></i>
-                                Subcategoría
+
+                                Agregar Subcategoría
                             </button>
+                        </div>
+
+                        <div style="display: flex;justify-content: right;align-items: center;">
 
                             <button
                                 id="btnAgregarCategoria"
                                 type="button"
                                 onClick="agregarCategoria()"
                                 class="btn btn-primary"
+                                style="margin-right: 20px;"
                                 >
-                                <i
-                                    class="fa fa-plus"
-                                    aria-hidden="true"
-                                    data-bs-toggle="tooltip"
-                                    title="Agregar Categoría"
-                                    data-bs-placement="bottom"
-                                ></i>
-                                Categoría
+                                Agregar Categoría
+                            </button>
+
+                            <button
+                                id="btnGuardar"
+                                type="submit"
+                                class="btn btn-success">
+                                Guardar
                             </button>
 
                         </div>
-
-
-
-                        <button
-                            id="btnGuardar"
-                            type="submit"
-                            class="btn btn-success">
-                            Guardar
-                        </button>
 
                     </form>
                 </div>
