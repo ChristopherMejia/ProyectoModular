@@ -26,36 +26,36 @@
         <div class="col-lg-12">
             <div class="card">
             <div class="card-header border-bottom">
-                <h3 class="h4 mb-0">Información de Organismos</h3>
+                <h3 class="h4 mb-0">Organismos Acreditadores</h3>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                <table class="table text-sm mb-0 table-striped table-sm">
-                    <thead>
-                        <tr>
-                        <th>#</th>
-                        <th>Nombre</th>
-                        <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($organismos as $organismo)
-                        <tr>
-                        <td>{{$organismo->id}}</td>
-                        <td>{{$organismo->nombre}}</td>
-                        <td>
-                        <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editarOrganismo" href="#" onclick="editOrganismo({{$organismo->id}})">
-                            <i class="far fa-edit"></i>
-                        </a>
-                        <a class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#eliminarOrganismo" href="#" onclick="deleteOrganismo({{$organismo->id}})">
-                            <i class="far fa-trash-alt"></i>
-                        </a>
-                        </td>
-                        </tr>
-                        @endforeach
-                        {{ $organismos->links() }}
-                    </tbody>
-                </table>
+                    <table class="table text-sm mb-0 table-striped table-sm">
+                        <thead>
+                            <tr>
+                            <th>#</th>
+                            <th>Nombre</th>
+                            <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($organismos as $organismo)
+                            <tr>
+                            <td>{{$organismo->id}}</td>
+                            <td>{{$organismo->nombre}}</td>
+                            <td>
+                            <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editarOrganismo" href="#" onclick="editOrganismo({{$organismo->id}})">
+                                <i class="far fa-edit"></i>
+                            </a>
+                            <a class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#eliminarOrganismo" href="#" onclick="deleteOrganismo({{$organismo->id}})">
+                                <i class="far fa-trash-alt"></i>
+                            </a>
+                            </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                {{ $organismos->links() }}
                 </div>
             </div>
             </div>
