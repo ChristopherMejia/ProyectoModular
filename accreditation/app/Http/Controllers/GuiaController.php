@@ -107,7 +107,11 @@ class GuiaController extends Controller
                 $k=0;
                 $preguntas[$i][$j] = DB::table('preguntas')->where('subcategoria_id','=', $subcategoria->id)->get();
                 foreach($preguntas[$i][$j] as $pregunta){
+                    $pregunta->opciones = json_decode($pregunta->opciones);
                     $subpreguntas[$i][$j][$k] = DB::table('subpreguntas')->where('pregunta_id','=', $pregunta->id)->get();
+                    foreach($subpreguntas[$i][$j][$k] as $subpregunta){
+                        $subpregunta->opciones = json_decode($subpregunta->opciones);
+                    }
                     $k++;
                 }
                 $j++;
@@ -124,7 +128,7 @@ class GuiaController extends Controller
     {
         $guia = Guia::find($id);
 
-        dd($request->all());
+        //dd($request->all());
 
         //arreglos de una dimension [] para las categorias
         $categorias = $request->get('categorias');
@@ -140,11 +144,13 @@ class GuiaController extends Controller
         $tipos = $request->get('tipos');
         $evidencias = $request->get('evidencias');
         $adjuntos = $request->get('adjuntos');
+        $opciones = $request->get('opciones');
 
         //arreglos de cuatro dimensiones[][][][] para las subpreguntas
         $subpreguntas = $request->get('subpreguntas');
         $id_subpreguntas = $request->get('id_subpreguntas');
         $tipos_sub = $request->get('tipos_sub');
+        $subopciones = $request->get('subopciones');
 
         $i = 0;
 
@@ -191,7 +197,8 @@ class GuiaController extends Controller
                                 'tipo' => $tipos[$i][$j][$k],
                                 'evidencia' => ($evidencias[$i][$j][$k] ? '1' : '0'),
                                 'descripcion_evidencia' => $evidencias[$i][$j][$k],
-                                'adjunto'   => ($adjuntos[$i][$j][$k] ? '1' : '0')]);
+                                'adjunto' => ($adjuntos[$i][$j][$k] ? '1' : '0'),
+                                'opciones' => json_encode($opciones[$i][$j][$k])]);
 
                                 $pregunta = Pregunta::find($id_preguntas[$i][$j][$k]);
                             }
@@ -203,6 +210,7 @@ class GuiaController extends Controller
                                 $pregunta->evidencia = ($evidencias[$i][$j][$k] ? '1' : '0');
                                 $pregunta->descripcion_evidencia = $evidencias[$i][$j][$k];
                                 $pregunta->adjunto = ($adjuntos[$i][$j][$k] ? '1' : '0');
+                                $pregunta->opciones = json_encode($opciones[$i][$j][$k]);
                                 $pregunta->save();
                             }
                             if($subpreguntas)//verifica que existan las subpreguntas
@@ -213,8 +221,8 @@ class GuiaController extends Controller
                                             $subpreguntasUpdate = DB::table('subpreguntas')
                                             ->where('id', $id_subpreguntas[$i][$j][$k][$l])
                                             ->update(['descripcion' => $subpreguntas[$i][$j][$k][$l],
-                                            'idTipo' => $tipos_sub[$i][$j][$k][$l]]);
-
+                                            'tipo' => $tipos_sub[$i][$j][$k][$l],
+                                            'opciones' => json_encode($subopciones[$i][$j][$k][$l])]);
                                             $subpregunta = Subpregunta::find($id_subpreguntas[$i][$j][$k][$l]);
                                         }
                                         else{ //si no existe la subspregunta, crea una nueva
@@ -222,6 +230,7 @@ class GuiaController extends Controller
                                             $subpregunta->pregunta_id = $pregunta->id;
                                             $subpregunta->descripcion = $subpreguntas[$i][$j][$k][$l];
                                             $subpregunta->tipo = $tipos_sub[$i][$j][$k][$l];
+                                            $subpregunta->opciones = json_encode($subopciones[$i][$j][$k][$l]);
                                             $subpregunta->save();
                                         }
                                     $l=$l+1;

@@ -190,7 +190,7 @@
                                                     <button
                                                         id="+opc_1"
                                                         type="button"
-                                                        onClick="agregarOpcion('Pregunta_1_1_1')"
+                                                        onClick="agregarOpcion('Pregunta_1_1_1',false)"
                                                         class="btn btn-primary"
                                                         >
                                                         <i class="fa fa-plus" aria-hidden="true"
