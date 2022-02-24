@@ -20,7 +20,7 @@ class OrganismoController extends Controller
 
     public function display()
     {
-        $organismos = Organismo::orderBy('nombre')->paginate(10);
+        $organismos = Organismo::orderBy('nombre')->paginate(5);
         return view('organismo/organismos', [
             'organismos' => $organismos,
         ]);

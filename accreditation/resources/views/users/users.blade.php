@@ -15,7 +15,7 @@
     </div>
 
     <div class="card-header header-table"><h4> Usuarios <h4></div>
-    
+
     <div class="col-12" align="right">
         <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#crearUsuario" style="margin-right: 16px ;margin-top: 13px;">
             <i class="fa fa-user-plus" aria-hidden="true"></i> Nuevo
@@ -57,9 +57,12 @@
                             </td>
                         </tr>
                         @endforeach
-                        {{ $users->links() }}
                     </tbody>
                 </table>
+
+                <div class="d-flex justify-content-end mt-3">
+                    {!! $users->links() !!}
+                </div>
                 </div>
             </div>
             </div>
@@ -78,7 +81,7 @@
             </div>
             <div class="modal-body">
                 <!-- mensajes de validación -->
-                <div id="alert_name"></div> 
+                <div id="alert_name"></div>
                 <div id="alert_email"></div>
                 <div id="alert_role"></div>
                 <div id="alert_password"></div>
@@ -125,14 +128,14 @@
                         <label class="form-label" for="password">Password</label>
                         <input class="form-control" id="password" type="password" placeholder="Contraseña">
                     </div>
-                    
+
                     <div class="modal-footer">
                         <button class="btn btn-primary" type="submit">Guardar</button>
                         <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cerrar</button>
                     </div>
 
                 </form>
-                
+
             </div>
         </div>
     </div>
@@ -148,7 +151,7 @@
             </div>
             <div class="modal-body">
                 <!-- mensajes de validación -->
-                <div id="alert_name_edit"></div> 
+                <div id="alert_name_edit"></div>
                 <div id="alert_email_edit"></div>
                 <div id="alert_role_edit"></div>
 
@@ -192,14 +195,14 @@
                     </div>
 
                     <input type="hidden" id="user_id" value="">
-                    
+
                     <div class="modal-footer">
                         <button class="btn btn-primary" type="submit">Guardar</button>
                         <button id="btn_close_edit" class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cerrar</button>
                     </div>
 
                 </form>
-                
+
             </div>
         </div>
     </div>
@@ -273,7 +276,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
         <div class="toast-body">
-        ¡Error! Algo Sucedio 
+        ¡Error! Algo Sucedio
         </div>
     </div>
 </div>

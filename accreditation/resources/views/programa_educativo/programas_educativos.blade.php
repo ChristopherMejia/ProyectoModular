@@ -14,8 +14,6 @@
         </div>
     </div>
 
-    <div class="card-header header-table"><h4> Programas Educativos <h4></div>
-
     <div class="col-12" align="right">
         <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#crearProgramaEducativo" style="margin-right: 16px ;margin-top: 13px;">
             <i class="fa fa-user-plus" aria-hidden="true"></i> Nuevo
@@ -26,7 +24,7 @@
         <div class="col-lg-12">
             <div class="card">
             <div class="card-header border-bottom">
-                <h3 class="h4 mb-0">Información de Programas Educativos</h3>
+                <h3 class="h4 mb-0">Programas Educativos</h3>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -55,9 +53,13 @@
                             </td>
                         </tr>
                         @endforeach
-                        {{ $programas->links() }}
                     </tbody>
                 </table>
+
+                <div class="d-flex justify-content-end mt-3">
+                    {!! $programas->links() !!}
+                </div>
+
                 </div>
             </div>
             </div>
@@ -76,7 +78,7 @@
             </div>
             <div class="modal-body">
                 <!-- mensajes de validación -->
-                <div id="alert_name"></div> 
+                <div id="alert_name"></div>
                 <div id="alert_level"></div>
 
                 <form id="form_create_programa" action="#" method="post" class="form-horizontal">
@@ -102,14 +104,14 @@
                         </div>
 
                     </div>
-                    
+
                     <div class="modal-footer">
                         <button class="btn btn-primary" type="submit">Guardar</button>
                         <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cerrar</button>
                     </div>
 
                 </form>
-                
+
             </div>
         </div>
     </div>
@@ -124,7 +126,7 @@
             </div>
             <div class="modal-body">
                 <!-- mensajes de validación -->
-                <div id="alert_name_editar"></div> 
+                <div id="alert_name_editar"></div>
                 <div id="alert_level_editar"></div>
 
                 <form id="form_editar_programa" action="#" method="post" class="form-horizontal">
@@ -140,7 +142,7 @@
                         <label class="col-sm-3 form-label" for="nivelProgramaEditar">Nivel</label>
                         <div class="col-sm-9">
                             <select class="form-select mb-3" name="nivelProgramaEditar" id="nivelProgramaEditar">
-                            
+
                             </select>
 
                             <small class="form-text">Nivel del programa educativo</small>
@@ -149,14 +151,14 @@
                     </div>
 
                     <input type="hidden" id="idProgramaEditar">
-                    
+
                     <div class="modal-footer">
                         <button class="btn btn-primary" type="submit">Guardar</button>
                         <button id="btnCloseEdit" class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cerrar</button>
                     </div>
 
                 </form>
-                
+
             </div>
         </div>
     </div>
@@ -185,7 +187,7 @@
 </div>
 
 <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-    
+
     <div id="liveToastCreate" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-header" style="background-color: #0d6efd;">
         <i class="fas fa-users"></i>
@@ -230,7 +232,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
         <div class="toast-body">
-        ¡Error! Algo Sucedio 
+        ¡Error! Algo Sucedio
         </div>
     </div>
 

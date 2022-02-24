@@ -57,11 +57,20 @@
                                 <div id="opcionMultiple_Pregunta_{{$i}}_{{$j}}_{{$k}}" @if($pregunta->tipo != 1 && $pregunta->tipo != 2) hidden @endif>
                                     <div id="opciones_Pregunta_{{$i}}_{{$j}}_{{$k}}" opciones="[{{$i-1}}][{{$j-1}}][{{$k-1}}][]">
                                         <div style="display: flex; margin-top: 10px;">
-                                        <input type="radio" disabled></input>
-                                        <input id=Pregunta_{{$i}}_{{$j}}_{{$k}}_opc-1 name="opciones[{{$i-1}}][{{$j-1}}][{{$k-1}}][]" type=text placeholder="Opción 1"></input>
+                                        @if($pregunta->tipo == 1 || $pregunta->tipo == 2)
+                                            <?php $n_opcion = 1; ?>
+                                            @foreach($pregunta->opciones as $opcion)
+                                                <input type="radio" disabled></input>
+                                                <input id="Pregunta_{{$i}}_{{$j}}_{{$k}}_opc-{{$n_opcion}}" name="opciones[{{$i-1}}][{{$j-1}}][{{$k-1}}][]" type=text value="{{$opcion}}" placeholder="Opción 1"></input>
+                                                <?php $n_opcion++; ?>
+                                            @endforeach
+                                        @else
+                                            <input type="radio" disabled></input>
+                                            <input id=Pregunta_{{$i}}_{{$j}}_{{$k}}_opc-1 name="opciones[{{$i-1}}][{{$j-1}}][{{$k-1}}][]" type=text placeholder="Opción 1"></input>
+                                        @endif
                                         </div>
                                     </div>
-                                    <button id="+opc_1" type="button" onClick="agregarOpcion('Pregunta_{{$i}}_{{$j}}_{{$k}}')">Añadir opción</button>
+                                    <button id="+opc_1" type="button" onClick="agregarOpcion('Pregunta_{{$i}}_{{$j}}_{{$k}}',false)">Añadir opción</button>
                                 </div>
                                 <input id="res_Pregunta_{{$i}}_{{$j}}_{{$k}}" type="text" value="Respuesta" disabled @if($pregunta->tipo != 3) hidden @endif></input>
                             </div>
@@ -88,13 +97,22 @@
                                 <div id="opcionMultiple_{{$i}}_{{$j}}_{{$k}}_SubPregunta_{{$l}}"  @if($subpregunta->tipo != 1 && $subpregunta->tipo != 2) hidden @endif>
                                     <div id="opciones_{{$i}}_{{$j}}_{{$k}}_SubPregunta_{{$l}}" opciones="[{{$i-1}}][{{$j-1}}][{{$k-1}}][{{$l-1}}][]">
                                         <div style="display: flex; margin-top: 10px;">
-                                        <input type="radio" disabled></input>
-                                        <input id="{{$i}}_{{$j}}_{{$k}}_SubPregunta_{{$l}}_opc-1" name="subopciones[{{$i-1}}][{{$j-1}}][{{$k-1}}][{{$l-1}}][]" type=text placeholder="Opción 1"></input>
+                                            @if($subpregunta->tipo == 1 || $subpregunta->tipo == 2)
+                                            <?php $n_subopcion = 1; ?>
+                                            @foreach($subpregunta->opciones as $opcion)
+                                                <input type="radio" disabled></input>
+                                                <input id="{{$i}}_{{$j}}_{{$k}}_SubPregunta_{{$l}}_opc-{{$n_subopcion}}" name="subopciones[{{$i-1}}][{{$j-1}}][{{$k-1}}][{{$l-1}}][]" type=text value="{{$opcion}}" placeholder="Opción 1"></input>
+                                                <?php $n_opcion++; ?>
+                                            @endforeach
+                                        @else
+                                            <input type="radio" disabled></input>
+                                            <input id="{{$i}}_{{$j}}_{{$k}}_SubPregunta_{{$l}}_opc-1" name="subopciones[{{$i-1}}][{{$j-1}}][{{$k-1}}][{{$l-1}}][]" type=text placeholder="Opción 1"></input>
+                                        @endif
                                         </div>
                                     </div>
-                                    <button id="+opc_1" type="button" onClick="agregarOpcion('{{$i}}_{{$j}}_{{$k}}_SubPregunta_{{$l}}')">Añadir opción</button>
+                                    <button id="+opc_1" type="button" onClick="agregarOpcion('{{$i}}_{{$j}}_{{$k}}_SubPregunta_{{$l}}',true)">Añadir opción</button>
                                 </div>
-                                <input id="res_{{$i}}_{{$j}}_{{$k}}_SubPregunta_{{$l}}" type="text" value="Respuesta" disabled @if($subpregunta->tipo != 4) hidden @endif></input>
+                                <input id="res_{{$i}}_{{$j}}_{{$k}}_SubPregunta_{{$l}}" type="text" value="Respuesta" disabled @if($subpregunta->tipo != 3) hidden @endif></input>
                             </div>
                             </div>
                             <?php

@@ -16,14 +16,14 @@ class ProgramaEducativoController extends Controller
 
     public function index()
     {
-        $programas = ProgramaEducativo::paginate(10);
+        $programas = ProgramaEducativo::paginate(5);
         return view('programa_educativo.programas_educativos',[
             'programas' => $programas,
         ]);
     }
     public function store(Request $request)
     {
-        
+
         $programa = new ProgramaEducativo;
         $programa->nombre = $request->name;
         $programa->nivel  = $request->level;
@@ -46,7 +46,7 @@ class ProgramaEducativoController extends Controller
         $programaEducativo->save();
 
         return response()->json(['message' => 'success'], 200);
-     
+
     }
 
     public function destroy(Request $request)
