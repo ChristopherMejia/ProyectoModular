@@ -14,8 +14,6 @@
         </div>
     </div>
 
-    <div class="card-header header-table"><h4> Organismos <h4></div>
-
     <div class="col-12" align="right">
         <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#crearOrganismo" style="margin-right: 16px ;margin-top: 13px;">
             <i class="fa fa-user-plus" aria-hidden="true"></i> Nuevo
@@ -55,7 +53,9 @@
                             @endforeach
                         </tbody>
                     </table>
-                {{ $organismos->links() }}
+                    <div class="d-flex justify-content-end mt-3">
+                        {!! $organismos->links() !!}
+                    </div>
                 </div>
             </div>
             </div>

@@ -17,7 +17,7 @@ class UserController extends Controller
 
     public function index()
     {
-        $users = User::orderBy('first_name')->paginate(10);
+        $users = User::orderBy('first_name')->paginate(5);
         return view('users.users',[
             'users' => $users,
         ]);
@@ -60,7 +60,7 @@ class UserController extends Controller
         $user->last_name = $request->lastName;
         $user->email = $request->email;
         $user->role_id = $request->role;
-        
+
         ($request->password == null) ? '' : $user->password = $request->password;
         $user->save();
         return response()->json(['message' => 'success'], 200);

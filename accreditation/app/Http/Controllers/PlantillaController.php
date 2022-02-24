@@ -27,12 +27,12 @@ class PlantillaController extends Controller
         $data = array();
         $organismos = Organismo::all()->sortBy('nombre');
         $programas = ProgramaEducativo::all()->sortBy('nombre');
-        $plantillas=DB::table('plantillas as plantilla')
+        $plantillas = DB::table('plantillas as plantilla')
             ->join('organismos as organismo','plantilla.organismo_id','=','organismo.id')
             ->select('plantilla.id','organismo.nombre','plantilla.version')
             ->orderBy('plantilla.organismo_id','desc')
-            ->paginate(7);
-        $guias = Guia::with('plantillas')->with('programasEducativos')->orderBy('plantilla_id')->paginate(7);
+            ->paginate(5);
+        $guias = Guia::with('plantillas')->with('programasEducativos')->orderBy('plantilla_id')->paginate(5);
         // dd($guias);
         // informacion de las guias organizada
         foreach($guias as $guia)
