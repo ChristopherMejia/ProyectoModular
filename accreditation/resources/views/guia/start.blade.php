@@ -300,9 +300,6 @@
         </div>
     </div>
 
-
-
-
 </div>
 
 <script type="application/javascript" src="{{ asset('js/Plantilla/edicion_plantilla.js') }}"></script>
