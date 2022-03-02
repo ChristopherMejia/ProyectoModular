@@ -205,7 +205,7 @@
                                                             title="Agregar opción"
                                                             data-bs-placement="right"
                                                         ></i>
-                                                        Opción
+                                                        Añadir opción
                                                     </button>
 
                                                 </div>
@@ -237,7 +237,7 @@
                                                     title="Agregar Subpregunta"
                                                     data-bs-placement="right"
                                                 ></i>
-                                                Subpregunta
+                                                Agregar subpregunta
                                             </button>
                                             <hr />
                                         </div>
