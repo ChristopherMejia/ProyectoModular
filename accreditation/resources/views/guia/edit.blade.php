@@ -176,15 +176,23 @@
                                                             @if($pregunta->tipo == 1 || $pregunta->tipo == 2)
                                                                 <?php $n_opcion = 1; ?>
                                                                 @foreach($pregunta->opciones as $opcion)
-                                                                    <input type="radio" class="form-check-input" disabled></input>
-                                                                    <input
-                                                                        id="Pregunta_{{$i}}_{{$j}}_{{$k}}_opc-{{$n_opcion}}"
-                                                                        name="opciones[{{$i-1}}][{{$j-1}}][{{$k-1}}][]"
-                                                                        type="text"
-                                                                        value="{{$opcion}}"
-                                                                        placeholder="Opción 1"
-                                                                        class="form-control col-3">
-                                                                    </input>
+                                                                    <div id="Pregunta_{{$i}}_{{$j}}_{{$k}}_opc-{{$n_opcion}}" style="display: flex; margin-top: 10px;">
+                                                                        @if($n_opcion == 1)
+                                                                            <input type="radio" class="form-check-input" disabled></input>
+                                                                        @else
+                                                                            <button class="btn btn-outline-danger" 
+                                                                            type="button"
+                                                                            onclick="eliminarOpcion('Pregunta_{{$i}}_{{$j}}_{{$k}}',{{$n_opcion}})">X
+                                                                            </button>
+                                                                        @endif
+                                                                        <input
+                                                                            name="opciones[{{$i-1}}][{{$j-1}}][{{$k-1}}][]"
+                                                                            type="text"
+                                                                            value="{{$opcion}}"
+                                                                            placeholder="Opción {{$n_opcion}}"
+                                                                            class="form-control col-3">
+                                                                        </input>
+                                                                    </div>
                                                                     <?php $n_opcion++; ?>
                                                                 @endforeach
                                                             @else
@@ -289,16 +297,25 @@
                                                                 @if($subpregunta->tipo == 1 || $subpregunta->tipo == 2)
                                                                 <?php $n_subopcion = 1; ?>
                                                                 @foreach($subpregunta->opciones as $opcion)
-                                                                    <input type="radio" class="form-check-input" disabled></input>
-                                                                    <input
-                                                                        id="{{$i}}_{{$j}}_{{$k}}_SubPregunta_{{$l}}_opc-{{$n_subopcion}}"
-                                                                        name="subopciones[{{$i-1}}][{{$j-1}}][{{$k-1}}][{{$l-1}}][]"
-                                                                        type=text
-                                                                        value="{{$opcion}}"
-                                                                        placeholder="Opción 1"
-                                                                        class="form-control col-3">
-                                                                    </input>
-                                                                    <?php $n_opcion++; ?>
+                                                                    <div id="{{$i}}_{{$j}}_{{$k}}_SubPregunta_{{$l}}_opc-{{$n_subopcion}}" style="display: flex; margin-top: 10px;">
+                                                                        @if($n_subopcion == 1)
+                                                                            <input type="radio" class="form-check-input" disabled></input>
+                                                                        @else
+                                                                            <button class="btn btn-outline-danger" 
+                                                                            type="button"
+                                                                            onclick="eliminarOpcion('{{$i}}_{{$j}}_{{$k}}_SubPregunta_{{$l}}',{{$n_subopcion}})">X
+                                                                            </button>
+                                                                        @endif
+                                                                        
+                                                                        <input
+                                                                            name="subopciones[{{$i-1}}][{{$j-1}}][{{$k-1}}][{{$l-1}}][]"
+                                                                            type=text
+                                                                            value="{{$opcion}}"
+                                                                            placeholder="Opción {{$n_subopcion}}"
+                                                                            class="form-control col-3">
+                                                                        </input>
+                                                                    </div>
+                                                                    <?php $n_subopcion++; ?>
                                                                 @endforeach
                                                                 @else
                                                                     <input type="radio" class="form-check-input" disabled></input>

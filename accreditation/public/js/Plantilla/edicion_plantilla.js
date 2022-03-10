@@ -505,7 +505,7 @@
     }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
     function agregarOpcion(idPregunta, esSubpregunta){
-        var idOpcionActual = $("#opciones_"+idPregunta)[0].lastChild.id;
+        var idOpcionActual = $("#opciones_"+idPregunta)[0].lastElementChild.id;
         console.log(idOpcionActual);
         var idNuevaOpcion =  parseInt(idOpcionActual.split('-')[1]) + 1;
         console.log(idNuevaOpcion);
@@ -524,7 +524,6 @@
             this.remove();
         });
         nuevaOpcion.placeholder = "Opción " + idNuevaOpcion;
-        nuevaOpcion.id = idPregunta+"_opc-"+idNuevaOpcion;
         if($("#opciones_"+idPregunta)[0].opciones !== undefined){
             if(esSubpregunta){
                 nuevaOpcion.name ="subopciones"+($("#opciones_"+idPregunta)[0].opciones);
@@ -545,6 +544,7 @@
 
         var divPadreOpciones = document.createElement("div");
         divPadreOpciones.style = "display: flex; margin-top: 10px;";
+        divPadreOpciones.id = idPregunta+"_opc-"+idNuevaOpcion;
         divPadreOpciones.appendChild(nuevoBotonEliminar);
         divPadreOpciones.appendChild(nuevaOpcion);
 
