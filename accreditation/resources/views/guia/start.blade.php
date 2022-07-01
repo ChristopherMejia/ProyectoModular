@@ -180,18 +180,19 @@
                                                 <div id="opcionMultiple_Pregunta_1_1_1" hidden=true>
 
                                                     <div id="opciones_Pregunta_1_1_1" style="margin-bottom: 10px;" opciones="[0][0][0][]">
-                                                        <input
-                                                            class="form-check-input"
-                                                            type="radio"
-                                                            disabled />
-                                                        <input
-                                                            id=Pregunta_1_1_1_opc-1
-                                                            name=opciones[0][0][0][]
-                                                            type=text
-                                                            placeholder="Opción 1"
-                                                            class="form-control col-3"
-                                                            >
-                                                        </input>
+                                                        <div id=Pregunta_1_1_1_opc-1 style="display: flex; margin-top: 10px;">
+                                                            <input
+                                                                class="form-check-input"
+                                                                type="radio"
+                                                                disabled />
+                                                            <input
+                                                                name=opciones[0][0][0][]
+                                                                type=text
+                                                                placeholder="Opción 1"
+                                                                class="form-control col-3"
+                                                                >
+                                                            </input>
+                                                        </div>
                                                     </div>
 
                                                     <button
