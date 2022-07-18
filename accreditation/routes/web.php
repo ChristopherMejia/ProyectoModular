@@ -43,6 +43,8 @@ Route::group(['middleware' => ['manager']], function () {
     Route::get('/guia/iniciar/{id}', 'GuiaController@start')->name('start');
     Route::get('/guia/edit/{id}', 'GuiaController@edit');
     Route::put('/guia/update/{id}', 'GuiaController@update');
+
+    Route::get('/cuestionarios', 'CuestionarioController@index');
 });
 
 
