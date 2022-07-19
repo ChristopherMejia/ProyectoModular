@@ -45,6 +45,7 @@ Route::group(['middleware' => ['manager']], function () {
     Route::put('/guia/update/{id}', 'GuiaController@update');
 
     Route::get('/cuestionarios', 'CuestionarioController@index');
+    Route::post('/cuestionarios/create', 'CuestionarioController@create');
 });
 
 

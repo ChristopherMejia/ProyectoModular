@@ -94,15 +94,13 @@
         </div>
         <div class="modal-body">
           <!-- mensajes de validación -->
-          <div id="alert_organismo"></div>
-          <div id="alert_version"></div>
+          <div id="alert_guia"></div>
 
-          <form id="form_create_plantilla" action="#" method="post" class="form-horizontal">
-
+          <form id="form_create_cuestionario" action="#" method="post" class="form-horizontal">
             <div class="row">
-              <label class="col-sm-3 form-label" for="organismoPlantilla">Guia</label>
+              <label class="col-sm-3 form-label" for="guiaCuestionario">Guia</label>
               <div class="col-sm-9">
-                <select class="form-select mb-3" name="organismoPlantilla" id="organismoPlantilla">
+                <select class="form-select mb-3" name="guiaCuestionario" id="guiaCuestionario">
                   <option value="" selected disabled>Selecciona una opción...</option>
                   @foreach ($guias as $guia)
                     <option value="{{ $guia->id }}">
@@ -211,5 +209,5 @@
   </div>
 
 
-  <script type="application/javascript" src="{{ asset('js/Plantilla/plantilla.js') }}"></script>
+  <script type="application/javascript" src="{{ asset('js/Cuestionario/cuestionario.js') }}"></script>
 @endsection

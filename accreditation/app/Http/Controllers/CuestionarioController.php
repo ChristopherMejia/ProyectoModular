@@ -12,7 +12,9 @@ use App\Subpregunta;
 use App\ProgramaEducativo;
 use App\Guia;
 use App\Cuestionario;
+use App\User;
 use DB;
+use Auth;
 
 class CuestionarioController extends Controller
 {
@@ -32,26 +34,26 @@ class CuestionarioController extends Controller
             ->orderBy('plantilla.organismo_id','desc')
             ->paginate(7);
         $guias = Guia::with('plantillas')->with('programasEducativos')->orderBy('plantilla_id')->paginate(7);
-        $cuestionarios = Cuestionario::with('plantillas')->with('programasEducativos')->orderBy('plantilla_id')->paginate(7);
+        $cuestionarios = Cuestionario::with('guias')->orderBy('guia_id')->paginate(7);
         //dd($cuestionarios);
 
         foreach($cuestionarios as $cuestionario)
         {
-            $organismos = Organismo::where('id', $cuestionario->plantillas->organismo_id)->first();
+            $organismos = Organismo::where('id', $cuestionario->guias->plantillas->organismo_id)->first();
 
             $arrayAux = [
                 "id" => $cuestionario->id,
-                "id_plantilla" => $cuestionario->plantillas->id,
-                "version" => $cuestionario->plantillas->version,
+                "id_plantilla" => $cuestionario->guias->plantillas->id,
+                "version" => $cuestionario->guias->plantillas->version,
                 "plantilla" => $organismos->nombre,
-                "programa_educativo_nivel" => $cuestionario->programasEducativos->nivel,
-                "programa_educativo_nombre" => $cuestionario->programasEducativos->nombre,
-                "nombre_coordinador" => User::find($cuestionario->usuario_id)->select('first_name'),
+                "programa_educativo_nivel" => $cuestionario->guias->programasEducativos->nivel,
+                "programa_educativo_nombre" => $cuestionario->guias->programasEducativos->nombre,
+                "nombre_coordinador" => User::find($cuestionario->usuario_id)->first_name,
                 "status" => $cuestionario->status,
             ];
             array_push($data, $arrayAux);
         }
-        // dd($data);
+        //dd($data);
         return view('cuestionario.index',[
             "plantillas" => $plantillas,
             "organismos" => $organismos,
@@ -60,4 +62,18 @@ class CuestionarioController extends Controller
             "cuestionarios" => $data,
         ]);
     }
+
+    
+    public function create(Request $request)
+    {
+        $cuestionario = new Cuestionario;
+        $cuestionario->guia_id = $request->guia_id;
+        $cuestionario->usuario_id = Auth::user()->id;
+        $cuestionario->fecha_inicio =  date('d-m-y');
+        $cuestionario->status = "Activo"; 
+        $cuestionario->save();
+
+        return response()->json(['message' => 'success'], 200);
+    }
+
 }
