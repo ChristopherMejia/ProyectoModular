@@ -9,17 +9,17 @@
             <ol class="breadcrumb mb-0 py-3">
                 <li class="breadcrumb-item"><a class="fw-light" href="/home" style="text-decoration: none;">Inicio</a></li>
                 <li class="breadcrumb-item"><a class="fw-light" href="/plantillas" style="text-decoration: none;">Plantillas</a></li>
-                <li class="breadcrumb-item active fw-light" aria-current="page"> {{ $data->programasEducativos->nombre }} - {{ $data->programasEducativos->nivel }}</li>
+                <li class="breadcrumb-item active fw-light" aria-current="page"> Guia </li>
             </ol>
             </nav>
         </div>
     </div>
 
-    {{-- <form action="/plantilla/update/{{ $plantilla['plantilla_id']}}" method="POST"> --}}
-    {{-- @csrf
-    @method('put') --}}
+    <form action="/guia/update/{{$guia->id}}" method="POST">
+    @csrf
+    @method('put')
     <div class="card" style="text-align: center;">
-        <div class="card-header"><h4>{{ $data->programasEducativos->nombre }} - {{ $data->programasEducativos->nivel }}</h4></div>
+        <div class="card-header"><h4>{{ $guia->programasEducativos->nombre }} - {{ $guia->programasEducativos->nivel }}</h4></div>
     </div>
 
     <div class="card">
@@ -29,7 +29,7 @@
                 <div class="card-body">
                     <form id="form_guardar_plantilla" action="#" method="POST" class="form-horizontal">
 
-                        <div id="categorias">
+                        <div id="categorias" style=" margin-bottom: 20px;">
 
                             <div id="categoria_1" >
 
@@ -41,7 +41,14 @@
                                     </div>
                                 </div>
 
-                                <div id="subCategoria_1_1" style="margin-top: 10px;" >
+                                <div
+                                    id="subCategoria_1_1"
+                                    style="
+                                        margin-top: 10px;
+                                        border: 1px solid gray;
+                                        border-radius: 10px;
+                                        padding: 20px;
+                                        margin: 10px;" >
 
                                     <div class="row col-7" >
                                         <label for="subcategorias[0][]" class="col-sm-3 form-label" ><h5>Subcategoría</h5></label>
@@ -172,24 +179,26 @@
 
                                                 <div id="opcionMultiple_Pregunta_1_1_1" hidden=true>
 
-                                                    <div id="opciones_Pregunta_1_1_1" style="margin-bottom: 10px;">
-                                                        <input
-                                                            class="form-check-input"
-                                                            type="radio"
-                                                            disabled />
-                                                        <input
-                                                            id=Pregunta_1_1_1_opc-1
-                                                            type=text
-                                                            placeholder="Opción 1"
-                                                            class="form-control col-3"
-                                                            >
-                                                        </input>
+                                                    <div id="opciones_Pregunta_1_1_1" style="margin-bottom: 10px;" opciones="[0][0][0][]">
+                                                        <div id=Pregunta_1_1_1_opc-1 style="display: flex; margin-top: 10px;">
+                                                            <input
+                                                                class="form-check-input"
+                                                                type="radio"
+                                                                disabled />
+                                                            <input
+                                                                name=opciones[0][0][0][]
+                                                                type=text
+                                                                placeholder="Opción 1"
+                                                                class="form-control col-3"
+                                                                >
+                                                            </input>
+                                                        </div>
                                                     </div>
 
                                                     <button
                                                         id="+opc_1"
                                                         type="button"
-                                                        onClick="agregarOpcion('Pregunta_1_1_1')"
+                                                        onClick="agregarOpcion('Pregunta_1_1_1',false)"
                                                         class="btn btn-primary"
                                                         >
                                                         <i class="fa fa-plus" aria-hidden="true"
@@ -197,7 +206,7 @@
                                                             title="Agregar opción"
                                                             data-bs-placement="right"
                                                         ></i>
-                                                        Opción
+                                                        Añadir opción
                                                     </button>
 
                                                 </div>
@@ -212,6 +221,7 @@
                                                 </input>
                                                 <hr />
 
+
                                             </div>
 
                                             <button
@@ -219,6 +229,7 @@
                                                 type="button"
                                                 onClick="agregarSubPregunta(1,1,1)"
                                                 class="btn btn-primary"
+                                                style="margin-bottom: 10px;"
                                                 >
                                                 <i
                                                     class="fa fa-plus"
@@ -227,76 +238,61 @@
                                                     title="Agregar Subpregunta"
                                                     data-bs-placement="right"
                                                 ></i>
-                                                Subpregunta
+                                                Agregar subpregunta
                                             </button>
+                                            <hr />
                                         </div>
 
+
                                     </div>
+                                    {{-- Boton para agregar pregunta --}}
+                                    <button
+                                        id="buttonAgregar_1_1"
+                                        type="button"
+                                        onClick="agregarPregunta(1,1)"
+                                        class="btn btn-primary"
+                                        style="margin-left: 10px;"
+                                        >
+                                        Agregar Pregunta
+                                    </button>
 
                                 </div>
 
                             </div>
 
-                        </div>
-
-                        <div style="display: flex;justify-content: space-evenly;align-items: center;">
-
-                            <button
-                                id="buttonAgregar_1_1"
-                                type="button"
-                                onClick="agregarPregunta(1,1)"
-                                class="btn btn-primary"
-                                >
-                                <i
-                                    class="fa fa-plus"
-                                    aria-hidden="true"
-                                    data-bs-toggle="tooltip"
-                                    title="Agregar Pregunta"
-                                    data-bs-placement="bottom"
-                                ></i>
-                                Pregunta
-                            </button>
-
+                             {{-- Boton para agregar Subcategoría --}}
                             <button
                                 id="btnAgregarSubcategoria_1"
                                 type="button"
                                 onClick="agregarSubcategoria(1)"
                                 class="btn btn-primary"
+                                style="margin-left: 10px;"
                                 >
-                                <i
-                                    class="fa fa-plus"
-                                    aria-hidden="true"
-                                    data-bs-toggle="tooltip"
-                                    title="Agregar Subcategoría"
-                                    data-bs-placement="bottom"
-                                ></i>
-                                Subcategoría
+
+                                Agregar Subcategoría
                             </button>
+                        </div>
+
+                        <div style="display: flex;justify-content: right;align-items: center;">
 
                             <button
                                 id="btnAgregarCategoria"
                                 type="button"
                                 onClick="agregarCategoria()"
                                 class="btn btn-primary"
+                                style="margin-right: 20px;"
                                 >
-                                <i
-                                    class="fa fa-plus"
-                                    aria-hidden="true"
-                                    data-bs-toggle="tooltip"
-                                    title="Agregar Categoría"
-                                    data-bs-placement="bottom"
-                                ></i>
-                                Categoría
+                                Agregar Categoría
+                            </button>
+
+                            <button
+                                id="btnGuardar"
+                                type="submit"
+                                class="btn btn-success">
+                                Guardar
                             </button>
 
                         </div>
-
-                        <button
-                            id="btnGuardar"
-                            type="submit"
-                            class="btn btn-success">
-                            Guardar
-                        </button>
 
                     </form>
                 </div>
@@ -304,9 +300,6 @@
             </div>
         </div>
     </div>
-
-
-
 
 </div>
 

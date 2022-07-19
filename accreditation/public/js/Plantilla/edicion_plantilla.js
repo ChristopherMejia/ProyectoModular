@@ -3,7 +3,6 @@
         var nuevaLabel = document.createElement("label");
         labelText = document.createTextNode(texto);
         nuevaLabel.appendChild(labelText);
-
         return nuevaLabel;
     }
 
@@ -18,6 +17,7 @@
         var i = idCategoria - 1;
         var j = idSubcategoria -1;
         var nuevoSelectTipo = document.createElement("select");
+        nuevoSelectTipo.className = "form-select";
         nuevoSelectTipo.options[0] = new Option("Cierto o falso",0);
         nuevoSelectTipo.options[1] = new Option("Opción múltiple",1);
         nuevoSelectTipo.options[2] = new Option("Selección múltiple",2);
@@ -63,6 +63,7 @@
      */
     function crearCheckEvidencia(idPregunta){
         var nuevoCheckEvidencia = document.createElement("input");
+        nuevoCheckEvidencia.className = "form-check-input";
         nuevoCheckEvidencia.type = "checkbox";
         nuevoCheckEvidencia.id = "check_" + idPregunta;
         nuevoCheckEvidencia.addEventListener('click',function(){
@@ -83,7 +84,9 @@
         var i = idCategoria - 1;
         var j = idSubcategoria -1;
         var nuevaDescripcionEvidencia = document.createElement("textarea");
-        nuevaDescripcionEvidencia.placeholder = "Describir evidencia";
+        nuevaDescripcionEvidencia.className = "form-control";
+        nuevaDescripcionEvidencia.cols = "80";
+        nuevaDescripcionEvidencia.placeholder = "Agregar Descripción de evidencia";
         nuevaDescripcionEvidencia.id = "evidencia_" + idPregunta;
         nuevaDescripcionEvidencia.name = "evidencias["+i+"]["+j+"][]";
         nuevaDescripcionEvidencia.hidden = true;
@@ -162,7 +165,7 @@
         return nuevoEspacioRespuesta;
     }
 
-    function crearOpcionMultiple(idPregunta){
+    function crearOpcionMultiple(idPregunta,arrayOpciones, esSubpregunta){
         var divPadreOpciones = document.createElement("div");
         divPadreOpciones.style = "margin-bottom: 10px;";
 
@@ -175,6 +178,13 @@
         nuevaOpcion.className = "form-control col-3";
         nuevaOpcion.placeholder = "Opción 1";
         nuevaOpcion.id = idPregunta + "_opc-1";
+        if(esSubpregunta){
+            nuevaOpcion.name = "subopciones"+arrayOpciones;
+        }
+        else{
+            nuevaOpcion.name = "opciones"+arrayOpciones;
+        }
+
 
         divPadreOpciones.appendChild(nuevaOpcionRadio);
         divPadreOpciones.appendChild(nuevaOpcion);
@@ -183,6 +193,7 @@
         var nuevasOpciones = document.createElement("div");
         nuevasOpciones.style = "margin-bottom: 10px;";
         nuevasOpciones.id = "opciones_" + idPregunta;
+        nuevasOpciones.opciones = arrayOpciones;
         nuevasOpciones.appendChild(divPadreOpciones);
 
         var iconAdd = document.createElement("i");
@@ -197,7 +208,7 @@
         nuevoBotonOpcion.type = "button"; //se debe especificar que el boton es de tipo button o si no el default será tipo submit
         nuevoBotonOpcion.className = "btn btn-primary";
         nuevoBotonOpcion.addEventListener('click', () => {
-            agregarOpcion(idPregunta); ///TODO///
+            agregarOpcion(idPregunta, esSubpregunta); ///TODO///
         });
 
         var nuevaOpcionMultiple = document.createElement("div");
@@ -208,6 +219,7 @@
 
         return nuevaOpcionMultiple;
     }
+
 
     /**
      * Crear un espacio para adjuntar un archivo
@@ -220,10 +232,13 @@
         var i = idCategoria - 1;
         var j = idSubcategoria -1;
         var nuevoEspacioAdjunto = document.createElement("div");
+        nuevoEspacioAdjunto.style = "margin-top: 10px;";
         adjuntoText = document.createTextNode("Adjuntar archivo");
         adjuntoLabel = document.createElement("label");
+        adjuntoLabel.className = "form-label";
         adjuntoLabel.appendChild(adjuntoText);
         nuevoAdjunto = document.createElement("input");
+        nuevoAdjunto.className = "form-control";
         nuevoAdjunto.type = "file";
         nuevoAdjunto.name = "adjuntos["+i+"]["+j+"][]";
         nuevoEspacioAdjunto.appendChild(adjuntoLabel);
@@ -245,6 +260,7 @@
         }
         var i = idCategoria-1; // valor en el arreglo de categorias
         var j = idSubcategoria-1; // valor en el arreglo de subcategorias
+        var k = idNuevaPregunta-1;
 
         var nuevaPregunta = document.createElement("div");
         nuevaPregunta.id = "Pregunta_" + idCategoria + "_" + idSubcategoria + "_" + idNuevaPregunta;
@@ -271,7 +287,7 @@
 
         var nuevoTituloPregunta = document.createElement("input");
         nuevoTituloPregunta.name = "preguntas["+i+"]["+j+"][]";
-        nuevoTituloPregunta.placeholder = "Pregunta";
+        nuevoTituloPregunta.placeholder = "Agregar Pregunta";
         nuevoTituloPregunta.className = "form-control col-12";
 
 
@@ -300,6 +316,7 @@
 
         var nuevoCheckEvidencia = crearCheckEvidencia(nuevaPregunta.id);
         var checkLabel = crearLabel("Evidencia");
+        checkLabel.className = "form-check-label";
         divTipoPreguntaCheck.appendChild(nuevoCheckEvidencia);
         divTipoPreguntaCheck.appendChild(checkLabel);
 
@@ -321,7 +338,11 @@
 
         var nuevoEspacioRespuesta = crearEspacioRespuesta(nuevaPregunta.id);
 
-        var nuevaOpcionMultiple = crearOpcionMultiple(nuevaPregunta.id);
+        var arrayOpciones = "["+i+"]["+j+"]["+k+"][]";
+        var nuevaOpcionMultiple = crearOpcionMultiple(nuevaPregunta.id,arrayOpciones,false);
+        var hr = document.createElement("hr");
+        var hr2 = document.createElement("hr");
+
 
         var nuevoCuerpoPregunta = document.createElement("div");
         nuevoCuerpoPregunta.className = "card-body"
@@ -334,18 +355,33 @@
         nuevoCuerpoPregunta.appendChild(nuevoCiertoFalso);
         nuevoCuerpoPregunta.appendChild(nuevaOpcionMultiple);
         nuevoCuerpoPregunta.appendChild(nuevoEspacioRespuesta);
-        // añade el elemento creado y su contenido al DOM
-        $("#preguntas_" + idCategoria + "_" + idSubcategoria)[0].appendChild(nuevaPregunta);
+        nuevoCuerpoPregunta.appendChild(hr);
+
         //crear boton de subpregunta
         var nuevoBotonSubpregunta = document.createElement("button");
-        botonText = document.createTextNode("Agregar subpregunta");
+        var iconAddSub = document.createElement("i");
+        iconAddSub.className = "fa fa-plus";
+
+        botonText = document.createTextNode(" Subpregunta");
+        nuevoBotonSubpregunta.appendChild(iconAddSub);
         nuevoBotonSubpregunta.appendChild(botonText);
-        nuevoBotonSubpregunta.addEventListener('click',function(){
-            agregarSubPregunta(idCategoria,idSubcategoria,idNuevaPregunta)}
-        );
+        nuevoBotonSubpregunta.className = "btn btn-primary";
+        nuevoBotonSubpregunta.style = "margin-bottom: 10px;";
+
+
+
         nuevoBotonSubpregunta.id = "Boton_" + idNuevaPregunta;
         nuevoBotonSubpregunta.type = "button";
         nuevaPregunta.appendChild(nuevoBotonSubpregunta);
+        nuevaPregunta.appendChild(hr2);
+
+        nuevoBotonSubpregunta.addEventListener('click', () => {
+            agregarSubPregunta(idCategoria,idSubcategoria,idNuevaPregunta)}
+        );
+
+        // añade el elemento creado y su contenido al DOM
+        $("#preguntas_" + idCategoria + "_" + idSubcategoria)[0].appendChild(nuevaPregunta);
+
     }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     function agregarSubPregunta(idCategoria,idSubcategoria,idPregunta) {
@@ -355,6 +391,7 @@
         var i = idCategoria-1; // valor en el arreglo de categorias
         var j = idSubcategoria-1; // valor en el arreglo de subcategorias
         var k = idPregunta-1; // valor en el arreglo de preguntas
+        var l = idNuevaSubPregunta-1;
 
         var nuevaSubPregunta = document.createElement("div");
         nuevaSubPregunta.id = idCategoria + "_" + idSubcategoria + "_" + idPregunta + "_SubPregunta_" + idNuevaSubPregunta;
@@ -430,7 +467,8 @@
 
         var nuevoEspacioRespuesta = crearEspacioRespuesta(nuevaSubPregunta.id);
 
-        var nuevaOpcionMultiple = crearOpcionMultiple(nuevaSubPregunta.id);
+        var arrayOpciones = "["+i+"]["+j+"]["+k+"]["+l+"][]";
+        var nuevaOpcionMultiple = crearOpcionMultiple(nuevaSubPregunta.id,arrayOpciones,true);
 
         var nuevoCuerpoPregunta = document.createElement("div");
         nuevoCuerpoPregunta.className = "card-body"
@@ -466,8 +504,8 @@
         }
     }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    function agregarOpcion(idPregunta){
-        var idOpcionActual = $("#opciones_"+idPregunta)[0].lastChild.id;
+    function agregarOpcion(idPregunta, esSubpregunta){
+        var idOpcionActual = $("#opciones_"+idPregunta)[0].lastElementChild.id;
         console.log(idOpcionActual);
         var idNuevaOpcion =  parseInt(idOpcionActual.split('-')[1]) + 1;
         console.log(idNuevaOpcion);
@@ -486,10 +524,27 @@
             this.remove();
         });
         nuevaOpcion.placeholder = "Opción " + idNuevaOpcion;
-        nuevaOpcion.id = idPregunta+"_opc-"+idNuevaOpcion;
+        if($("#opciones_"+idPregunta)[0].opciones !== undefined){
+            if(esSubpregunta){
+                nuevaOpcion.name ="subopciones"+($("#opciones_"+idPregunta)[0].opciones);
+            }
+            else{
+                nuevaOpcion.name ="opciones"+($("#opciones_"+idPregunta)[0].opciones);
+            }
+        }
+        else{
+            if(esSubpregunta){
+                nuevaOpcion.name ="subopciones"+($("#opciones_"+idPregunta)[0].attributes.opciones.value);
+            }
+            else{
+                nuevaOpcion.name ="opciones"+($("#opciones_"+idPregunta)[0].attributes.opciones.value);
+            }
+        }
+
 
         var divPadreOpciones = document.createElement("div");
         divPadreOpciones.style = "display: flex; margin-top: 10px;";
+        divPadreOpciones.id = idPregunta+"_opc-"+idNuevaOpcion;
         divPadreOpciones.appendChild(nuevoBotonEliminar);
         divPadreOpciones.appendChild(nuevaOpcion);
 
@@ -545,46 +600,67 @@ function agregarSubcategoria(idCategoria){
     }
     var i = idCategoria-1; // valor en el arreglo de categorias
     var nuevaSubCategoria = document.createElement("div");
-    nuevaSubCategoria.className = "card-header";
-
+    nuevaSubCategoria.style = "margin-top: 10px; border: 1px solid gray; border-radius: 10px; padding: 20px; margin: 10px;";
     nuevaSubCategoria.id = "subCategoria_" + idCategoria + "_" + idNuevaSubcategoria;
-    //se crea el encabezado de la subcategoria
-    var nuevoEncabezadoSubcategoria = document.createElement("div");
-    nuevoEncabezadoSubcategoria.className = "card-header";
+
+    var divSubcategoria = document.createElement("div");
+    divSubcategoria.className = "row col-7";
+
+    var labelSubCaterogia = document.createElement("label");
+    labelSubCaterogia.className = "col-sm-3 form-label";
+
+    var h5 = document.createElement("h5");
+    labelText = document.createTextNode("Subcategoría");
+    h5.appendChild(labelText);
+    labelSubCaterogia.appendChild(h5);
+
+    divSubcategoria.appendChild(labelSubCaterogia);
+
+    var divHijoSubCategoria = document.createElement("div");
+    divHijoSubCategoria.className = "col-sm-9";
 
     //agregar <input type="hidden" name="id_subcategorias[i][]"></input>
     var nuevoIdSubcategoria = document.createElement("input");
     nuevoIdSubcategoria.name = "id_subcategorias["+i+"][]";
     nuevoIdSubcategoria.type = "hidden";
-    nuevaSubCategoria.appendChild(nuevoIdSubcategoria);
+    divHijoSubCategoria.appendChild(nuevoIdSubcategoria);
 
     var nuevoNombreSubcategoria = document.createElement("input");
+    nuevoNombreSubcategoria.className = "form-control col-6";
     nuevoNombreSubcategoria.name = "subcategorias["+i+"][]";
-    nuevoNombreSubcategoria.placeholder = "Subcategoria";
-    nuevoEncabezadoSubcategoria.appendChild(nuevoNombreSubcategoria);
-    nuevaSubCategoria.appendChild(nuevoEncabezadoSubcategoria);
+    nuevoNombreSubcategoria.placeholder = "Nombre de la Subcategoría";
+    divHijoSubCategoria.appendChild(nuevoNombreSubcategoria);
+
+    divSubcategoria.appendChild(divHijoSubCategoria);
+
+    nuevaSubCategoria.appendChild(divSubcategoria);
 
     // se crea nuevo div para las preguntas
     var nuevasPreguntas = document.createElement("div");
+    nuevasPreguntas.style = "border: 1px solid gray; border-radius: 10px; padding: 20px; margin: 10px;";
     nuevasPreguntas.id = "preguntas_" + idCategoria + "_" + idNuevaSubcategoria;
 
+    //Agrega el boton de agregar pregunta
+    var nuevoBotonPregunta = document.createElement("button");
+    nuevoBotonPregunta.style = "margin-left: 10px;";
+    nuevoBotonPregunta.className = "btn btn-primary";
+    nuevoBotonPregunta.type = "button";
+    nuevoBotonPregunta.id = "buttonAgregar_" + idCategoria + "_" + idNuevaSubcategoria;
+
+    botonText = document.createTextNode("Agregar pregunta");
+    nuevoBotonPregunta.appendChild(botonText);
+
     //se agregan los elementos a la nueva categoria
-    nuevaSubCategoria.appendChild(nuevoEncabezadoSubcategoria);
     nuevaSubCategoria.appendChild(nuevasPreguntas);
     $("#categoria_" + idCategoria)[0].appendChild(nuevaSubCategoria);
 
     //se agrega una pregunta a la nueva subcategoria
     agregarPregunta(idCategoria,idNuevaSubcategoria);
-
-    //Agrega el boton de agregar pregunta
-    var nuevoBotonPregunta = document.createElement("button");
-    nuevoBotonPregunta.type = "button";
-    botonText = document.createTextNode("Agregar pregunta");
-    nuevoBotonPregunta.appendChild(botonText);
+    // Evento que dispara la función agregar
     nuevoBotonPregunta.addEventListener('click',function(){
         agregarPregunta(idCategoria,idNuevaSubcategoria)}
     );
-    nuevoBotonPregunta.id = "buttonAgregar_" + idCategoria + "_" + idNuevaSubcategoria;
+
     nuevaSubCategoria.appendChild(nuevoBotonPregunta);
 }
 
@@ -592,25 +668,48 @@ function agregarSubcategoria(idCategoria){
 function agregarCategoria(){
     var idCategoriaActual = $("#categorias")[0].lastChild.id;
     var nuevaCategoria = document.createElement("div");
-    nuevaCategoria.className = "card-header";
+    nuevaCategoria.style = "margin-top: 20px;"
     var idNuevaCategoria = parseInt(idCategoriaActual.split('_')[1]) + 1;
     nuevaCategoria.id = "categoria_" + idNuevaCategoria;
 
+    let hr = document.createElement("hr");
+    nuevaCategoria.appendChild(hr);
     //se crea el encabezado de la categoria
-    var nuevoEncabezadoCategoria = document.createElement("div");
-    nuevoEncabezadoCategoria.className = "card-header";
+    let contenedorCategoria = document.createElement("div");
+    contenedorCategoria.className = "row col-7";
+
+    let labelCategorias = document.createElement("label");
+    labelCategorias.className = "col-sm-3 form-label";
+
+    let h5 = document.createElement("h5");
+    labelText = document.createTextNode("Categoría");
+    h5.appendChild(labelText);
+    labelCategorias.appendChild(h5);
+
+    contenedorCategoria.appendChild(labelCategorias);
+
+    let contenedorInputCategoria = document.createElement("div");
+    contenedorInputCategoria.className = "col-sm-9";
+
+
+    // var nuevoEncabezadoCategoria = document.createElement("div");
+    // nuevoEncabezadoCategoria.className = "card-header";
 
     //agregar <input type="hidden" name="id_categorias[]"></input>
     var nuevoIdCategoria = document.createElement("input");
     nuevoIdCategoria.name = "id_categorias[]";
     nuevoIdCategoria.type = "hidden";
-    nuevaCategoria.appendChild(nuevoIdCategoria);
+    contenedorInputCategoria.appendChild(nuevoIdCategoria);
 
     var nuevoNombreCategoria = document.createElement("input");
+    nuevoNombreCategoria.className = "form-control col-6";
     nuevoNombreCategoria.name = "categorias[]";
-    nuevoNombreCategoria.placeholder = "Categoria";
-    nuevoEncabezadoCategoria.appendChild(nuevoNombreCategoria);
-    nuevaCategoria.appendChild(nuevoEncabezadoCategoria);
+    nuevoNombreCategoria.placeholder = "Nombre de la Categoría";
+
+    contenedorInputCategoria.appendChild(nuevoNombreCategoria);
+    contenedorCategoria.appendChild(contenedorInputCategoria);
+
+    nuevaCategoria.appendChild(contenedorCategoria);
 
 
     //se agrega la nueva categoria
@@ -621,7 +720,9 @@ function agregarCategoria(){
 
     //Agrega el boton de agregar subcategoria
     var nuevoBotonSubcategoria = document.createElement("button");
-    botonText = document.createTextNode("Agregar subcategoria");
+    nuevoBotonSubcategoria.className = "btn btn-primary";
+    nuevoBotonSubcategoria.style = "margin-left: 10px;";
+    botonText = document.createTextNode("Agregar Subcategoría");
     nuevoBotonSubcategoria.appendChild(botonText);
     nuevoBotonSubcategoria.addEventListener('click',function(){
         agregarSubcategoria(idNuevaCategoria)}
