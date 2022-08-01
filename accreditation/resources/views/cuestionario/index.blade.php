@@ -58,8 +58,8 @@
 
                             <td>
                               <a id="cuestionario_editar" class="btn btn-primary"
-                                href="{{ URL('/cuestionario/edit/' . $cuestionario['id']) }}">
-                                <i class="fas fa-edit" title="Editar" data-bs-placement="right"
+                                href="{{ URL('/cuestionarios/edit/' . $cuestionario['id']) }}">
+                                <i class="fas fa-edit" title="Contestar" data-bs-placement="right"
                                   data-bs-toggle="tooltip"></i>
                               </a>
 

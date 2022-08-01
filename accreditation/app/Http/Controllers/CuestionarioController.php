@@ -76,4 +76,39 @@ class CuestionarioController extends Controller
         return response()->json(['message' => 'success'], 200);
     }
 
+    public function edit($id)
+    {
+        $cuestionario = Cuestionario::find($id);
+        $guia = Guia::find($cuestionario->guia_id);
+        $categorias = DB::table('categorias')->where('guia_id','=', $guia->id)->get();
+        
+        $i=0;
+        foreach($categorias as $categoria){
+            $j=0;
+            $subcategorias[$i] = DB::table('subcategorias')->where('categoria_id','=', $categoria->id)->get();
+            foreach($subcategorias[$i] as $subcategoria){
+                $k=0;
+                $preguntas[$i][$j] = DB::table('preguntas')->where('subcategoria_id','=', $subcategoria->id)->get();
+                foreach($preguntas[$i][$j] as $pregunta){
+                    $pregunta->opciones = json_decode($pregunta->opciones);
+                    $subpreguntas[$i][$j][$k] = DB::table('subpreguntas')->where('pregunta_id','=', $pregunta->id)->get();
+                    foreach($subpreguntas[$i][$j][$k] as $subpregunta){
+                        $subpregunta->opciones = json_decode($subpregunta->opciones);
+                    }
+                    $k++;
+                }
+                $j++;
+            }
+            $i++;
+        }
+        return view('cuestionario.edit',['cuestionario' => $cuestionario, 'guia' => $guia, 'categorias' => $categorias ?? null,
+        'subcategorias' => $subcategorias ?? null, 'preguntas' => $preguntas ?? null, 'subpreguntas' => $subpreguntas ?? null]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $cuestionario = Cuestionario::find($id);
+        dd($request->all());
+    }
+
 }

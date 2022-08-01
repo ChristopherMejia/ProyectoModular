@@ -46,6 +46,8 @@ Route::group(['middleware' => ['manager']], function () {
 
     Route::get('/cuestionarios', 'CuestionarioController@index');
     Route::post('/cuestionarios/create', 'CuestionarioController@create');
+    Route::get('/cuestionarios/edit/{id}', 'CuestionarioController@edit');
+    Route::put('/cuestionarios/update/{id}', 'CuestionarioController@update');
 });
 
 

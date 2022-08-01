@@ -441,7 +441,7 @@
         divSelectSubpregunta.style = "margin-right: 20px;";
         divSelectSubpregunta.appendChild(nuevoSelectTipo);
 
-        var nuevoCheckEvidencia = crearCheckEvidencia(nuevaSubPregunta.id);
+        /* var nuevoCheckEvidencia = crearCheckEvidencia(nuevaSubPregunta.id);
         nuevoCheckEvidencia.className = "form-check-input";
 
         var checkLabel = crearLabel("Agregar Evidencia");
@@ -455,13 +455,13 @@
         var divTextArea = document.createElement("div");
         divTextArea.style = "margin: 10px 0px 10px 52px;";
         var nuevaDescripcionEvidencia = crearDescripcionEvidenciaSub(idCategoria,idSubcategoria,idPregunta,nuevaSubPregunta.id);
-        divTextArea.appendChild(nuevaDescripcionEvidencia);
+        divTextArea.appendChild(nuevaDescripcionEvidencia); */
 
         ///agregamos los elementos hijos al div
         divStyleSubpregunta.appendChild(labelSubpregunta);
         divStyleSubpregunta.appendChild(divSelectSubpregunta);
-        divStyleSubpregunta.appendChild(divCheck);
-        divStyleSubpregunta.appendChild(divTextArea);
+        //divStyleSubpregunta.appendChild(divCheck);
+        //divStyleSubpregunta.appendChild(divTextArea);
 
         var nuevoCiertoFalso = crearCiertoFalso(nuevaSubPregunta.id);
 
