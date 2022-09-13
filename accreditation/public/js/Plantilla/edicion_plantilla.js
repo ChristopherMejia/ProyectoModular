@@ -169,7 +169,8 @@
     function crearOpcionMultiple(idPregunta,arrayOpciones, esSubpregunta){
         var divPadreOpciones = document.createElement("div");
         divPadreOpciones.style = "margin-bottom: 10px;";
-
+        divPadreOpciones.id = idPregunta + "_opc-1";
+        
         var nuevaOpcionRadio = document.createElement("input");
         nuevaOpcionRadio.className = "form-check-input";
         nuevaOpcionRadio.type = "radio";
@@ -178,7 +179,7 @@
         var nuevaOpcion = document.createElement("input");
         nuevaOpcion.className = "form-control col-3";
         nuevaOpcion.placeholder = "Opción 1";
-        nuevaOpcion.id = idPregunta + "_opc-1";
+        
         if(esSubpregunta){
             nuevaOpcion.name = "subopciones"+arrayOpciones;
         }
