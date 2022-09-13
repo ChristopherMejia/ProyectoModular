@@ -170,7 +170,7 @@
         var divPadreOpciones = document.createElement("div");
         divPadreOpciones.style = "margin-bottom: 10px;";
         divPadreOpciones.id = idPregunta + "_opc-1";
-        
+
         var nuevaOpcionRadio = document.createElement("input");
         nuevaOpcionRadio.className = "form-check-input";
         nuevaOpcionRadio.type = "radio";
@@ -755,6 +755,7 @@ function agregarCategoria(){
         agregarSubcategoria(idNuevaCategoria)}
     );
     nuevoBotonSubcategoria.id = "btnAgregarSubcategoria_" + idNuevaCategoria;
+    nuevoBotonSubcategoria.type = "button";
     nuevaCategoria.appendChild(nuevoBotonSubcategoria);
 }
 

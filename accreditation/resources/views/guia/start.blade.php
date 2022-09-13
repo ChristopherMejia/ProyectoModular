@@ -276,7 +276,7 @@
                             </button>
                         </div>
 
-                        <div style="display: flex;justify-content: right;align-items: center;">
+                        <div id="botones" style="display: flex;justify-content: right;align-items: center;">
 
                             <button
                                 id="btnAgregarCategoria"

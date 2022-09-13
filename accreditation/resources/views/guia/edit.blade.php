@@ -150,7 +150,8 @@
                                   class="form-control" />
                               </div>
 
-                              <div id="Cuerpo_Pregunta_{{ $i }}_{{ $j }}_{{ $k }}" class="card-body">
+                              <div id="Cuerpo_Pregunta_{{ $i }}_{{ $j }}_{{ $k }}"
+                                class="card-body">
 
                                 <div
                                   id="ciertoFalso_Pregunta_{{ $i }}_{{ $j }}_{{ $k }}"
@@ -230,7 +231,9 @@
                                 </input>
                                 <hr />
 
-                                <div id="Subpreguntas_Pregunta_{{ $i }}_{{ $j }}_{{ $k }}">
+                                <div
+                                  id="Subpreguntas_Pregunta_{{ $i }}_{{ $j }}_{{ $k }}"
+                                  @if ($pregunta->tipo != 4) hidden @endif>
                                   @foreach ($subpreguntas[$i - 1][$j - 1][$k - 1] as $subpregunta)
                                     <div
                                       id="{{ $i }}_{{ $j }}_{{ $k }}_SubPregunta_{{ $l }}">
@@ -360,8 +363,7 @@
                                   <button id="Boton_{{ $i }}_{{ $j }}_{{ $k }}"
                                     type="button"
                                     onClick="agregarSubPregunta({{ $i }},{{ $j }},{{ $k }})"
-                                    class="btn btn-primary" style="margin-bottom: 10px;"
-                                    @if ($pregunta->tipo != 4) hidden @endif>
+                                    class="btn btn-primary" style="margin-bottom: 10px;">
                                     <i class="fa fa-plus" aria-hidden="true" data-bs-toggle="tooltip"
                                       title="Agregar Subpregunta" data-bs-placement="right"></i>
                                     Agregar Subpregunta
@@ -375,44 +377,44 @@
                           @endforeach
                         </div>
 
-                        <button id="buttonAgregar_{{ $i }}_{{ $j }}" type="button"
-                          onClick="agregarPregunta({{ $i }},{{ $j }})" class="btn btn-primary"
-                          style="margin-left: 10px;">
-                          Agregar pregunta
-                        </button>
+
 
                       </div>
-                      <?php
-                      $j++;
-                      ?>
-                    @endforeach
                   </div>
-
-                  <button id="btnAgregarSubcategoria_{{ $i }}" type="button"
-                    onClick="agregarSubcategoria({{ $i }})" class="btn btn-primary"
+                  <button id="buttonAgregar_{{ $i }}_{{ $j }}" type="button"
+                    onClick="agregarPregunta({{ $i }},{{ $j }})" class="btn btn-primary"
                     style="margin-left: 10px;">
-                    Agregar Subcategoría
+                    Agregar pregunta
                   </button>
-                  <hr />
                   <?php
-                  $i++;
+                  $j++;
                   ?>
                 @endforeach
-              </div>
-
-              <div style="display: flex;justify-content: right;align-items: center;">
-
-                <button id="btnAgregarCategoria" type="button" onClick="agregarCategoria()" class="btn btn-primary"
-                  style="margin-right: 20px;">
-                  Agregar categoría
-                </button>
-                <button id="btnGuardar" type="submit" class="btn btn-success">
-                  Guardar
-                </button>
 
               </div>
-
             </div>
+            <button id="btnAgregarSubcategoria_{{ $i }}" type="button"
+                onClick="agregarSubcategoria({{ $i }})" class="btn btn-primary"
+                style="margin-left: 10px;">
+                Agregar Subcategoría
+              </button>
+              <hr />
+              <?php
+              $i++;
+              ?>
+              @endforeach
+          </div>
+
+          <div id="botones" style="display: flex;justify-content: right;align-items: center;">
+
+            <button id="btnAgregarCategoria" type="button" onClick="agregarCategoria()" class="btn btn-primary"
+              style="margin-right: 20px;">
+              Agregar categoría
+            </button>
+            <button id="btnGuardar" type="submit" class="btn btn-success">
+              Guardar
+            </button>
+
           </div>
         </div>
       </div>
