@@ -101,8 +101,9 @@
                                                         class="form-select">
                                                         <option value="0">Cierto o falso</option>
                                                         <option value="1">Opción múltiple</option>
-                                                        <option value="2">Selección múltiple</option>
+                                                        {{-- <option value="2">Selección múltiple</option> --}}
                                                         <option value="3">Abierta</option>
+                                                        <option value="4">Subpreguntas</option>
                                                     </select>
                                                 </div>
 
@@ -138,7 +139,7 @@
                                                 <input id="formFile" name="adjuntos[0][0][]" type="file" class="form-control"></input>
                                             </div>
 
-                                            <div class="card-body">
+                                            <div id="Cuerpo_Pregunta_1_1_1" class="card-body">
 
                                                 <div id="ciertoFalso_Pregunta_1_1_1" class="form-check">
                                                     <div >
@@ -222,24 +223,26 @@
                                                 <hr />
 
 
+                                            
+                                            <div id="Subpreguntas_Pregunta_1_1_1" hidden=true>
+                                                <button
+                                                    id="Boton_1_1_1"
+                                                    type="button"
+                                                    onClick="agregarSubPregunta(1,1,1)"
+                                                    class="btn btn-primary"
+                                                    style="margin-bottom: 10px;"
+                                                    >
+                                                    <i
+                                                        class="fa fa-plus"
+                                                        aria-hidden="true"
+                                                        data-bs-toggle="tooltip"
+                                                        title="Agregar Subpregunta"
+                                                        data-bs-placement="right"
+                                                    ></i>
+                                                    Agregar subpregunta
+                                                </button> 
                                             </div>
-
-                                            <button
-                                                id="Boton_1_1_1"
-                                                type="button"
-                                                onClick="agregarSubPregunta(1,1,1)"
-                                                class="btn btn-primary"
-                                                style="margin-bottom: 10px;"
-                                                >
-                                                <i
-                                                    class="fa fa-plus"
-                                                    aria-hidden="true"
-                                                    data-bs-toggle="tooltip"
-                                                    title="Agregar Subpregunta"
-                                                    data-bs-placement="right"
-                                                ></i>
-                                                Agregar subpregunta
-                                            </button>
+                                        </div>
                                             <hr />
                                         </div>
 

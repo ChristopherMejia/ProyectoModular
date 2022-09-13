@@ -20,12 +20,13 @@
         nuevoSelectTipo.className = "form-select";
         nuevoSelectTipo.options[0] = new Option("Cierto o falso",0);
         nuevoSelectTipo.options[1] = new Option("Opción múltiple",1);
-        nuevoSelectTipo.options[2] = new Option("Selección múltiple",2);
-        nuevoSelectTipo.options[3] = new Option("Abierta",3);
+        /* nuevoSelectTipo.options[2] = new Option("Selección múltiple",2); */
+        nuevoSelectTipo.options[2] = new Option("Abierta",3);
+        nuevoSelectTipo.options[3] = new Option("Subpreguntas",4);
         nuevoSelectTipo.id = "tipo_" + idPregunta;
         nuevoSelectTipo.name = "tipos["+i+"]["+j+"][]";
         nuevoSelectTipo.addEventListener('click',function(){
-            cambiarTipo(idPregunta)}
+            cambiarTipo(idPregunta,false)}
         );
         return nuevoSelectTipo;
     }
@@ -46,12 +47,12 @@
         nuevoSelectTipo.className = "form-select";
         nuevoSelectTipo.options[0] = new Option("Cierto o falso",0);
         nuevoSelectTipo.options[1] = new Option("Opción múltiple",1);
-        nuevoSelectTipo.options[2] = new Option("Selección múltiple",2);
-        nuevoSelectTipo.options[3] = new Option("Abierta",3);
+        /* nuevoSelectTipo.options[2] = new Option("Selección múltiple",2); */
+        nuevoSelectTipo.options[2] = new Option("Abierta",3);
         nuevoSelectTipo.id = "tipo_" + idSubpregunta;
         nuevoSelectTipo.name = "tipos_sub["+i+"]["+j+"]["+k+"][]";
         nuevoSelectTipo.addEventListener('click',function(){
-            cambiarTipo(idSubpregunta)}
+            cambiarTipo(idSubpregunta,true)}
         );
         return nuevoSelectTipo;
     }
@@ -345,35 +346,40 @@
 
 
         var nuevoCuerpoPregunta = document.createElement("div");
-        nuevoCuerpoPregunta.className = "card-body"
-
-        nuevaPregunta.appendChild(divPreguntaPadre);
-        nuevaPregunta.appendChild(divTipoPregunta);
-        nuevaPregunta.appendChild(divAdjuntar);
-
-        nuevaPregunta.appendChild(nuevoCuerpoPregunta);
-        nuevoCuerpoPregunta.appendChild(nuevoCiertoFalso);
-        nuevoCuerpoPregunta.appendChild(nuevaOpcionMultiple);
-        nuevoCuerpoPregunta.appendChild(nuevoEspacioRespuesta);
-        nuevoCuerpoPregunta.appendChild(hr);
+        nuevoCuerpoPregunta.id = "Cuerpo_"+nuevaPregunta.id;
+        nuevoCuerpoPregunta.className = "card-body";
 
         //crear boton de subpregunta
         var nuevoBotonSubpregunta = document.createElement("button");
         var iconAddSub = document.createElement("i");
         iconAddSub.className = "fa fa-plus";
 
-        botonText = document.createTextNode(" Subpregunta");
+        var divSubpreguntas = document.createElement("div");
+        divSubpreguntas.id = "Subpreguntas_"+nuevaPregunta.id;
+        divSubpreguntas.hidden = true;
+
+        botonText = document.createTextNode(" Agregar subpregunta");
         nuevoBotonSubpregunta.appendChild(iconAddSub);
         nuevoBotonSubpregunta.appendChild(botonText);
         nuevoBotonSubpregunta.className = "btn btn-primary";
         nuevoBotonSubpregunta.style = "margin-bottom: 10px;";
 
-
-
-        nuevoBotonSubpregunta.id = "Boton_" + idNuevaPregunta;
+        nuevoBotonSubpregunta.id = "Boton_" + idCategoria + "_" + idSubcategoria + "_" + idNuevaPregunta;
         nuevoBotonSubpregunta.type = "button";
-        nuevaPregunta.appendChild(nuevoBotonSubpregunta);
+        divSubpreguntas.appendChild(nuevoBotonSubpregunta);
+
+
+        nuevaPregunta.appendChild(divPreguntaPadre);
+        nuevaPregunta.appendChild(divTipoPregunta);
+        nuevaPregunta.appendChild(divAdjuntar);
+
+        nuevaPregunta.appendChild(nuevoCuerpoPregunta);
         nuevaPregunta.appendChild(hr2);
+        nuevoCuerpoPregunta.appendChild(nuevoCiertoFalso);
+        nuevoCuerpoPregunta.appendChild(nuevaOpcionMultiple);
+        nuevoCuerpoPregunta.appendChild(nuevoEspacioRespuesta);
+        nuevoCuerpoPregunta.appendChild(divSubpreguntas);;
+
 
         nuevoBotonSubpregunta.addEventListener('click', () => {
             agregarSubPregunta(idCategoria,idSubcategoria,idNuevaPregunta)}
@@ -471,6 +477,7 @@
         var nuevaOpcionMultiple = crearOpcionMultiple(nuevaSubPregunta.id,arrayOpciones,true);
 
         var nuevoCuerpoPregunta = document.createElement("div");
+        nuevoCuerpoPregunta.id = "Cuerpo_"+nuevaSubPregunta.id;
         nuevoCuerpoPregunta.className = "card-body"
 
         var cuerpoCiertoFalso = document.createElement("div");
@@ -488,7 +495,8 @@
         nuevoCuerpoPregunta.appendChild(nuevoEspacioRespuesta);
         // añade el elemento creado y su contenido al DOM
         var buttonAgregar = document.getElementById("Boton_" + idCategoria  + "_" + idSubcategoria +  "_" + idPregunta);
-        $("#Pregunta_" + idCategoria  + "_" + idSubcategoria +  "_" + idPregunta)[0].insertBefore(nuevaSubPregunta,buttonAgregar);
+        var myString = "#Subpreguntas_Pregunta_" + idCategoria  + "_" + idSubcategoria +  "_" + idPregunta;
+        $(myString)[0].insertBefore(nuevaSubPregunta,buttonAgregar);
 
         var lineaSeparacion = document.createElement("hr");
         nuevaSubPregunta.appendChild(lineaSeparacion);
@@ -558,28 +566,46 @@
         button.remove();
     }
 
-    function cambiarTipo(idPregunta){
+    function cambiarTipo(idPregunta,esSubpregunta){
         var tipo = $("#tipo_"+idPregunta+" option:selected")[0].value;
         switch(tipo){
             case "0":
                 $("#ciertoFalso_"+idPregunta)[0].hidden = false;
                 $("#res_"+idPregunta)[0].hidden = true;
                 $("#opcionMultiple_"+idPregunta)[0].hidden = true;
+                if(!esSubpregunta){
+                    $("#Subpreguntas_"+idPregunta)[0].hidden = true;
+                }
                 break;
             case "1":
                 $("#ciertoFalso_"+idPregunta)[0].hidden = true;
                 $("#res_"+idPregunta)[0].hidden = true;
                 $("#opcionMultiple_"+idPregunta)[0].hidden = false;
+                if(!esSubpregunta){
+                    $("#Subpreguntas_"+idPregunta)[0].hidden = true;
+                }
                 break;
             case "2":
                 $("#ciertoFalso_"+idPregunta)[0].hidden = true;
                 $("#res_"+idPregunta)[0].hidden = true;
                 $("#opcionMultiple_"+idPregunta)[0].hidden = false;
+                if(!esSubpregunta){
+                    $("#Subpreguntas_"+idPregunta)[0].hidden = true;
+                }
                 break;
             case "3":
                 $("#ciertoFalso_"+idPregunta)[0].hidden = true;
                 $("#res_"+idPregunta)[0].hidden = false;
                 $("#opcionMultiple_"+idPregunta)[0].hidden = true;
+                if(!esSubpregunta){
+                    $("#Subpreguntas_"+idPregunta)[0].hidden = true;
+                }
+                break;
+            case "4":
+                $("#ciertoFalso_"+idPregunta)[0].hidden = true;
+                $("#res_"+idPregunta)[0].hidden = true;
+                $("#opcionMultiple_"+idPregunta)[0].hidden = true;
+                $("#Subpreguntas_"+idPregunta)[0].hidden = false;
                 break;
             default:
                 break;
