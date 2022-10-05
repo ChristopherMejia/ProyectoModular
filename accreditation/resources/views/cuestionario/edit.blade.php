@@ -37,7 +37,13 @@
                   <?php
                   $j = 1;
                   ?>
-                  <div id="categoria_{{ $i }}">
+                  <div id="categoria_{{ $i }}"
+                  style="
+                                    border: 1px solid gray;
+                                    border-radius: 10px;
+                                    padding: 20px;
+                                    margin: 10px;
+                                    ">
                     <div class="row col-7">
                       <label class="form-label">
                         <h5>{{ $categoria->descripcion }}</h5>
@@ -61,13 +67,7 @@
                           </label>
                         </div>
 
-                        <div id="preguntas_{{ $i }}_{{ $j }}"
-                          style="
-                                            border: 1px solid gray;
-                                            border-radius: 10px;
-                                            padding: 20px;
-                                            margin: 10px;
-                                            ">
+                        <div id="preguntas_{{ $i }}_{{ $j }}">
 
                           @foreach ($preguntas[$i - 1][$j - 1] as $pregunta)
                             <?php
