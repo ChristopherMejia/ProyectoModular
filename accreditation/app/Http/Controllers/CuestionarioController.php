@@ -157,7 +157,7 @@ class CuestionarioController extends Controller
             }
         }
 
-        return $request->all();
+        return $this->index();
     }
 
 }

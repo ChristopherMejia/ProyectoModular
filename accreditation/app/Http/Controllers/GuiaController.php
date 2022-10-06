@@ -247,8 +247,9 @@ class GuiaController extends Controller
 
         $guia->status = 'Pendiente';
         $guia->save();
-        return array(/*'ids' => $id_categorias, 'categorias' => $categorias, 'ids_subcategorias' => $id_subcategorias,
-        'subcategorias' =>$subcategorias,*/ 'ids_preguntas' => $id_preguntas, 'preguntas' => $preguntas, 'tipos' => $tipos, 'evidencias' => $evidencias, 'adjuntos' => $adjuntos, 'subpreguntas' => $subpreguntas);
+       /*  return array(/*'ids' => $id_categorias, 'categorias' => $categorias, 'ids_subcategorias' => $id_subcategorias,
+        'subcategorias' =>$subcategorias, 'ids_preguntas' => $id_preguntas, 'preguntas' => $preguntas, 'tipos' => $tipos, 'evidencias' => $evidencias, 'adjuntos' => $adjuntos, 'subpreguntas' => $subpreguntas); */
+        return $this->index();
     }
 
 
@@ -260,5 +261,11 @@ class GuiaController extends Controller
 
     }
 
- 
+
+    public function finish(Request $request, $id)
+    {
+        $guia = Guia::find($id);
+        $guia->status = 'Finalizada';
+        $guia->save();
+    }
 }
