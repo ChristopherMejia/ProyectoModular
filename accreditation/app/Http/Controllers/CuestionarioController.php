@@ -13,6 +13,8 @@ use App\ProgramaEducativo;
 use App\Guia;
 use App\Cuestionario;
 use App\User;
+use App\RespuestaPregunta;
+use App\RespuestaSubpregunta;
 use DB;
 use Auth;
 
@@ -81,7 +83,11 @@ class CuestionarioController extends Controller
         $cuestionario = Cuestionario::find($id);
         $guia = Guia::find($cuestionario->guia_id);
         $categorias = DB::table('categorias')->where('guia_id','=', $guia->id)->get();
-        
+        $respuestasPregunta = RespuestaPregunta::where('cuestionario_id',$id)->get();
+        $respuestasSubpregunta = RespuestaSubpregunta::where('cuestionario_id',$id)->get();
+        $respuestas_pregunta = [];
+        $respuestas_subpregunta = [];
+
         $i=0;
         foreach($categorias as $categoria){
             $j=0;
@@ -101,14 +107,57 @@ class CuestionarioController extends Controller
             }
             $i++;
         }
+
+        foreach($respuestasPregunta as $respuestaPregunta){
+            $respuestas_pregunta[$respuestaPregunta->pregunta_id] = $respuestaPregunta->respuesta;
+        }
+
+        foreach($respuestasSubpregunta as $respuestaSubpregunta){
+            $respuestas_subpregunta[$respuestaSubpregunta->subpregunta_id] = $respuestaSubpregunta->respuesta;
+        }
+
+        //dd($respuestas_pregunta,$respuestas_subpregunta);
         return view('cuestionario.edit',['cuestionario' => $cuestionario, 'guia' => $guia, 'categorias' => $categorias ?? null,
-        'subcategorias' => $subcategorias ?? null, 'preguntas' => $preguntas ?? null, 'subpreguntas' => $subpreguntas ?? null]);
+        'subcategorias' => $subcategorias ?? null, 'preguntas' => $preguntas ?? null, 'subpreguntas' => $subpreguntas ?? null,
+        'respuestasPregunta' => $respuestas_pregunta ?? null, 'respuestasSubpregunta' => $respuestas_subpregunta ?? null]);
     }
 
     public function update(Request $request, $id)
     {
         $cuestionario = Cuestionario::find($id);
-        dd($request->all());
+        
+        //dd($request->all());
+        $ids_pregunta = $request->get('ids_Pregunta');
+        if(isset($ids_pregunta)){
+            foreach($ids_pregunta as $id_pregunta){
+                $respuestaPregunta = RespuestaPregunta::where('cuestionario_id',$cuestionario->id)->where('pregunta_id',$id_pregunta)->first();
+                if($respuestaPregunta === null){
+                    $respuestaPregunta = new RespuestaPregunta;
+                    $respuestaPregunta->cuestionario_id = $cuestionario->id;
+                    $respuestaPregunta->pregunta_id = $id_pregunta;
+                }
+                $respuestaPregunta->respuesta = $request->get('res_pregunta_' . $id_pregunta);
+                $respuestaPregunta->evidencia = $request->get('evidencia_pregunta_' . $id_pregunta);
+                $respuestaPregunta->save();
+            }
+        }
+
+        $ids_subpregunta = $request->get('ids_subpregunta');
+        if(isset($ids_subpregunta)){
+            foreach($ids_subpregunta as $id_subpregunta){
+                $respuestaSubpregunta = RespuestaSubpregunta::where('cuestionario_id',$cuestionario->id)->where('subpregunta_id',$id_subpregunta)->first();
+                if($respuestaSubpregunta === null){
+                    $respuestaSubpregunta = new RespuestaSubpregunta;
+                    $respuestaSubpregunta->cuestionario_id = $cuestionario->id;
+                    $respuestaSubpregunta->subpregunta_id = $id_subpregunta;
+                }
+                $respuestaSubpregunta->respuesta = $request->get('res_subpregunta_' . $id_subpregunta);
+                $respuestaSubpregunta->evidencia = $request->get('evidencia_subpregunta_' . $id_subpregunta);
+                $respuestaSubpregunta->save();
+            }
+        }
+
+        return $request->all();
     }
 
 }
