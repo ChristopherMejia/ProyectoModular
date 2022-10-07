@@ -42,7 +42,13 @@ Route::group(['middleware' => ['manager']], function () {
     Route::post('/guia/save', 'GuiaController@store');
     Route::get('/guia/iniciar/{id}', 'GuiaController@start')->name('start');
     Route::get('/guia/edit/{id}', 'GuiaController@edit');
+    Route::get('/guia/finish/{id}', 'GuiaController@finish');
     Route::put('/guia/update/{id}', 'GuiaController@update');
+
+    Route::get('/cuestionarios', 'CuestionarioController@index');
+    Route::post('/cuestionarios/create', 'CuestionarioController@create');
+    Route::get('/cuestionarios/edit/{id}', 'CuestionarioController@edit');
+    Route::put('/cuestionarios/update/{id}', 'CuestionarioController@update');
 });
 
 
