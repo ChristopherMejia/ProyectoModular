@@ -133,7 +133,7 @@
                                                         data-bs-toggle="tooltip"
                                                     ></i>
                                                 </a>
-                                                @else
+                                                @elseif($guia['status'] == "Pendiente")
 
                                                 <a
                                                     id="guia_editar"
@@ -141,6 +141,17 @@
                                                     href="{{ URL('/guia/edit/' . $guia['id'])}}">
                                                     <i class="fas fa-edit"
                                                         title="Editar"
+                                                        data-bs-placement="right"
+                                                        data-bs-toggle="tooltip"
+                                                    ></i>
+                                                </a>
+
+                                                <a
+                                                    id="guia_finalizar"
+                                                    class="btn btn-primary"
+                                                    href="{{ URL('/guia/finish/' . $guia['id'])}}">
+                                                    <i class="fas fa-check"
+                                                        title="Finalizar"
                                                         data-bs-placement="right"
                                                         data-bs-toggle="tooltip"
                                                     ></i>
