@@ -37,7 +37,13 @@
                   <?php
                   $j = 1;
                   ?>
-                  <div id="categoria_{{ $i }}">
+                  <div id="categoria_{{ $i }}"
+                  style="
+                                    border: 1px solid gray;
+                                    border-radius: 10px;
+                                    padding: 20px;
+                                    margin: 10px;
+                                    ">
                     <div class="row col-7">
                       <label class="form-label">
                         <h5>{{ $categoria->descripcion }}</h5>
@@ -61,13 +67,7 @@
                           </label>
                         </div>
 
-                        <div id="preguntas_{{ $i }}_{{ $j }}"
-                          style="
-                                            border: 1px solid gray;
-                                            border-radius: 10px;
-                                            padding: 20px;
-                                            margin: 10px;
-                                            ">
+                        <div id="preguntas_{{ $i }}_{{ $j }}">
 
                           @foreach ($preguntas[$i - 1][$j - 1] as $pregunta)
                             <?php
@@ -101,13 +101,13 @@
 
 
                               <div class="card-body" style="padding-top: 0px">
-
+                                <input hidden name="ids_Pregunta[]" value={{$pregunta->id}}>
                                 @if ($pregunta->tipo == 0)
                                   <div
                                     id="ciertoFalso_Pregunta_{{ $i }}_{{ $j }}_{{ $k }}"
                                     class="form-check">
                                     <div>
-                                      <input class="form-check-input" name="ciertoFalso_{{ $i }}_{{ $j }}_{{ $k }}" id="ciertoFalso_{{ $i }}_{{ $j }}_{{ $k }}_cierto" value="1" type="radio">
+                                      <input class="form-check-input" name="res_pregunta_{{$pregunta->id}}" id="ciertoFalso_{{ $i }}_{{ $j }}_{{ $k }}_cierto" value="1" @if ($respuestasPregunta[$pregunta->id] == 1) checked @endif type="radio">
                                       </input>
                                       <label class="form-check-label">
                                         Cierto
@@ -115,7 +115,7 @@
 
                                     </div>
                                     <div>
-                                      <input class="form-check-input" name="ciertoFalso_{{ $i }}_{{ $j }}_{{ $k }}" id="ciertoFalso_{{ $i }}_{{ $j }}_{{ $k }}_falso" value="0" type="radio">
+                                      <input class="form-check-input" name="res_pregunta_{{$pregunta->id}}" id="ciertoFalso_{{ $i }}_{{ $j }}_{{ $k }}_falso" value="0" @if ($respuestasPregunta[$pregunta->id] == 0) checked @endif type="radio">
                                       </input>
                                       <label class="form-check-label">
                                         Falso
@@ -135,7 +135,7 @@
                                       @foreach ($pregunta->opciones as $opcion)
                                         <div
                                           style="display: flex; margin-top: 10px;">
-                                          <input type="radio" name="radio_{{ $i }}_{{ $j }}_{{ $k }}" id="radio_{{ $i }}_{{ $j }}_{{ $k }}_opc-{{ $n_opcion }}" value="{{ $n_opcion }}" class="form-check-input"></input>
+                                          <input type="radio" name="res_pregunta_{{$pregunta->id}}" id="radio_{{ $i }}_{{ $j }}_{{ $k }}_opc-{{ $n_opcion }}" value="{{ $n_opcion }}" @if ($respuestasPregunta[$pregunta->id] == $n_opcion) checked @endif class="form-check-input"></input>
                                           <label class="form-check-label col-sm"
                                             name="opciones[{{ $i - 1 }}][{{ $j - 1 }}][{{ $k - 1 }}][]"
                                             class="form-control col-3">{{ $opcion }}
@@ -171,14 +171,15 @@
                                   </div>
                                 @endif
                                 @if ($pregunta->tipo == 3)
-                                  <input id="res_Pregunta_{{ $i }}_{{ $j }}_{{ $k }}"
-                                    type="text" value="Respuesta" class="form-control col-6">
+                                  <input id="res_Pregunta_{{ $i }}_{{ $j }}_{{ $k }}" name="res_pregunta_{{$pregunta->id}}"
+                                    type="text" value={{$respuestasPregunta[$pregunta->id]}} class="form-control col-6">
                                   </input>
                                 @endif
 
                               </div>
 
                               @foreach ($subpreguntas[$i - 1][$j - 1][$k - 1] as $subpregunta)
+                              <input hidden name="ids_subpregunta[]" value={{$subpregunta->id}}>
                                 <div
                                   id="{{ $i }}_{{ $j }}_{{ $k }}_SubPregunta_{{ $l }}">
 
@@ -195,7 +196,7 @@
                                         id="ciertoFalso_{{ $i }}_{{ $j }}_{{ $k }}_SubPregunta_{{ $l }}"
                                         class="form-check">
                                         <div>
-                                          <input class="form-check-input" name="ciertoFalso_{{ $i }}_{{ $j }}_{{ $k }}_{{ $l }}" id="ciertoFalso_{{ $i }}_{{ $j }}_{{ $k }}_{{ $l }}_cierto" value="1" type="radio">
+                                          <input class="form-check-input" name="res_subpregunta_{{$subpregunta->id}}" id="ciertoFalso_{{ $i }}_{{ $j }}_{{ $k }}_{{ $l }}_cierto" value="1" @if ($respuestasSubpregunta[$subpregunta->id] == 1) checked @endif type="radio">
                                           </input>
                                           <label class="form-check-label">
                                             Cierto
@@ -203,7 +204,7 @@
 
                                         </div>
                                         <div>
-                                          <input class="form-check-input"  name="ciertoFalso_{{ $i }}_{{ $j }}_{{ $k }}_{{ $l }}" id="ciertoFalso_{{ $i }}_{{ $j }}_{{ $k }}_{{ $l }}_falso" value="0" type="radio">
+                                          <input class="form-check-input"  name="res_subpregunta_{{$subpregunta->id}}" id="ciertoFalso_{{ $i }}_{{ $j }}_{{ $k }}_{{ $l }}_falso" value="0" @if ($respuestasSubpregunta[$subpregunta->id] == 0) checked @endif type="radio">
                                           </input>
                                           <label class="form-check-label">
                                             Falso
@@ -222,7 +223,7 @@
                                             <div
                                               id="Pregunta_{{ $i }}_{{ $j }}_{{ $k }}_opc-{{ $n_subopcion }}"
                                               style="display: flex; margin-top: 10px;">
-                                              <input type="radio"  name="radio_{{ $i }}_{{ $j }}_{{ $k }}_{{ $l }}" id="radio_{{ $i }}_{{ $j }}_{{ $k }}_{{ $l }}_opc-{{ $n_subopcion }}" value="{{ $n_subopcion }}" class="form-check-input"></input>
+                                              <input type="radio"  name="res_subpregunta_{{$subpregunta->id}}" id="radio_{{ $i }}_{{ $j }}_{{ $k }}_{{ $l }}_opc-{{ $n_subopcion }}" value="{{ $n_subopcion }}"  @if ($respuestasSubpregunta[$subpregunta->id] == $n_subopcion) checked @endif class="form-check-input"></input>
                                               <label class="form-check-label col-sm"
                                                 name="opciones[{{ $i - 1 }}][{{ $j - 1 }}][{{ $k - 1 }}][]"
                                                 class="form-control col-3">{{ $opcion }}
@@ -258,7 +259,8 @@
                                     @if ($subpregunta->tipo == 3)
                                       <input
                                         id="res_{{ $i }}_{{ $j }}_{{ $k }}_SubPregunta_{{ $l }}"
-                                        type="text" value="Respuesta" class="form-control col-6">
+                                        name="res_subpregunta_{{$subpregunta->id}}"
+                                        type="text" value=value={{$respuestasSubpregunta[$subpregunta->id]}} class="form-control col-6">
                                       </input>
                                     @endif
 

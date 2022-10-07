@@ -615,9 +615,9 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function agregarSubcategoria(idCategoria){
-    if($("#categoria_" + idCategoria)[0].lastChild != null){
-        if($("#categoria_" + idCategoria)[0].lastChild.id != ""){//si la categoria no esta vacía
-            var idSubcategoriaActual = $("#categoria_" + idCategoria)[0].lastChild.id;
+    if($("#subCategorias_" + idCategoria)[0].lastChild != null){
+        if($("#subCategorias_" + idCategoria)[0].lastChild.id != ""){//si la categoria no esta vacía
+            var idSubcategoriaActual = $("#subCategorias_" + idCategoria)[0].lastChild.id;
             var idNuevaSubcategoria = parseInt(idSubcategoriaActual.split('_')[2]) + 1;
         }
         else  var idNuevaSubcategoria = 1;
@@ -664,7 +664,6 @@ function agregarSubcategoria(idCategoria){
 
     // se crea nuevo div para las preguntas
     var nuevasPreguntas = document.createElement("div");
-    nuevasPreguntas.style = "border: 1px solid gray; border-radius: 10px; padding: 20px; margin: 10px;";
     nuevasPreguntas.id = "preguntas_" + idCategoria + "_" + idNuevaSubcategoria;
 
     //Agrega el boton de agregar pregunta
@@ -679,7 +678,7 @@ function agregarSubcategoria(idCategoria){
 
     //se agregan los elementos a la nueva categoria
     nuevaSubCategoria.appendChild(nuevasPreguntas);
-    $("#categoria_" + idCategoria)[0].appendChild(nuevaSubCategoria);
+    $("#subCategorias_" + idCategoria)[0].appendChild(nuevaSubCategoria);
 
     //se agrega una pregunta a la nueva subcategoria
     agregarPregunta(idCategoria,idNuevaSubcategoria);
@@ -689,18 +688,17 @@ function agregarSubcategoria(idCategoria){
     );
 
     nuevaSubCategoria.appendChild(nuevoBotonPregunta);
+    
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function agregarCategoria(){
     var idCategoriaActual = $("#categorias")[0].lastChild.id;
     var nuevaCategoria = document.createElement("div");
-    nuevaCategoria.style = "margin-top: 20px;"
+    nuevaCategoria.style = "border: 1px solid gray; border-radius: 10px; padding: 20px; margin: 10px;";
     var idNuevaCategoria = parseInt(idCategoriaActual.split('_')[1]) + 1;
     nuevaCategoria.id = "categoria_" + idNuevaCategoria;
-
-    let hr = document.createElement("hr");
-    nuevaCategoria.appendChild(hr);
+    
     //se crea el encabezado de la categoria
     let contenedorCategoria = document.createElement("div");
     contenedorCategoria.className = "row col-7";
@@ -741,6 +739,13 @@ function agregarCategoria(){
 
     //se agrega la nueva categoria
     $("#categorias")[0].appendChild(nuevaCategoria);
+
+    // se crea nuevo div para las subcategorias
+    var nuevasSubCategorias = document.createElement("div");
+    nuevasSubCategorias.id = "subCategorias_" + idNuevaCategoria;
+
+    nuevaCategoria.appendChild(nuevasSubCategorias);
+    
 
     //se agrega una subcategoria a la nueva categoria
     agregarSubcategoria(idNuevaCategoria);

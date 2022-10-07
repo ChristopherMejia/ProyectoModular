@@ -103,8 +103,10 @@
                 <select class="form-select mb-3" name="guiaCuestionario" id="guiaCuestionario">
                   <option value="" selected disabled>Selecciona una opción...</option>
                   @foreach ($guias as $guia)
+                  @if ($guia['status'] == "Finalizada")
                     <option value="{{ $guia->id }}">
                       {{ $guia->plantillas->version . ' ' . $guia->programasEducativos->nombre }}</option>
+                  @endif
                   @endforeach
                 </select>
               </div>
