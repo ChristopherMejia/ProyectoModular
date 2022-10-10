@@ -271,5 +271,6 @@ class GuiaController extends Controller
         $guia = Guia::find($id);
         $guia->status = 'Finalizada';
         $guia->save();
+        return $this->index();
     }
 }

@@ -115,6 +115,7 @@ class CuestionarioController extends Controller
         foreach($respuestasSubpregunta as $respuestaSubpregunta){
             $respuestas_subpregunta[$respuestaSubpregunta->subpregunta_id] = $respuestaSubpregunta->respuesta;
         }
+        
 
         //dd($respuestas_pregunta,$respuestas_subpregunta);
         return view('cuestionario.edit',['cuestionario' => $cuestionario, 'guia' => $guia, 'categorias' => $categorias ?? null,

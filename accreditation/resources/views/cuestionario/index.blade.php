@@ -164,12 +164,12 @@
     <div id="liveToastCreate" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
       <div class="toast-header" style="background-color: #0d6efd;">
         <i class="fas fa-users"></i>
-        <strong class="me-auto" style="color: white"> Plantilla </strong>
+        <strong class="me-auto" style="color: white"> Cuestionario </strong>
         <small style="color: white">hace 1 minuto</small>
         <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
       </div>
       <div class="toast-body">
-        ¡Correcto! Plantilla nueva registrada
+        ¡Correcto! Nuevo cuestionario creado
       </div>
     </div>
 
