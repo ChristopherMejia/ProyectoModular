@@ -1,0 +1,26 @@
+oración,categoria
+¿cuantos asientos tiene el aula?,pregunta
+¿cuantos profesores imparten la materia?,pregunta
+¿cuantos alumnos estan registrados en la carrera?,pregunta
+¿cuantos alumnos estan revalidando ?,pregunta
+¿los profesores estan titulados?,pregunta
+¿los aulas cuentan con proyector?,pregunta
+¿La combinación de factores de la planta académica del PE es adecuada para el logro de los atributos del egresado?,pregunta
+"¿Hay equilibrio entre el personal académico, respecto a la antigüedad y la edad?",pregunta
+¿Los profesores que atienden el PE tienen las competencias pertinentes para su adecuado desempeño académico?,pregunta
+¿Los profesores de tiempo completo realizan un plan o programa de sus actividades sustantivas para cada periodo o ciclo escolar?,pregunta
+¿Existe un procedimiento que permite verificar las actividades sustantivas que realizan los profesores de tiempo completo y evaluar sus resultados?,pregunta
+¿Cómo evalúa el grado (nivel) de interacción entre los estudiantes y los profesores?,pregunta
+¿Cómo evalúa el grado (nivel) de asesoría y de tutoría a los estudiantes?,pregunta
+¿Existe un sistema integral de evaluación y actualización del personal académico?,pregunta
+¿Cómo evalúa el grado (nivel) de desarrollo profesional de los profesores adscritos al programa?,pregunta
+¿Se retroalimenta al personal académico después de la evaluación?,pregunta
+¿Existe un proceso institucional transparente para la selección de profesores?,pregunta
+¿Existen estrategias orientadas a atender las problemáticas de eficiencia terminal y de titulación?,pregunta
+¿Existe un proceso claro y difundido que da a conocer los requisitos y el procedimiento para el egreso y la titulación?,pregunta
+¿Existe un análisis de la eficacia de las diferentes opciones de titulación?,pregunta
+Si,respuesta
+No,respuesta
+Nulo,respuesta
+Insuficiente,respuesta
+Adecuado,respuesta

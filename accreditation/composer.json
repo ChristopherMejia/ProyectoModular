@@ -17,6 +17,7 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.3",
         "laravelcollective/html": "^6.2",
+        "php-ai/php-ml": "^0.9.0",
         "yajra/laravel-datatables-oracle": "^9.18"
     },
     "require-dev": {

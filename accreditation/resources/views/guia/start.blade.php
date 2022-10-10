@@ -29,6 +29,7 @@
           <div class="card-header header-table">
 
             <div class="card-body">
+
               <form id="form_guardar_plantilla" action="#" method="POST" class="form-horizontal">
 
                 <div id="categorias" style=" margin-bottom: 20px;">
@@ -202,7 +203,7 @@
                         </button>
 
                       </div>
-                      
+
                     </div>
                     {{-- Boton para agregar Subcategoría --}}
                     <button id="btnAgregarSubcategoria_1" type="button" onClick="agregarSubcategoria(1)"

@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\PlantillaRequest;
-use Illuminate\Http\Request;
+use DB;
+use App\Guia;
+use App\Pregunta;
 use App\Plantilla;
 use App\Organismo;
 use App\Categoria;
-use App\Subcategoria;
-use App\Pregunta;
 use App\Subpregunta;
+use App\Subcategoria;
 use App\ProgramaEducativo;
-use App\Guia;
+use App\Http\Requests\PlantillaRequest;
 
-use DB;
+use Illuminate\Http\Request;
 
+use App\Http\Controllers\MultilayerPerceptron;
 class GuiaController extends Controller
 {
     public function __construct()
@@ -85,7 +86,7 @@ class GuiaController extends Controller
         $categorias = DB::table('categorias')->where('guia_id','=', $guia->id)->get();
 
         $guia = Guia::with('plantillas')->with('programasEducativos')->where( 'id' , $id)->first();
-        
+
         /* $nombre  = $plantilla->organismo->nombre;
         $version = $plantilla->version;
         $id      = $plantilla->id;
@@ -257,7 +258,10 @@ class GuiaController extends Controller
     {
 
         $guia = Guia::with('plantillas')->with('programasEducativos')->where( 'id' , $id)->get()->first();
-        return view('guia.start', [ 'guia' => $guia]);
+        $multiplayerPerceptron = new MultilayerPerceptron;
+
+        $perceptron = $multiplayerPerceptron->perceptron();
+        return view('guia.start', [ 'guia' => $guia, 'perceptron' => $perceptron ]);
 
     }
 
@@ -267,5 +271,6 @@ class GuiaController extends Controller
         $guia = Guia::find($id);
         $guia->status = 'Finalizada';
         $guia->save();
+        return $this->index();
     }
 }
