@@ -23,23 +23,34 @@
           <h4>{{ $guia->programasEducativos->nombre }} - {{ $guia->programasEducativos->nivel }}</h4>
         </div>
       </div>
-
       <div class="card">
         <div class="card card-nav-tabs card-plain">
           <div class="card-header header-table">
 
             <div class="card-body">
+                <ul class="list-group">
+                    <li class="list-group-item disabled" aria-disabled="true"> Preguntas o respuestas más comunes </li>
+                    {{-- @if ( array_key_exists("pregunta", $sentenses) ) --}}
+                        @for( $x = 0; $x < count($sentenses); $x++)
+                            <li class="list-group-item" > {{ $sentenses[$x]["pregunta"] ?? $sentenses[$x]["respuesta"]  }} </li>
+                        @endfor
+                    {{-- @else
+                        @for( $x = 0; $x < count($sentenses); $x++)
+                            <li class="list-group-item" > {{ $sentenses[$x]["respuesta"]  }} </li>
+                        @endfor
+                    @endif --}}
+                </ul>
 
               <form id="form_guardar_plantilla" action="#" method="POST" class="form-horizontal">
 
                 <div id="categorias" style=" margin-bottom: 20px;">
 
-                  <div id="categoria_1"                           style="
+                  <div id="categoria_1" style="
                   border: 1px solid gray;
                   border-radius: 10px;
                   padding: 20px;
                   margin: 10px;
-              ">
+                  ">
 
                     <div class="row col-7">
                       <label for="categorias[]" class="col-sm-3 form-label">

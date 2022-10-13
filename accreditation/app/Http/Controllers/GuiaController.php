@@ -256,12 +256,25 @@ class GuiaController extends Controller
 
     public function start($id)
     {
-
+        $sentenses = array();
         $guia = Guia::with('plantillas')->with('programasEducativos')->where( 'id' , $id)->get()->first();
         $multiplayerPerceptron = new MultilayerPerceptron;
 
         $perceptron = $multiplayerPerceptron->perceptron();
-        return view('guia.start', [ 'guia' => $guia, 'perceptron' => $perceptron ]);
+        $dataCSV = $this->readCSV();
+        // dd($perceptron);
+        $aleatorio = rand(1, count($dataCSV) );
+
+        foreach($perceptron as $categoria )
+        {
+           if($categoria  ==  array_keys($dataCSV[$aleatorio])[0]){
+
+                array_push( $sentenses, $dataCSV[$aleatorio] );
+           }
+            $aleatorio = rand(1, count($dataCSV) );
+        }
+
+        return view('guia.start', [ 'guia' => $guia, 'sentenses' => $sentenses ]);
 
     }
 
@@ -273,4 +286,31 @@ class GuiaController extends Controller
         $guia->save();
         return $this->index();
     }
+
+    public function readCSV()
+    {
+
+        $data = array();
+        $questionsAndAnswers = array();
+        $f_pointer=fopen("dataset/questions.csv","r");
+        while(! feof($f_pointer)){
+            $ar=fgetcsv($f_pointer);
+            array_push($data, $ar);
+        }
+
+        for( $i = 0; $i < count($data); $i++ )
+        {
+            $arrayAux = $data[$i];
+            $dataSort = [
+               $arrayAux[1] ?? '' => $arrayAux[0] ?? ''
+            ];
+            // dd($dataSort);
+            array_push($questionsAndAnswers, $dataSort);
+        }
+        array_pop($questionsAndAnswers);
+
+        return $questionsAndAnswers;
+    }
+
+
 }
