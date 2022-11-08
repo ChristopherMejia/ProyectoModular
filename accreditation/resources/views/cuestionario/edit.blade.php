@@ -193,7 +193,7 @@
                                   <input id="res_Pregunta_{{ $i }}_{{ $j }}_{{ $k }}"
                                     name="res_pregunta_{{ $pregunta->id }}" type="text"
                                     @isset($respuestasPregunta[$pregunta->id])
-                                    value={{ $respuestasPregunta[$pregunta->id] }} 
+                                    value="{{ $respuestasPregunta[$pregunta->id] }}" 
                                     @endisset
                                     class="form-control col-6">
                                   </input>
@@ -302,7 +302,7 @@
                                         id="res_{{ $i }}_{{ $j }}_{{ $k }}_SubPregunta_{{ $l }}"
                                         name="res_subpregunta_{{ $subpregunta->id }}" type="text"
                                         @isset($respuestasSubpregunta[$subpregunta->id])
-                                        value={{ $respuestasSubpregunta[$subpregunta->id] }}
+                                          value="{{$respuestasSubpregunta[$subpregunta->id]}}"
                                         @endisset
                                         class="form-control col-6">
                                       </input>
