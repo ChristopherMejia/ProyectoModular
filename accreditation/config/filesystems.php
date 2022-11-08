@@ -65,6 +65,11 @@ return [
             'endpoint' => env('AWS_ENDPOINT'),
         ],
 
+        'adjuntosPregunta' => [
+            'driver' => 'local',
+            'root' => public_path('adjuntosPregunta')
+        ],
+
     ],
 
 ];

@@ -97,6 +97,7 @@ class CuestionarioController extends Controller
                 $preguntas[$i][$j] = DB::table('preguntas')->where('subcategoria_id','=', $subcategoria->id)->get();
                 foreach($preguntas[$i][$j] as $pregunta){
                     $pregunta->opciones = json_decode($pregunta->opciones);
+                    $adjuntos_pregunta[$i][$j][$k] = DB::table('adjunto_pregunta')->where('pregunta_id','=', $pregunta->id)->first();
                     $subpreguntas[$i][$j][$k] = DB::table('subpreguntas')->where('pregunta_id','=', $pregunta->id)->get();
                     foreach($subpreguntas[$i][$j][$k] as $subpregunta){
                         $subpregunta->opciones = json_decode($subpregunta->opciones);
@@ -119,8 +120,9 @@ class CuestionarioController extends Controller
 
         //dd($respuestas_pregunta,$respuestas_subpregunta);
         return view('cuestionario.edit',['cuestionario' => $cuestionario, 'guia' => $guia, 'categorias' => $categorias ?? null,
-        'subcategorias' => $subcategorias ?? null, 'preguntas' => $preguntas ?? null, 'subpreguntas' => $subpreguntas ?? null,
-        'respuestasPregunta' => $respuestas_pregunta ?? null, 'respuestasSubpregunta' => $respuestas_subpregunta ?? null]);
+        'subcategorias' => $subcategorias ?? null, 'preguntas' => $preguntas ?? null, 'adjuntos_pregunta' => $adjuntos_pregunta ?? null,
+        'subpreguntas' => $subpreguntas ?? null, 'respuestasPregunta' => $respuestas_pregunta ?? null, 
+        'respuestasSubpregunta' => $respuestas_subpregunta ?? null]);
     }
 
     public function update(Request $request, $id)

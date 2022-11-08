@@ -11,6 +11,8 @@ use App\Categoria;
 use App\Subpregunta;
 use App\Subcategoria;
 use App\ProgramaEducativo;
+use App\AdjuntoPregunta;
+use App\FileControl\FileControl;
 use App\Http\Requests\PlantillaRequest;
 
 use Illuminate\Http\Request;
@@ -109,6 +111,7 @@ class GuiaController extends Controller
                 $preguntas[$i][$j] = DB::table('preguntas')->where('subcategoria_id','=', $subcategoria->id)->get();
                 foreach($preguntas[$i][$j] as $pregunta){
                     $pregunta->opciones = json_decode($pregunta->opciones);
+                    $adjuntos_pregunta[$i][$j][$k] = DB::table('adjunto_pregunta')->where('pregunta_id','=', $pregunta->id)->first();
                     $subpreguntas[$i][$j][$k] = DB::table('subpreguntas')->where('pregunta_id','=', $pregunta->id)->get();
                     foreach($subpreguntas[$i][$j][$k] as $subpregunta){
                         $subpregunta->opciones = json_decode($subpregunta->opciones);
@@ -120,9 +123,12 @@ class GuiaController extends Controller
             $i++;
         }
 
+        //dd($adjuntos_pregunta, $preguntas);
+
         //return array('plantilla' => $plantilla_info, 'categorias' => $categorias, 'subcategorias' => $subcategorias, 'preguntas' => $preguntas);
         return view('guia.edit',['guia' => $guia, 'categorias' => $categorias ?? null,
-        'subcategorias' => $subcategorias ?? null, 'preguntas' => $preguntas ?? null, 'subpreguntas' => $subpreguntas ?? null]);
+        'subcategorias' => $subcategorias ?? null, 'preguntas' => $preguntas ?? null, 
+        'adjuntos_pregunta' => $adjuntos_pregunta ?? null, 'subpreguntas' => $subpreguntas ?? null]);
     }
 
     public function update(Request $request, $id)
@@ -144,8 +150,10 @@ class GuiaController extends Controller
         $id_preguntas = $request->get('id_preguntas');
         $tipos = $request->get('tipos');
         $evidencias = $request->get('evidencias');
-        $adjuntos = $request->get('adjuntos');
+        $adjuntos = $request->adjuntos;
         $opciones = $request->get('opciones');
+
+        //dd($adjuntos[0][0][0]);
 
         //arreglos de cuatro dimensiones[][][][] para las subpreguntas
         $subpreguntas = $request->get('subpreguntas');
@@ -198,10 +206,24 @@ class GuiaController extends Controller
                                 'tipo' => $tipos[$i][$j][$k],
                                 'evidencia' => ($evidencias[$i][$j][$k] ? '1' : '0'),
                                 'descripcion_evidencia' => $evidencias[$i][$j][$k],
-                                'adjunto' => ($adjuntos[$i][$j][$k] ? '1' : '0'),
+                                'adjunto' => ($request->hasFile("adjuntos.$i.$j.$k") ? '1' : '0'),
                                 'opciones' => json_encode($opciones[$i][$j][$k])]);
 
                                 $pregunta = Pregunta::find($id_preguntas[$i][$j][$k]);
+
+                                $adjunto = AdjuntoPregunta::where('pregunta_id',$pregunta->id)->first();
+
+                                if($request->hasFile("adjuntos.$i.$j.$k") or $adjunto){
+                                    if(!$adjunto){
+                                        $adjunto = new AdjuntoPregunta();
+                                        $adjunto->pregunta_id = $pregunta->id;
+                                    }
+                                    if ($request->hasFile("adjuntos.$i.$j.$k")) {
+                                        $fileName = FileControl::storeSingleFile($adjuntos[$i][$j][$k], 'adjuntosPregunta');
+                                        $adjunto->archivo = "/adjuntosPregunta/{$fileName}";
+                                    }
+                                    $adjunto->save();
+                                }
                             }
                             else{ //si no existe la pregunta, crea una nueva
                                 $pregunta = new Pregunta();
@@ -210,9 +232,20 @@ class GuiaController extends Controller
                                 $pregunta->tipo = $tipos[$i][$j][$k];
                                 $pregunta->evidencia = ($evidencias[$i][$j][$k] ? '1' : '0');
                                 $pregunta->descripcion_evidencia = $evidencias[$i][$j][$k];
-                                $pregunta->adjunto = ($adjuntos[$i][$j][$k] ? '1' : '0');
+                                $pregunta->adjunto = ($request->hasFile("adjuntos.$i.$j.$k") ? '1' : '0');
                                 $pregunta->opciones = json_encode($opciones[$i][$j][$k]);
                                 $pregunta->save();
+
+                                if($request->hasFile("adjuntos.$i.$j.$k")){
+
+                                    $adjunto = new AdjuntoPregunta();
+
+                                    $fileName = FileControl::storeSingleFile($adjuntos[$i][$j][$k], 'adjuntosPregunta');
+                                    $adjunto->archivo = "/adjuntosPregunta/{$fileName}";
+                                    $adjunto->pregunta_id = $pregunta->id;
+                                    $adjunto->save();
+                                
+                                }
                             }
                             if($subpreguntas)//verifica que existan las subpreguntas
                             if($subpreguntas[$i][$j][$k] ?? null){//verifica que existan las subpreguntas en la pregunta

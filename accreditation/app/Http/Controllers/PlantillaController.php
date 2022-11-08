@@ -32,7 +32,7 @@ class PlantillaController extends Controller
             ->select('plantilla.id','organismo.nombre','plantilla.version')
             ->orderBy('plantilla.organismo_id','desc')
             ->paginate(5);
-        $guias = Guia::with('plantillas')->with('programasEducativos')->orderBy('plantilla_id')->paginate(5);
+        $guias = Guia::with('plantillas')->with('programasEducativos')->orderBy('plantilla_id')->get();
         // dd($guias);
         // informacion de las guias organizada
         foreach($guias as $guia)
@@ -51,7 +51,7 @@ class PlantillaController extends Controller
             ];
             array_push($data, $arrayAux);
         }
-        // dd($data);
+        //dd($data);
         return view('plantilla.index',[
             "plantillas" => $plantillas,
             "organismos" => $organismos,

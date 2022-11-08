@@ -15,7 +15,7 @@
       </div>
     </div>
 
-    <form action="/guia/update/{{ $guia->id }}" method="POST">
+    <form action="/guia/update/{{ $guia->id }}" method="POST" enctype="multipart/form-data">
       @csrf
       @method('put')
       <div class="card" style="text-align: center;">
@@ -136,7 +136,7 @@
 
 
                             <div id="adjunto_Pregunta_1_1_1" style="margin-top: 10px;">
-                              <label for="formFile" class="form-label">Adjuntar archivo</label>
+                              <label for="formFile" class="form-label">Archivo adjunto</label>
                               <input id="formFile" name="adjuntos[0][0][]" type="file" class="form-control"></input>
                             </div>
 

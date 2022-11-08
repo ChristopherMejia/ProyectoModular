@@ -18,7 +18,7 @@
       </div>
     </div>
 
-    <form action="/cuestionarios/update/{{ $cuestionario->id }}" method="POST">
+    <form action="/cuestionarios/update/{{ $cuestionario->id }}" method="POST" enctype="multipart/form-data">
       @csrf
       @method('put')
       <div class="card" style="text-align: center;">
@@ -95,8 +95,10 @@
                               @endif
 
                               @if ($pregunta->adjunto == 1)
-                                <button class="form-check-label col-sm" style="margin-bottom: 10px;">Descargar
-                                  evidencia</button>
+                                <a class="btn btn-primary form-check-label col-sm-2" href="{{ URL($adjuntos_pregunta[$i-1][$j-1][$k-1]->archivo)}}"  
+                                  style="margin-bottom: 10px;" download>Descargar adjunto
+                                  <i class="fas fa-download"  title="Descargar adjunto"
+                                  data-bs-placement="right"></i></a>
                               @endif
 
 
