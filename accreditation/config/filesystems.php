@@ -70,6 +70,11 @@ return [
             'root' => public_path('adjuntosPregunta')
         ],
 
+        'evidencias' => [
+            'driver' => 'local',
+            'root' => public_path('evidencias')
+        ],
+
     ],
 
 ];

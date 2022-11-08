@@ -84,12 +84,15 @@
 
                               @if ($pregunta->evidencia == 1)
                                 <label class="form-check-label col-sm"
-                                  style="margin-bottom: 10px;">{{ $pregunta->descripcion_evidencia }}</label>
+                                  style="margin-bottom: 10px;">Descripción de evidencia: {{ $pregunta->descripcion_evidencia }}</label>
                                 <div
                                   id="evidencia_Pregunta_{{ $i }}_{{ $j }}_{{ $k }}"
                                   style="margin-top: 10px;">
-                                  <label class="form-label">Evidencia</label>
-                                  <input name="evidencias[{{ $i - 1 }}][{{ $j - 1 }}][]" type="file"
+                                  <label class="form-label">Evidencia: </label>
+                                  @isset ($evidenciasPregunta[$pregunta->id]) 
+                                  <h2  class="form-label"> {{$evidenciasPregunta[$pregunta->id]}} </h2> 
+                                  @endisset
+                                  <input name="evi_pregunta_{{ $pregunta->id }}" type="file"
                                     class="form-control" />
                                 </div>
                               @endif

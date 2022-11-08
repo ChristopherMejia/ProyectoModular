@@ -35,7 +35,7 @@ class GuiaController extends Controller
             ->select('plantilla.id','organismo.nombre','plantilla.version')
             ->orderBy('plantilla.organismo_id','desc')
             ->paginate(7);
-        $guias = Guia::with('plantillas')->with('programasEducativos')->orderBy('plantilla_id')->paginate(7);
+        $guias = Guia::with('plantillas')->with('programasEducativos')->orderBy('plantilla_id')->get();
         // dd($guias);
         // informacion de las guias organizada
         foreach($guias as $guia)
