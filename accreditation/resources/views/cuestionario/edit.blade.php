@@ -221,7 +221,10 @@
                                         <div>
                                           <input class="form-check-input" name="res_subpregunta_{{ $subpregunta->id }}"
                                             id="ciertoFalso_{{ $i }}_{{ $j }}_{{ $k }}_{{ $l }}_cierto"
-                                            value="1" @if ($respuestasSubpregunta[$subpregunta->id] == 1) checked @endif
+                                            value="1"
+                                            @isset($respuestasSubpregunta[$subpregunta->id]) 
+                                            @if ($respuestasSubpregunta[$subpregunta->id] == 1) checked @endif
+                                            @endisset
                                             type="radio">
                                           </input>
                                           <label class="form-check-label">
