@@ -15,6 +15,7 @@ use App\Cuestionario;
 use App\User;
 use App\RespuestaPregunta;
 use App\RespuestaSubpregunta;
+use App\FileControl\FileControl;
 use DB;
 use Auth;
 
@@ -34,9 +35,9 @@ class CuestionarioController extends Controller
             ->join('organismos as organismo','plantilla.organismo_id','=','organismo.id')
             ->select('plantilla.id','organismo.nombre','plantilla.version')
             ->orderBy('plantilla.organismo_id','desc')
-            ->paginate(7);
-        $guias = Guia::with('plantillas')->with('programasEducativos')->orderBy('plantilla_id')->paginate(7);
-        $cuestionarios = Cuestionario::with('guias')->orderBy('guia_id')->paginate(7);
+            ->get();
+        $guias = Guia::with('plantillas')->with('programasEducativos')->orderBy('plantilla_id')->get();
+        $cuestionarios = Cuestionario::with('guias')->orderBy('guia_id')->get();
         //dd($cuestionarios);
 
         foreach($cuestionarios as $cuestionario)
@@ -86,6 +87,7 @@ class CuestionarioController extends Controller
         $respuestasPregunta = RespuestaPregunta::where('cuestionario_id',$id)->get();
         $respuestasSubpregunta = RespuestaSubpregunta::where('cuestionario_id',$id)->get();
         $respuestas_pregunta = [];
+        $evidencias_pregunta = [];
         $respuestas_subpregunta = [];
 
         $i=0;
@@ -97,6 +99,7 @@ class CuestionarioController extends Controller
                 $preguntas[$i][$j] = DB::table('preguntas')->where('subcategoria_id','=', $subcategoria->id)->get();
                 foreach($preguntas[$i][$j] as $pregunta){
                     $pregunta->opciones = json_decode($pregunta->opciones);
+                    $adjuntos_pregunta[$i][$j][$k] = DB::table('adjunto_pregunta')->where('pregunta_id','=', $pregunta->id)->first();
                     $subpreguntas[$i][$j][$k] = DB::table('subpreguntas')->where('pregunta_id','=', $pregunta->id)->get();
                     foreach($subpreguntas[$i][$j][$k] as $subpregunta){
                         $subpregunta->opciones = json_decode($subpregunta->opciones);
@@ -110,6 +113,7 @@ class CuestionarioController extends Controller
 
         foreach($respuestasPregunta as $respuestaPregunta){
             $respuestas_pregunta[$respuestaPregunta->pregunta_id] = $respuestaPregunta->respuesta;
+            $evidencias_pregunta[$respuestaPregunta->pregunta_id] = $respuestaPregunta->evidencia;
         }
 
         foreach($respuestasSubpregunta as $respuestaSubpregunta){
@@ -119,8 +123,9 @@ class CuestionarioController extends Controller
 
         //dd($respuestas_pregunta,$respuestas_subpregunta);
         return view('cuestionario.edit',['cuestionario' => $cuestionario, 'guia' => $guia, 'categorias' => $categorias ?? null,
-        'subcategorias' => $subcategorias ?? null, 'preguntas' => $preguntas ?? null, 'subpreguntas' => $subpreguntas ?? null,
-        'respuestasPregunta' => $respuestas_pregunta ?? null, 'respuestasSubpregunta' => $respuestas_subpregunta ?? null]);
+        'subcategorias' => $subcategorias ?? null, 'preguntas' => $preguntas ?? null, 'adjuntos_pregunta' => $adjuntos_pregunta ?? null,
+        'subpreguntas' => $subpreguntas ?? null, 'respuestasPregunta' => $respuestas_pregunta ?? null, 
+        'respuestasSubpregunta' => $respuestas_subpregunta ?? null,  'evidenciasPregunta' => $evidencias_pregunta ?? null]);
     }
 
     public function update(Request $request, $id)
@@ -138,7 +143,12 @@ class CuestionarioController extends Controller
                     $respuestaPregunta->pregunta_id = $id_pregunta;
                 }
                 $respuestaPregunta->respuesta = $request->get('res_pregunta_' . $id_pregunta);
-                $respuestaPregunta->evidencia = $request->get('evidencia_pregunta_' . $id_pregunta);
+
+                if ($request->hasFile('evi_pregunta_' . $id_pregunta)) {
+                    $fileName = FileControl::storeSingleFile($request->file('evi_pregunta_' . $id_pregunta), 'evidencias');
+                    $respuestaPregunta->evidencia = "/evidencias/{$fileName}";
+                }
+
                 $respuestaPregunta->save();
             }
         }

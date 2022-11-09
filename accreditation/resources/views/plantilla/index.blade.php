@@ -69,10 +69,10 @@
 
                                                         <td>
 
-                                                            <a id="guia_create" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#crearGuia" href="#" onclick="crearGuia({{$plantilla->id}})">
+                                                            <a id="guia_create" class="btn btn-primary" data-bs-toggle="modal" title="Crear guia" data-bs-target="#crearGuia" href="#" onclick="crearGuia({{$plantilla->id}})">
                                                                 <i class="fas fa-plus-circle"></i>
                                                             </a>
-                                                            <a class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#eliminarPlantilla" href="#" onclick="eliminarPlantilla({{$plantilla->id}})">
+                                                            <a class="btn btn-dark" data-bs-toggle="modal" title="Eliminar plantilla" data-bs-target="#eliminarPlantilla" href="#" onclick="eliminarPlantilla({{$plantilla->id}})">
                                                                 <i class="far fa-trash-alt"></i>
                                                             </a>
 

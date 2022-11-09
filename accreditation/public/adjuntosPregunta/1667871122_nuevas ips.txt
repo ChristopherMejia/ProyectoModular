@@ -1,0 +1,21 @@
+IPS Desarrollo
+Edson: 		192.168.64.74
+Roberto: 	192.168.64.244
+Miguel: 	192.168.64.223
+Leonel: 	192.168.64.124
+Diego: 		192.168.64.122
+Chris: 		192.168.64.100  
+Felipe: 	192.168.64.128  
+Ulises: 	192.168.64.98   
+Mario: 		192.168.64.248  
+Diseño PC: 	192.168.64.180
+Leonardo: 	192.168.64.113
+Pablo		192.168.64.179
+
+TC25 Nosotros: 	192.168.64.123
+TC25 Abastec.: 	192.168.64.5
+Abast antigua:  192.168.64.213
+
+
+
+

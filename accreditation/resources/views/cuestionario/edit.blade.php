@@ -18,7 +18,7 @@
       </div>
     </div>
 
-    <form action="/cuestionarios/update/{{ $cuestionario->id }}" method="POST">
+    <form action="/cuestionarios/update/{{ $cuestionario->id }}" method="POST" enctype="multipart/form-data">
       @csrf
       @method('put')
       <div class="card" style="text-align: center;">
@@ -84,19 +84,24 @@
 
                               @if ($pregunta->evidencia == 1)
                                 <label class="form-check-label col-sm"
-                                  style="margin-bottom: 10px;">{{ $pregunta->descripcion_evidencia }}</label>
+                                  style="margin-bottom: 10px;">Descripción de evidencia: {{ $pregunta->descripcion_evidencia }}</label>
                                 <div
                                   id="evidencia_Pregunta_{{ $i }}_{{ $j }}_{{ $k }}"
                                   style="margin-top: 10px;">
-                                  <label class="form-label">Evidencia</label>
-                                  <input name="evidencias[{{ $i - 1 }}][{{ $j - 1 }}][]" type="file"
+                                  <label class="form-label">Evidencia: </label>
+                                  @isset ($evidenciasPregunta[$pregunta->id]) 
+                                  <h2  class="form-label"> {{$evidenciasPregunta[$pregunta->id]}} </h2> 
+                                  @endisset
+                                  <input name="evi_pregunta_{{ $pregunta->id }}" type="file"
                                     class="form-control" />
                                 </div>
                               @endif
 
                               @if ($pregunta->adjunto == 1)
-                                <button class="form-check-label col-sm" style="margin-bottom: 10px;">Descargar
-                                  evidencia</button>
+                                <a class="btn btn-primary form-check-label col-sm-2" href="{{ URL($adjuntos_pregunta[$i-1][$j-1][$k-1]->archivo)}}"  
+                                  style="margin-bottom: 10px;" download>Descargar adjunto
+                                  <i class="fas fa-download"  title="Descargar adjunto"
+                                  data-bs-placement="right"></i></a>
                               @endif
 
 
@@ -191,7 +196,7 @@
                                   <input id="res_Pregunta_{{ $i }}_{{ $j }}_{{ $k }}"
                                     name="res_pregunta_{{ $pregunta->id }}" type="text"
                                     @isset($respuestasPregunta[$pregunta->id])
-                                    value={{ $respuestasPregunta[$pregunta->id] }} 
+                                    value="{{ $respuestasPregunta[$pregunta->id] }}" 
                                     @endisset
                                     class="form-control col-6">
                                   </input>
@@ -219,7 +224,10 @@
                                         <div>
                                           <input class="form-check-input" name="res_subpregunta_{{ $subpregunta->id }}"
                                             id="ciertoFalso_{{ $i }}_{{ $j }}_{{ $k }}_{{ $l }}_cierto"
-                                            value="1" @if ($respuestasSubpregunta[$subpregunta->id] == 1) checked @endif
+                                            value="1"
+                                            @isset($respuestasSubpregunta[$subpregunta->id]) 
+                                            @if ($respuestasSubpregunta[$subpregunta->id] == 1) checked @endif
+                                            @endisset
                                             type="radio">
                                           </input>
                                           <label class="form-check-label">
@@ -297,7 +305,7 @@
                                         id="res_{{ $i }}_{{ $j }}_{{ $k }}_SubPregunta_{{ $l }}"
                                         name="res_subpregunta_{{ $subpregunta->id }}" type="text"
                                         @isset($respuestasSubpregunta[$subpregunta->id])
-                                        value={{ $respuestasSubpregunta[$subpregunta->id] }}
+                                          value="{{$respuestasSubpregunta[$subpregunta->id]}}"
                                         @endisset
                                         class="form-control col-6">
                                       </input>

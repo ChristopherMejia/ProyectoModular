@@ -18,7 +18,7 @@
       </div>
     </div>
 
-    <form action="/guia/update/{{ $guia->id }}" method="POST">
+    <form action="/guia/update/{{ $guia->id }}" method="POST"  enctype="multipart/form-data">
       @csrf
       @method('put')
       <div class="card" style="text-align: center;">
@@ -143,17 +143,16 @@
                                   <div style="margin: 10px 0px 10px 52px;">
                                     <textarea id="evidencia_Pregunta_{{ $i }}_{{ $j }}_{{ $k }}"
                                       name="evidencias[{{ $i - 1 }}][{{ $j - 1 }}][]" placeholder="Agregar descripción de evidencia"
-                                      @if ($pregunta->evidencia == 0) hidden @endif class="form-control" cols="80">
-                                                            {{ $pregunta->descripcion_evidencia }}
-                                                        </textarea>
+                                      @if ($pregunta->evidencia == 0) hidden @endif class="form-control" cols="80">{{$pregunta->descripcion_evidencia}}</textarea>
                                   </div>
                                 </div>
 
 
                                 <div id="adjunto_Pregunta_{{ $i }}_{{ $j }}_{{ $k }}"
                                   style="margin-top: 10px;">
-                                  <label class="form-label">Adjunto archivo</label>
-                                  <input name="adjuntos[{{ $i - 1 }}][{{ $j - 1 }}][]" type="file"
+                                  <label class="form-label">Archivo adjunto</label>
+                                  @if ($pregunta->adjunto) <h2  class="form-label"> {{$adjuntos_pregunta[$i-1][$j-1][$k-1]->archivo}} </h2> @endif
+                                  <input name="adjuntos[{{ $i - 1 }}][{{ $j - 1 }}][]" type="file"             
                                     class="form-control" />
                                 </div>
 
