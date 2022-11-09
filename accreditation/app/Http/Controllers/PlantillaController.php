@@ -31,9 +31,9 @@ class PlantillaController extends Controller
             ->join('organismos as organismo','plantilla.organismo_id','=','organismo.id')
             ->select('plantilla.id','organismo.nombre','plantilla.version')
             ->orderBy('plantilla.organismo_id','desc')
-            ->get();
+            ->paginate(5);
         $guias = Guia::with('plantillas')->with('programasEducativos')->orderBy('plantilla_id')->get();
-        // dd($guias);
+        //dd($guias);
         // informacion de las guias organizada
         foreach($guias as $guia)
         {
